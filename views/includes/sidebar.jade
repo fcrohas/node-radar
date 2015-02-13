@@ -1,0 +1,23 @@
+#wrapper.container(ng-controller='sidebarCtrl',ng-class='toggleClass')
+	button.btn.btn-default(ng-click="toggle()",type='button')
+		span.glyphicon.glyphicon-search
+	#sidebar-wrapper
+		ul.sidebar-nav
+			li.sidebar-brand
+				a Criteria
+			li.sidebar-item
+				.input-group
+					span.input-group-addon F
+					input.form-control(type='text', placeholder='Enter your text filter here',ng-model='query')
+			li.sidebar-item
+				.input-group
+					span.input-group-addon W
+					select.form-control(type='text', ng-model='group')
+						option CLIFCR
+						option CLIVFU
+			li.sidebar-item
+				.input-group
+					span.input-group-addon S
+					select.form-control(type='text', placeholder='Select Entity State',ng-model='state')
+						option BATCHSTATE
+						option BATCHPRIORITY

@@ -1,0 +1,14 @@
+node_modules/
+
+.travis*
+History.md
+.git/
+.gitignore
+.idea/
+
+Gruntfile.coffee
+Gruntfile.js
+.jshintrc
+
+out/
+src/

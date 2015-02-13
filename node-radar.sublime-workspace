@@ -1,0 +1,987 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"input-group",
+				"input-group-addon"
+			],
+			[
+				"col-",
+				"col-md-"
+			],
+			[
+				"opa",
+				"opacity"
+			],
+			[
+				"batch",
+				"batches"
+			],
+			[
+				"panel-",
+				"panel-heading"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"ng-",
+				"ng-view	AngularJS"
+			],
+			[
+				"drop",
+				"dropdown"
+			],
+			[
+				"data",
+				"data-toggle"
+			],
+			[
+				"navbar-",
+				"navbar-fixed-top"
+			],
+			[
+				"send",
+				"sendSequence"
+			],
+			[
+				"dis",
+				"disclaim"
+			],
+			[
+				"ty",
+				"type"
+			],
+			[
+				"setDe",
+				"setDefaultSender"
+			],
+			[
+				"open",
+				"openConnexion"
+			],
+			[
+				"Sen",
+				"SendData"
+			],
+			[
+				"image",
+				"imageList"
+			],
+			[
+				"Op",
+				"open	jsWindow"
+			],
+			[
+				"nEnt",
+				"nEntityType"
+			],
+			[
+				"szEmail",
+				"szEmailSender"
+			],
+			[
+				"nDe",
+				"nDetailType"
+			],
+			[
+				"Mater",
+				"nMasterType"
+			],
+			[
+				"Retri",
+				"RetrieveEntity"
+			],
+			[
+				"iCurrent",
+				"iCurrentPage"
+			],
+			[
+				"or",
+				"organization"
+			],
+			[
+				"p",
+				"prepend	jQuery"
+			],
+			[
+				"Backbone",
+				"node-backbone"
+			],
+			[
+				"parse",
+				"parseFloat	jsGlobal"
+			],
+			[
+				"Back",
+				"Backbone"
+			],
+			[
+				"remo",
+				"removeClass	jQuery"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app.js",
+			"settings":
+			{
+				"buffer_size": 644,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/js/controllers.js",
+			"settings":
+			{
+				"buffer_size": 1886,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/js/app.js",
+			"settings":
+			{
+				"buffer_size": 848,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/includes/head.jade",
+			"settings":
+			{
+				"buffer_size": 808,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "sass/style.scss",
+			"settings":
+			{
+				"buffer_size": 1929,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/includes/footer.jade",
+			"settings":
+			{
+				"buffer_size": 107,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/includes/sidebar.jade",
+			"settings":
+			{
+				"buffer_size": 825,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/includes/navbar.jade",
+			"settings":
+			{
+				"buffer_size": 723,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/index.jade",
+			"settings":
+			{
+				"buffer_size": 237,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/jscript.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"indent",
+				"Indent XML"
+			],
+			[
+				"",
+				"Auto indent"
+			],
+			[
+				"packae",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Auto indent"
+			],
+			[
+				"xml",
+				"Indent XML"
+			],
+			[
+				"inde",
+				"Auto indent"
+			],
+			[
+				"syn",
+				"Set Syntax: Pascal"
+			],
+			[
+				"syntax: pas",
+				"Set Syntax: Pascal"
+			],
+			[
+				"can",
+				"Can I Switch To Sublime Text 3?"
+			],
+			[
+				"git",
+				"GitHub: History"
+			],
+			[
+				"hub",
+				"Can I Switch To Sublime Text 3?"
+			],
+			[
+				"conso",
+				"Set Syntax: R Console"
+			],
+			[
+				"console",
+				"Set Syntax: R Console"
+			]
+		],
+		"width": 472.0
+	},
+	"console":
+	{
+		"height": 113.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/usr/fcr/productionmanager/app.js",
+		"/D/usr/fcr/productionmanager/models/DataAccessLayer.js",
+		"/D/usr/fcr/productionmanager/views/includes/sidebar.jade",
+		"/D/usr/fcr/productionmanager/views/includes/navbar.jade",
+		"/D/usr/fcr/productionmanager/public/js/app.js",
+		"/D/usr/fcr/productionmanager/views/partial/freemind.jade",
+		"/D/usr/fcr/productionmanager/sass/style.scss",
+		"/D/usr/fcr/productionmanager/views/index.jade",
+		"/D/usr/fcr/productionmanager/views/partial/users.jade",
+		"/D/usr/fcr/productionmanager/public/js/controllers.js",
+		"/D/usr/fcr/productionmanager/views/includes/footer.jade",
+		"/D/usr/fcr/productionmanager/views/includes/head.jade",
+		"/D/usr/fcr/productionmanager/gruntfile.js",
+		"/D/usr/fcr/productionmanager/.initconfig/watch.js",
+		"/D/usr/fcr/productionmanager/public/stylesheets/style.css",
+		"/D/usr/fcr/productionmanager/public/js/highcharts/highcharts-ng.js",
+		"/C/Users/fcr/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/D/usr/fcr/productionmanager/views/includes/foot.jade",
+		"/D/usr/fcr/productionmanager/views/partials/users.jade",
+		"/D/usr/fcr/productionmanager/views/partials/freemind.jade",
+		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/Content/Site.css",
+		"/D/usr/fcr/productionmanager/.initconfig/sass.js",
+		"/D/usr/fcr/StreamLineEngine/conf/w4.default.properties",
+		"/D/usr/fcr/StreamLineEngine/conf/share.properties",
+		"/D/usr/fcr/StreamLineEngine/conf/itesoftShare-springContext.xml",
+		"/D/usr/fcr/StreamLineEngine/conf/w4.properties",
+		"/D/usr/fcr/StreamLineEngine/conf/slimport.properties",
+		"/D/usr/fcr/StreamLineEngine/conf/service_common.conf",
+		"/D/usr/fcr/StreamLineEngine/conf/configurationKeys.default.properties",
+		"/D/usr/fcr/StreamLineEngine/services/sendMail/conf/smtp.properties",
+		"/D/usr/fcr/productionmanager/public/stylesheets/aplication.scss",
+		"/C/Users/fcr/Desktop/pocker99.txt",
+		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/Areas/Assign/Views/Activities/Index.cshtml",
+		"/C/Users/fcr/Desktop/fcr_winamax.txt",
+		"/C/Users/fcr/Desktop/platinium.js",
+		"/C/Users/fcr/Downloads/platiniumrift.txt",
+		"/C/Users/fcr/Desktop/platiniumrift_39coups.js",
+		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/Web.config",
+		"/C/test.js",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/Java/IntegrationService/lib/log4j.xml",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/slfi/ITFI_FtHeader/src/Main.pas",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/slfi/ITFI_FtHeader/src/CheckData.pas",
+		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/App_Data/Profiles.xml",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
+		"/C/Python27/get-pip.py",
+		"/C/qwt-6.1.2/qwtbuild.pri",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/tst/MSTest/DataIngestion.BLL.TestProject/DataIngestion.BLL.TestProject.csproj",
+		"/C/BranchStatus/js/widget.js",
+		"/D/usr/fcr/pthread-win32/config.h",
+		"/D/usr/fcr/pthread-win32/README",
+		"/D/usr/fcr/QIcomPCR/3rdparty/rtl-sdr/include/rtl-sdr.h",
+		"/K/MyJabberFiles/dsm@itesoft.local/productionManagerNotifier.default.properties",
+		"/D/usr/fcr/rtl-sdr/src/rtl_fm.c",
+		"/D/usr/fcr/FM241/sources/X/v2/sl/slfi/common/MergePro_obj.pas",
+		"/D/usr/fcr/FM241/sources/X/v2/sl/slfi/common/slfi_obj.pas",
+		"/X/v2/sl/slfi/common/slfi_obj.pas",
+		"/X/v2/sl/slfi/ITFI_Com3Event/src/main.pas",
+		"/D/usr/fcr/wxWidgets-3.0.2/build/msw/build2013.bat",
+		"/X/v2/sl/slfi/ITFI_check/src/FMFI.pas",
+		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
+		"/X/v2/sl/sle/Dashboard/Data/UserDataMart/Postgre User Datamart Initialize.sql",
+		"/C/Program Files (x86)/itesoft/ProductionManager/Services/ITDATAMARTINTEGRATION/job/UserDatamart/Default.properties.sample",
+		"/C/Program Files (x86)/itesoft/ProductionManager/Services/ITDATAMARTINTEGRATION/job/UserDatamart/Default.properties.new",
+		"/D/dashboard/elasticsearch-1.4.2/config/elasticsearch.yml",
+		"/C/Program Files (x86)/itesoft/ProductionManager/DataIngestionRest/Web.config",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Web.config",
+		"/C/Program Files/Java/jre7/lib/logging.properties",
+		"/D/dashboard/kibana-3.1.2/config.js",
+		"/D/usr/fcr/QIcomPCR/src/backend/sound/CPortAudio.h",
+		"/D/usr/fcr/rtl-sdr/src/rtl_sdr.c",
+		"/D/usr/fcr/rtl-sdr/src/convenience/convenience.c",
+		"/D/usr/fcr/pthread-win32/pthread.h",
+		"/D/usr/fcr/QIcomPCR/3rdparty/rtl-sdr/include/libusb.h",
+		"/C/qwt-6.1.2/qwtconfig.pri",
+		"/D/usr/fcr/QIcomPCR/cmake/Modules/FindQwt.cmake",
+		"/D/usr/fcr/QIcomPCR/src/CMakeLists.txt",
+		"/C/Users/fcr/Desktop/ParticipationRequete1.sql",
+		"/C/Users/fcr/Desktop/ParticipationRequete2.sql",
+		"/C/Users/fcr/Desktop/ParticipationRequete3.sql",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/Java/IntegrationService/lib/logback.xml",
+		"/C/Users/fcr/Desktop/traces.txt",
+		"/C/Users/fcr/Desktop/deviceinfo.txt",
+		"/X/v2/it_processlevel/src/it_processLevel.cpp",
+		"/D/usr/fcr/QIcomPCR/src/backend/sound/CPortAudio.cpp",
+		"/X/Technos/it_process/src/IT_ProcessC6.bpr",
+		"/D/usr/fcr/portaudio/build/msvc/readme.txt",
+		"/D/usr/fcr/rtl-sdr/src/librtlsdr.c",
+		"/D/usr/fcr/QIcomPCR/3rdparty/rtl-sdr/include/rtl-sdr_export.h",
+		"/D/usr/fcr/rtl-sdr/src/convenience/convenience.h",
+		"/X/v2/xdfcom3/src/com3common.pas",
+		"/X/v2/sl/slfi/ITFI_check/src/Check.pas",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/Java/IntegrationService/pom.xml",
+		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/pom.xml",
+		"/C/Users/fcr/Desktop/ProductionManager.js",
+		"/X/v2/sl/sle/Dashboard/WebApp/Dashboard.WebApp/Web.dev.Debug.config",
+		"/X/v2/sl/slfi/ITFI_FtHeader/src/Main.pas",
+		"/X/v2/sl/slfi/ITFI_FtHeader/src/CheckData.pas",
+		"/X/v2/sl/slfi/common/ConstFMFI.pas",
+		"/X/v2/sl/common/Ssd_Obj.pas",
+		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/target/classes/log4j.xml",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/common/Ssd_Obj.pas",
+		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManager.js",
+		"/C/Users/fcr/Desktop/pocsag.txt",
+		"/C/Users/fcr/Desktop/jabberlog.txt",
+		"/C/Users/fcr/Desktop/sdr-install/rtl-sdr-release/rtl-sdr.h",
+		"/C/Users/fcr/Desktop/fax2ps.c",
+		"/C/Users/fcr/Desktop/tiff2pdf.c",
+		"/C/Users/fcr/Desktop/timesheet.txt",
+		"/C/Users/fcr/Desktop/jwx-20141028-163419.wbt",
+		"/C/Users/fcr/Desktop/sdr-install/rtl-sdr-release/README.windows.txt",
+		"/C/Users/fcr/Desktop/sdr-install/rtl-sdr-release/rtl-sdr_export.h",
+		"/C/Users/fcr/AppData/Local/Temp/7zEBAAB.tmp/tiff2pdf.c",
+		"/C/Users/fcr/Desktop/auth.xml",
+		"/C/Users/fcr/Desktop/results.xml",
+		"/C/Users/fcr/Desktop/params.xml",
+		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/Areas/Assign/Views/_ViewStart.cshtml",
+		"/C/Users/fcr/Desktop/IT_XMLDOM.sj",
+		"/C/Users/fcr/Desktop/testbis3.xml",
+		"/C/Users/fcr/Desktop/testbis2.xml",
+		"/C/Users/fcr/Desktop/testbis.xml",
+		"/C/Users/fcr/Desktop/test.xml",
+		"/C/Users/fcr/AppData/Roaming/Sublime Text 3/Packages/User/jscript.sublime-build",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/it_processsrv/src/PostProcThread.pas",
+		"/X/v2/sl/sle/Dashboard/Data/Oracle/Oracle FreeMind Messaging Create.sql",
+		"/X/v2/sl/sle/Dashboard/Data/MySQL/MySQL FreeMind Messaging Create.sql",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/tst/MSTest/DataIngestion.BLL.TestProject/packages.config",
+		"/K/Visual Studio 2013/Projects/WebCheckSpeed/WebCheckSpeed/Scripts/models/DataControl.js",
+		"/K/Visual Studio 2013/Projects/WebCheckSpeed/WebCheckSpeed/Scripts/Views/ImageView.js"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 96.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ActivityACTIVITYID",
+			"activityActi",
+			"icon",
+			".glyphicon",
+			"-search",
+			"black",
+			"git",
+			"menu",
+			"header",
+			"wrapper",
+			"slimport",
+			"http",
+			"http.cors.enabled",
+			"DATE",
+			"CONVERT",
+			"afterc",
+			"UpdateBatchStatus",
+			"docty",
+			"prior",
+			"doc",
+			"docty",
+			"PRIOR",
+			"/*",
+			"downsample_passes",
+			"rate_in",
+			"post_downsample",
+			"rate_in",
+			"downsample",
+			"prev_index",
+			"downsample",
+			"deemph_filter",
+			"deemph",
+			".rate_out",
+			"deemp",
+			"/*",
+			"deemph_a",
+			"low_pass",
+			"downsample",
+			"lp_len",
+			"rms",
+			"full_demod",
+			"fm_demod",
+			"rtlsdr_set",
+			"low_pass",
+			"downsam",
+			"rtlsdr_",
+			"dongle_bw",
+			"MAXIMUM_RATE",
+			"rate",
+			"agc",
+			"shift",
+			"dc_",
+			"AUtorotate",
+			"downsample_passes",
+			"mode_demod",
+			"am_demod",
+			"rate",
+			"dongle.rate",
+			"MAXIMUM_RATE",
+			"DEFAULT_SAMPLE_RATE",
+			"buffer",
+			"dongle_thread_fn",
+			"playbackCallback",
+			"mark_shared_buffer",
+			"dongle",
+			"dongle_thread_fn",
+			"read_sync",
+			"dongle_thread_fn",
+			"demod_thread_fn",
+			"sync",
+			"_sync_",
+			"read_",
+			"Am",
+			"deviceList",
+			"verbose_device_search",
+			"dongle_state",
+			"proxy",
+			"jtds",
+			"afterclosetask",
+			".afterclosetask",
+			"coinitialize",
+			"LoadCom3Event",
+			"afterclose",
+			"closetask",
+			"getWEBERPCheckResult",
+			"CallERPControlsWEB",
+			"CallErpControls",
+			"CallErpControlW",
+			"clicco254656",
+			"disclaim",
+			"checkdocty",
+			"ManageDocT",
+			"ACTIVEX_BARCODE_READER",
+			"manageDocdate",
+			"CheckDocDa",
+			"EliminateUnvalidDates",
+			"ManageDocDate",
+			"Date",
+			"StandardWebCapture",
+			"capture",
+			"nWindowConfidence",
+			"&",
+			"java",
+			"checkContinentWinner",
+			".win",
+			"Debug",
+			"FCR_PM_255.",
+			"dbo.",
+			"FCR_PM_255.",
+			"dbo.",
+			"TiffRead",
+			"t2p_read_tiff_data",
+			"&quot;",
+			"\\\"",
+			"&quot;",
+			"\\\"",
+			"RSRFR",
+			"&quot;",
+			"boProcessCreate",
+			".Create",
+			"FThreadHandle",
+			".Init",
+			"SendLaunchMessage",
+			"unit",
+			"CreateAndLaunchNewSession",
+			"WaitingforSessionStarted",
+			"TProcessThread",
+			".create"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"\\\"\"+context.SourceDatabase_Schema+\"\\\".",
+			"",
+			"\\\"\"+context.SourceDatabase_Schema+\"\\\"",
+			"\"",
+			"SupplierPortalAdapter"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 644,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								643,
+								643
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 38.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/js/controllers.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1886,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								929,
+								929
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 848,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								68,
+								68
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "views/includes/head.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 808,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								808,
+								808
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "sass/style.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1929,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								31,
+								31
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/includes/footer.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 107,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								90,
+								90
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "views/includes/sidebar.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 825,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								127,
+								127
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "views/includes/navbar.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 723,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								614,
+								614
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "views/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 237,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								26,
+								35
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 78.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "node-radar.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"nav",
+				"D:\\usr\\fcr\\productionmanager\\views\\includes\\navbar.jade"
+			],
+			[
+				"slf",
+				"D:\\usr\\fcr\\FM254_Team2\\FmSrc\\X\\v2\\sl\\slfi\\common\\slfi_obj.pas"
+			],
+			[
+				"remote",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\public\\js\\models\\remote.js"
+			],
+			[
+				"main",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\public\\js\\main.js"
+			],
+			[
+				"fre",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\public\\js\\models\\frequencytable.js"
+			],
+			[
+				"__sp",
+				"C:\\octave\\image\\src\\__spatial_filtering__.cc"
+			],
+			[
+				"ap",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\app.js"
+			],
+			[
+				"s",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\models\\soundserver.js"
+			],
+			[
+				"sound",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\public\\js\\models\\sound.js"
+			],
+			[
+				"app",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\app.js"
+			],
+			[
+				"sou",
+				"var SoundServer ="
+			],
+			[
+				"remo",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\public\\js\\models\\remote.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 173.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

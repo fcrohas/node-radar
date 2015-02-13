@@ -1,0 +1,20 @@
+.navbar(role='navigation',ng-controller='navbarCtrl')
+	.container-fluid
+		.navbar-header
+			a.navbar-brand(alt='Node Radar')
+				img.logo(src='img/noderadar-logo.png')
+			button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+		.navbar-collapse.collapse
+			ul.nav.navbar-nav
+				li.btn-group.btn(ng-repeat='itemMenu in menuList',dropdown)
+					a.dropdown-toggle(dropdown-toggle, ng-disabeld='disabled')
+						{{itemMenu.dropmenu}}
+						span.caret
+					ul.dropdown-menu(role='menu')
+						li(ng-repeat='action in itemMenu.subaction')
+							a(href='{{action.link}}')
+								{{action.name}}

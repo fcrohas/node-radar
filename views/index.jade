@@ -1,0 +1,17 @@
+doctype html
+html(ng-app='nodeRadar')
+	include ./includes/head.jade
+	body
+		include ./includes/navbar.jade
+		//include ./includes/sidebar.jade
+		.container-fluid(id='mainView',ng-controller='mapCtrl')
+			.row(ng-if='map.show')
+				ui-gmap-google-map.col-md-10(pan='true',center='map.center',zoom='map.zoom',options='map.options',dragging='map.dragging',control='map.control',ng-cloak)
+					ui-gmap-markers(models="planes",idKey="'ICAO'",coords="'self'", icon="plane")
+						ui-gmap-window
+							p(ng-cloak) Test
+				.col-md-2
+					div(id='infoView',ng-view)
+		include ./includes/footer.jade
+	script(src='//localhost:35729/livereload.js')
+
