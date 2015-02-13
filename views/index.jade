@@ -8,8 +8,19 @@ html(ng-app='nodeRadar')
 			.row(ng-if='map.show')
 				ui-gmap-google-map.col-md-10(pan='true',center='map.center',zoom='map.zoom',options='map.options',dragging='map.dragging',control='map.control',ng-cloak)
 					ui-gmap-markers(models="planes",idKey="'ICAO'",coords="'self'", icon="plane")
-						ui-gmap-window
-							p(ng-cloak) Test
+						ui-gmap-windows(show='show')
+							div(ng-non-bindable,id="plane-info")
+								i
+									"ICAO" {{ICAO}}
+								br
+								i
+									"Callsign" {{callsign}}
+								br
+								i
+									"Speed" {{ground_speed}} km/h
+								br
+								i
+									"Altitude" {{altitude}} m
 				.col-md-2
 					div(id='infoView',ng-view)
 		include ./includes/footer.jade

@@ -120,11 +120,14 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogle
         });
         this.on('message', function(msg) {
           var found = false;
-          console.log(msg);
+          //console.log(msg);
           for(var id in $scope.planes) {
             if ($scope.planes[id].ICAO == msg.ICAO) {
               $scope.planes[id].latitude = msg.latitude;
               $scope.planes[id].longitude = msg.longitude;
+              $scope.planes[id].altitude = msg.altitude;
+              $scope.planes[id].ground_speed = msg.ground_speed;
+              $scope.planes[id].callsign = msg.callsign;
               $scope.planes[id].icon.rotation = msg.track;
               $scope.planes[id].title = msg.ICAO;
               found = true;
@@ -134,6 +137,10 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogle
             var plane = $scope.plane;
             plane.rotation = msg.track;
             msg.icon = plane;
+            msg.show = false;
+            msg.onClick = function() {
+              msg.show = ! msg.show;
+            };
             $scope.planes.push( msg );
           }
         });

@@ -51,9 +51,21 @@ flight.on('connection', function(socket) {
 	  			planes['ICAO'+msg.hex_ident].track= msg.track;	
 				socket.volatile.send(planes['ICAO'+msg.hex_ident]);	  			
 	  		}
+	  		if ((msg.callsign != null) && (current.callsign != msg.callsign)) {
+	  			planes['ICAO'+msg.hex_ident].callsign = msg.callsign;
+	  			socket.volatile.send(planes['ICAO'+msg.hex_ident]);	  			
+	  		}
+	  		if ((msg.ground_speed != null) && (current.ground_speed != msg.ground_speed)) {
+	  			planes['ICAO'+msg.hex_ident].ground_speed = msg.ground_speed * 1.8520; // km/h from knots
+	  			socket.volatile.send(planes['ICAO'+msg.hex_ident]);	  			
+	  		}
+	  		if ((msg.altitude != null) && (current.altitude != msg.altitude)) {
+	  			planes['ICAO'+msg.hex_ident].altitude = msg.altitude * 0.3048; // feet en m
+	  			socket.volatile.send(planes['ICAO'+msg.hex_ident]);
+	  		}
 		}
 		else {
-			planes['ICAO'+msg.hex_ident] = {'ICAO':msg.hex_ident,'latitude' : msg.lat, 'longitude' : msg.lon, 'title' : msg.ICAO, 'track': 90};
+			planes['ICAO'+msg.hex_ident] = {'ICAO':msg.hex_ident,'latitude' : msg.lat, 'longitude' : msg.lon, 'title' : msg.ICAO, 'track': 90, 'callsign' : 'unknown', 'ground_speed':0, 'altitude' : 0};
 			socket.volatile.send(planes['ICAO'+msg.hex_ident]);			
 		}
 	  }
