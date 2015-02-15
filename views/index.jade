@@ -21,7 +21,7 @@ html(ng-app='nodeRadar')
 								br
 								i
 									"Track" {{track}}
-					ui-gmap-polylines(models="planes",path="'trackhistory'",stroke="'stroke'",static="true",visible="'show'",idKey="'ICAO'")
+					ui-gmap-polylines(models="planes",path="'trackhistory'",stroke="'lineColor'",static="true",visible="'show'",idKey="'ICAO'")
 				.col-md-3
 					div(id='infoView',ng-view)
 		include ./includes/footer.jade

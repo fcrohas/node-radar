@@ -124,7 +124,8 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','$location','
                 if ((msg.latitude != null) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {
                   // polyline color from altitude
                   var color = (plane.altitude < 3000) ? '#00FF00' : (plane.altitude < 6000) ? '#01A9DB' : '#A901DB';
-                  plane.trackhistory.push( { 'latitude':msg.latitude,'longitude':msg.longitude,'stroke': { 'color':color, 'opacity':1.0,'weight':2 }});
+                  plane.trackhistory.push( { 'latitude':msg.latitude,'longitude':msg.longitude});
+                  plane.lineColor = { 'color':color, 'opacity':1.0,'weight':2 };
                   plane.latitude = msg.latitude;
                   plane.longitude = msg.longitude;
                 }
@@ -155,6 +156,7 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','$location','
               rotation: msg.track,
               strokeWeight: 1
             };
+            msg.lineColor = { 'color':color, 'opacity':1.0,'weight':2 };
             msg.trackhistory = [];
             msg.show = false;
             msg.onClick = function() {
