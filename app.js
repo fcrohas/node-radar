@@ -81,7 +81,7 @@ flight.on('connection', function(socket) {
 	  		}
 		}
 		else {
-			planes['ICAO'+msg.hex_ident] = {'ICAO':msg.hex_ident,'latitude' : msg.lat, 'longitude' : msg.lon, 'title' : msg.ICAO, 'track': 90, 'callsign' : 'unknown', 'ground_speed':0, 'altitude' : 0, 'vertical_rate':0, 'squawk' : 0, 'out_of_bound' : false, 'live_time': msg.logged_timestamp(), 'quality':true};
+			planes['ICAO'+msg.hex_ident] = {'ICAO':msg.hex_ident,'latitude' : msg.lat, 'longitude' : msg.lon, 'title' : msg.ICAO, 'track': 0, 'callsign' : 'unknown', 'ground_speed':0, 'altitude' : 0, 'vertical_rate':0, 'squawk' : 0, 'out_of_bound' : false, 'live_time': msg.logged_timestamp(), 'quality':true};
 			socket.volatile.send(planes['ICAO'+msg.hex_ident]);			
 		}
 	  }

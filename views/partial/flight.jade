@@ -1,15 +1,12 @@
-.container
-	accordion
-		accordion-group(heading='Flight Controler')
-			.table
-				.thead
-					th ICAO
-					th Callsign
-					th Speed
-					th Altitude
-				.tbody
-					tr(ng-repeat='plane in planes')
-						td {{plane.ICAO}}
-						td {{plane.callsign}}
-						td {{plane.speed}}
-						td {{plane.altitude}}
+table.table
+	.thead
+		th.col-md-3 ICAO
+		th.col-md-3 Callsign
+		th.col-md-3 Speed
+		th.col-md-3 Altitude
+	.tbody
+		tr(ng-repeat='plane in planes')
+			td.col-md-3 {{plane.ICAO}}
+			td.col-md-3 {{plane.callsign}}
+			td.col-md-3 {{plane.ground_speed}}
+			td.col-md-3 {{plane.altitude}}
