@@ -6,13 +6,10 @@ html(ng-app='nodeRadar')
 		//include ./includes/sidebar.jade
 		.container-fluid(id='mainView',ng-controller='mapCtrl')
 			.row(ng-if='map.show')
-				ui-gmap-google-map.col-md-10(pan='true',center='map.center',zoom='map.zoom',options='map.options',dragging='map.dragging',control='map.control',ng-cloak)
-					ui-gmap-markers(models="planes",idKey="'ICAO'",coords="'self'", icon="plane")
+				ui-gmap-google-map.col-md-8(pan='true',center='map.center',zoom='map.zoom',options='map.options',dragging='map.dragging',control='map.control',ng-cloak)
+					ui-gmap-markers(models="planes",idKey="'ICAO'",coords="'self'", icon="'{{plane}}'")
 						ui-gmap-windows(show='show')
 							div(ng-non-bindable,id="plane-info")
-								i
-									"ICAO" {{ICAO}}
-								br
 								i
 									"Callsign" {{callsign}}
 								br
@@ -21,7 +18,11 @@ html(ng-app='nodeRadar')
 								br
 								i
 									"Altitude" {{altitude}} m
-				.col-md-2
+								br
+								i
+									"Track" {{track}}
+
+				.col-md-4
 					div(id='infoView',ng-view)
 		include ./includes/footer.jade
 	script(src='//localhost:35729/livereload.js')
