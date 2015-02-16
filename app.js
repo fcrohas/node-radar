@@ -9,7 +9,7 @@ var planefinder = require('./models/planefinder');
 
 var plane = new planefinder();
 // Connect to ads-b server
-var options = { host: '127.0.0.1', port:'30003'};
+var options = { host: '192.168.1.22', port:'30003'};
 var client = sbs1.createClient(options);
 
 // Set server port
@@ -40,7 +40,7 @@ app.get('/partial/:name', function(req, res) {
 
 app.get('/rest/flight/:adsb', function (req, res) {
 	var adsb = req.params.adsb;
-	plane.getPlaneInfo(adsb, planes['ICAO'+adsb].callsign,Date.now()).on('data', function(data) {
+	plane.getPlaneInfo(adsb, planes['ICAO'+adsb].callsign,Date.now()).once('data', function(data) {
 		res.json(data);
 		res.end();
 	});
@@ -67,6 +67,8 @@ flight.on('connection', function(socket) {
 			// After outbound of 3 minutes delte it
 			if (seenDelta > 180) {
 				delete planes[planeId];
+				console.log(planeId);
+				planes.splice(planeId,1)
 			}
 		}
 	}, 1000);	
@@ -77,39 +79,32 @@ flight.on('connection', function(socket) {
 	  		if ((current.longitude != msg.lon) || (current.latitude != msg.lat)) {
 				current.latitude = msg.lat;
 				current.longitude = msg.lon;
-				socket.volatile.send(current);				
 	  		}
 	  		if ((msg.track != null) && (current.track != msg.track)) {
 	  			current.track= msg.track;	
-				socket.volatile.send(current);	  			
 	  		}
 	  		if ((msg.callsign != null) && (current.callsign != msg.callsign)) {
 	  			current.callsign = msg.callsign;
-	  			socket.volatile.send(current);	  			
 	  		}
 	  		if ((msg.ground_speed != null) && (current.ground_speed != msg.ground_speed)) {
 	  			current.ground_speed = Math.floor(msg.ground_speed * 1.8520); // km/h from knots
-	  			socket.volatile.send(current);	  			
 	  		}
 	  		if ((msg.vertical_rate != null) && (current.vertical_rate != msg.vertical_rate)) {
 	  			current.vertical_rate = Math.floor(msg.vertical_rate * 1.8520); // m/s from knots
-	  			socket.volatile.send(current);	  			
 	  		}
 	  		if ((msg.squawk != null) && (current.squawk != msg.squawk)) {
 	  			current.squawk = msg.squawk;
-	  			socket.volatile.send(current);	  			
 	  		}
 	  		if ((msg.altitude != null) && (current.altitude != msg.altitude)) {
 	  			current.altitude = Math.floor(msg.altitude * 0.3048); // feet en m
-	  			socket.volatile.send(current);
 	  		}
 	  		if ((msg.logged_time != null) && (current.logged_time != msg.logged_time)) {
 	  			var msgTime = msg.logged_timestamp();
 	  			//console.log(((msgTime - planes['ICAO'+msg.hex_ident].live_time) / 1000));
   				current.quality = ((msgTime - current.live_time) / 1000) < 4; // 30 s delay bad quality
 	  			current.live_time = msgTime;
-	  			socket.volatile.send(current);
 	  		}
+  			socket.volatile.send(current);
 		}
 		else {
 			planes['ICAO'+msg.hex_ident] = {'ICAO':msg.hex_ident,'latitude' : msg.lat, 'longitude' : msg.lon, 

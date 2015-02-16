@@ -9,7 +9,7 @@
 				th.col-md-3 Speed
 				th.col-md-3 Altitude
 			.tbody
-				tr(ng-repeat='plane in planes', ng-click='Selected();')
+				tr(ng-repeat='plane in planes track by plane.ICAO', ng-click='Selected();')
 					td.col-md-3 {{plane.ICAO}}
 					td.col-md-3 {{plane.callsign}}
 					td.col-md-3 {{plane.ground_speed}}

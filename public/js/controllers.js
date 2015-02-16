@@ -126,8 +126,13 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','$location','
             var plane = $rootScope.planes[id];                
             if (plane.ICAO == msg.ICAO) {
               if ( msg.out_of_bound == true) {
-                $rootScope.planes[id].trackhistory = [];
+                // before delete
+                console.log("count first="+$rootScope.planes.length);
+                plane.trackhistory = [];
                 delete $rootScope.planes[id];
+                console.log("Remove id "+id);
+                $rootScope.planes.splice(id,1);
+                console.log("count last="+$rootScope.planes.length);
                 $rootScope.$apply();
                 break;
               } else {
@@ -139,19 +144,28 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','$location','
                   plane.latitude = msg.latitude;
                   plane.longitude = msg.longitude;
                 }
-                plane.altitude = msg.altitude;
-                plane.ground_speed = msg.ground_speed;
-                plane.vertical_rate = msg.vertical_rate;
-                plane.squawk = msg.squawk;
-                plane.callsign = msg.callsign;
+                if (msg.altitude != plane.altitude)
+                  plane.altitude = msg.altitude;
+                if (msg.ground_speed != plane.ground_speed)
+                  plane.ground_speed = msg.ground_speed;
+                if (msg.vertical_rate != plane.vertical_rate)
+                  plane.vertical_rate = msg.vertical_rate;
+                if (msg.squawk != plane.squawk)
+                  plane.squawk = msg.squawk;
+                if (msg.callsign != plane.callsign)
+                  plane.callsign = msg.callsign;
                 // Update Icon
-                plane.icon.rotation = msg.track;
-                if (msg.quality)
-                  plane.icon.fillColor = '#42FF38';
-                else
-                  plane.icon.fillColor = '#E2FF38';
-                //plane.title = msg.ICAO;
-                plane.track = msg.track;
+                if (msg.track != plane.icon.rotation) {
+                  plane.track = msg.track;
+                  plane.icon.rotation = msg.track;
+                }
+                if (msg.quality != plane.quality) {
+                  if (msg.quality)
+                    plane.icon.fillColor = '#42FF38';
+                  else
+                    plane.icon.fillColor = '#E2FF38';
+                  plane.quality = msg.quality;
+                }
               }
               found = true;
               break;

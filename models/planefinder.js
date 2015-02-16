@@ -26,7 +26,7 @@ PlaneFinder.prototype.getPlaneInfo = function(ICAO, flightno, timestamp) {
 		var username = 'fcr';
 		var password = 'souris2lola*';
 		var auth = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
-		var options = {
+		var options_proxy = {
 			host: "10.1.100.150",
 			port: 3128,
 			path: query,
@@ -36,7 +36,7 @@ PlaneFinder.prototype.getPlaneInfo = function(ICAO, flightno, timestamp) {
 				Authorization: auth
 			}			
 		};
-		var req = http.get(options, this._handleResponse.bind(this));		
+		var req = http.get(url.parse(query), this._handleResponse.bind(this));		
 		req.on('error', this._emitError.bind(this));
 		req.end();
 		return this;
