@@ -116,11 +116,14 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','$location','
           var found = false;
           //console.log(msg);
           for(var id in $rootScope.planes) {
-            if ($rootScope.planes[id].ICAO == msg.ICAO) {
+            var plane = $rootScope.planes[id];                
+            if (plane.ICAO == msg.ICAO) {
               if ( msg.out_of_bound == true) {
-                $rootScope.planes.remove(id);
+                $rootScope.planes[id].trackhistory = [];
+                delete $rootScope.planes[id];
+                $rootScope.$apply();
+                break;
               } else {
-                var plane = $rootScope.planes[id];                
                 if ((msg.latitude != null) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {
                   // polyline color from altitude
                   var color = (plane.altitude < 3000) ? '#00FF00' : (plane.altitude < 6000) ? '#01A9DB' : '#A901DB';
@@ -144,6 +147,7 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','$location','
                 plane.track = msg.track;
               }
               found = true;
+              break;
             }
           }
           if (!found) {
@@ -156,7 +160,7 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','$location','
               rotation: msg.track,
               strokeWeight: 1
             };
-            msg.lineColor = { 'color':color, 'opacity':1.0,'weight':2 };
+            msg.lineColor = { 'color':'#00FF00', 'opacity':1.0,'weight':2 };
             msg.trackhistory = [];
             msg.show = false;
             msg.onClick = function() {
