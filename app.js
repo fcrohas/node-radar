@@ -4,11 +4,11 @@ var app = express();
 var path = require('path');
 var io = require('socket.io');
 var sbs1 = require('sbs1');
-var planeFinder = require('./models/PlaneFinder');
+var planeFinder = require('./models/planefinder');
 
 var planefinder = new planeFinder();
 // Connect to ads-b server
-var options = { host: '127.0.0.1', port:'30003'};
+var options = { host: '192.168.1.22', port:'30003'};
 var client = sbs1.createClient(options);
 
 // Set server port
@@ -39,7 +39,7 @@ app.get('/partial/:name', function(req, res) {
 
 app.get('/rest/flight/:adsb', function (req, res) {
 	var adsb = req.params.adsb;
-	res.json(planefinder.getPlaneInfo(adsb, planes['ICAO'+adsb].callsign,Date.now()));
+	planefinder.getPlaneInfo(adsb, planes['ICAO'+adsb].callsign,Date.now());
 });
 
 // listen to socket.io connection

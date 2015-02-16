@@ -1,10 +1,15 @@
 var http = require('http');
 var url = require('url');
+var events = require('events');
+var util = require('util');
 
-var PlaneFinder = function() {
+ function PlaneFinder() {
 	this.url = 'http://planefinder.net/endpoints/planeData.php?';
 	this.faa = 0;
+	events.EventEmitter.call(this);
 }
+// report event to class
+util.inherits(PlaneFinder, events.EventEmitter);
 
 PlaneFinder.prototype = {
 	getPlaneInfo : function(ICAO, flightno, timestamp) {
@@ -23,20 +28,17 @@ PlaneFinder.prototype = {
 
 	},
 	_handleResponse : function(res) {
-	   console.log('icicicicici');
 	  res.on('data', this._handleResponseData.bind(this));
 	  res.on('end', this._handleResponseEnd.bind(this));
 	  res.on('error', this._emitError.bind(this));
 	},
 	_handleResponseData : function(chunk) {
-		console.log(chunk);
 	  this.body += chunk;
 	},
 	_handleResponseEnd : function() {
 	  this.emit('data', this.body);
 	},
 	_emitError : function(err) {
-	  console.log(err);
 	  this.emit('error', err);
 	}
 }
