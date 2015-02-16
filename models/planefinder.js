@@ -2,45 +2,65 @@ var http = require('http');
 var url = require('url');
 var events = require('events');
 var util = require('util');
+var StringDecoder = require('string_decoder').StringDecoder;
 
- function PlaneFinder() {
+function PlaneFinder() {
+	events.EventEmitter.call(this);
 	this.url = 'http://planefinder.net/endpoints/planeData.php?';
 	this.faa = 0;
-	events.EventEmitter.call(this);
+	this.decoder = new StringDecoder('utf8');
+	this.body = '';
 }
-// report event to class
+
+// inherit event class
 util.inherits(PlaneFinder, events.EventEmitter);
 
-PlaneFinder.prototype = {
-	getPlaneInfo : function(ICAO, flightno, timestamp) {
+
+PlaneFinder.prototype.getPlaneInfo = function(ICAO, flightno, timestamp) {
 		var query = (this.url
 					+ 'adshex=' + ICAO 
 					+ '&flightno=' + flightno.trim() 
 					+ '&ts=' + Math.floor(timestamp / 1000)
 					+ '&isFAA=' + (this.faa ? '1' : '0') 
 					+ '&_=' + Date.now());
-		console.log(query);
-		var options = url.parse(query);
-		options.headers = {
-		'X-Requested-With': 'XMLHttpRequest'
+		var username = 'fcr';
+		var password = 'souris2lola*';
+		var auth = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
+		var options = {
+			host: "10.1.100.150",
+			port: 3128,
+			path: query,
+			headers: {
+				Host: "planefinder.net",
+				'X-Requested-With': 'XMLHttpRequest',
+				Authorization: auth
+			}			
 		};
 		var req = http.get(options, this._handleResponse.bind(this));		
+		req.on('error', this._emitError.bind(this));
+		req.end();
+		return this;
+};
 
-	},
-	_handleResponse : function(res) {
-	  res.on('data', this._handleResponseData.bind(this));
-	  res.on('end', this._handleResponseEnd.bind(this));
-	  res.on('error', this._emitError.bind(this));
-	},
-	_handleResponseData : function(chunk) {
-	  this.body += chunk;
-	},
-	_handleResponseEnd : function() {
-	  this.emit('data', this.body);
-	},
-	_emitError : function(err) {
-	  this.emit('error', err);
-	}
-}
+PlaneFinder.prototype._handleResponse = function(res) {
+	res.setEncoding('utf8');
+	res.on('data', this._handleResponseData.bind(this));
+	res.on('end', this._handleResponseEnd.bind(this));
+	res.on('error', this._emitError.bind(this));
+};
+
+PlaneFinder.prototype._handleResponseData = function(chunk) {
+	this.body += chunk;
+};
+
+PlaneFinder.prototype._handleResponseEnd = function() {
+	this.emit('data', JSON.parse(this.body));
+	this.body = '';
+};
+
+PlaneFinder.prototype._emitError = function(err) {
+	this.emit('error', err);
+};
 
 module.exports = PlaneFinder;
+

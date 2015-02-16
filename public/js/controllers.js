@@ -33,6 +33,13 @@ var menuControllers = angular.module('menuCtrl', []);
 
 menuControllers.controller('FlightCtrl', ['$scope', '$http',
     function ($scope, $http) {
+
+        $scope.Selected = function() {
+            console.log('Selected plane ICAO '+this.plane.ICAO)
+            $http.get('/rest/flight/'+this.plane.ICAO).success(function(data) {
+              $scope.planeinfo = data;
+            });
+        };        
     }
 
   ]);

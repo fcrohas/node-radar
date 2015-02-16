@@ -11,10 +11,10 @@
 		.navbar-collapse.collapse
 			ul.nav.navbar-nav
 				li.btn-group.btn(ng-repeat='itemMenu in menuList',dropdown)
-					a.dropdown-toggle(dropdown-toggle, ng-disabeld='disabled')
+					a.dropdown-toggle(dropdown-toggle, ng-disabeld='disabled', ng-cloak)
 						{{itemMenu.dropmenu}}
 						span.caret
 					ul.dropdown-menu(role='menu')
 						li(ng-repeat='action in itemMenu.subaction')
-							a(href='{{action.link}}')
+							a(href='{{action.link}}', ng-cloak)
 								{{action.name}}
