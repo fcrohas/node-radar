@@ -6,8 +6,8 @@ body, html {
   width: 100%; }
 
 img.logo {
-  width: 40px;
-  height: 40px; }
+  width: 35px;
+  height: 35px; }
 
 .fixed-panel {
   min-height: 300px;
@@ -28,13 +28,13 @@ img.logo {
 
 .navbar {
   margin: 1px;
+  min-height:35px;
   z-index: 10;
-  background-color: white;
-  background-image: -webkit-linear-gradient(top, white, gray);
-  background-image: linear-gradient(to bottom,white, gray); }
+  color: white;
+  }
 
 .navbar-nav > li > a {
-  color: black;
+  color : white;
   line-height: 5px; }
 
 .footer {

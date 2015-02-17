@@ -1,6 +1,4 @@
 #wrapper.container(ng-controller='sidebarCtrl',ng-class='toggleClass')
-	button.btn.btn-default(ng-click="toggle()",type='button')
-		span.glyphicon.glyphicon-search
 	#sidebar-wrapper
 		ul.sidebar-nav
 			li.sidebar-brand
@@ -21,3 +19,5 @@
 					select.form-control(type='text', placeholder='Select Entity State',ng-model='state')
 						option BATCHSTATE
 						option BATCHPRIORITY
+	button.btn.btn-default(ng-click="toggle()",type='button')
+		span.glyphicon.glyphicon-search

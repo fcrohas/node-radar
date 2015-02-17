@@ -36,7 +36,7 @@ PlaneFinder.prototype.getPlaneInfo = function(ICAO, flightno, timestamp) {
 				Authorization: auth
 			}			
 		};
-		var req = http.get(options_proxy/*url.parse(query)*/, this._handleResponse.bind(this));		
+		var req = http.get(/*options_proxy*/url.parse(query), this._handleResponse.bind(this));		
 		req.on('error', this._emitError.bind(this));
 		req.end();
 		return this;
