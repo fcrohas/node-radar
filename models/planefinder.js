@@ -36,7 +36,7 @@ PlaneFinder.prototype.getPlaneInfo = function(ICAO, flightno, timestamp) {
 				Authorization: auth
 			}			
 		};
-		var req = http.get(url.parse(query), this._handleResponse.bind(this));		
+		var req = http.get(options_proxy/*url.parse(query)*/, this._handleResponse.bind(this));		
 		req.on('error', this._emitError.bind(this));
 		req.end();
 		return this;
@@ -54,8 +54,12 @@ PlaneFinder.prototype._handleResponseData = function(chunk) {
 };
 
 PlaneFinder.prototype._handleResponseEnd = function() {
-	this.emit('data', JSON.parse(this.body));
-	this.body = '';
+	try {
+		this.emit('data', JSON.parse(this.body));
+		this.body = '';
+	} catch(e) {
+		console.log(e.message+' with body '+this.body);
+	}
 };
 
 PlaneFinder.prototype._emitError = function(err) {

@@ -1,4 +1,4 @@
-var productionManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl']); 
+var productionManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl']); 
 
 productionManager.config(['$routeProvider',
   function($routeProvider) {

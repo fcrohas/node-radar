@@ -13,12 +13,18 @@ img.logo {
 	height:40px;
 }
 
+.fixed-panel {
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y:auto;     
+}
+
 #mainView  {
     padding:0px;
 }
 
 .plane-info{
-    font-family: : $helvetica;
+    font-family: $helvetica;
     font-size: 7;
 }
 
