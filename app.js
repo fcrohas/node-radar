@@ -13,7 +13,7 @@ var planes = new Array();
 var clients = new Array();
 
 // Connect to ads-b server
-var options = { host: '192.168.1.22', port:'30003'};
+var options = { host: '127.0.0.1', port:'30003'};
 var baseStation = sbs1.createClient(options);
 
 // Set server port
@@ -68,7 +68,9 @@ flight.on('connection', function(socket) {
 	flight.emit('client_count', clients.length);
 	// Send all flight to client
 	for (var id in planes) {
-		socket.emit('add',planes[id]);
+		if (!planes[id].out_of_bound) {
+			socket.emit('add',planes[id]);
+		}
 	}
 	socket.on('disconnect', function() {
 		console.log('bye bye !');

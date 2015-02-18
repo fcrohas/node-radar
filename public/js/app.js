@@ -1,6 +1,6 @@
-var productionManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl']); 
+var radarManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl']); 
 
-productionManager.config(['$routeProvider',
+radarManager.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/flight/detail/:callsign', {

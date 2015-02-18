@@ -9,25 +9,28 @@
 				th.col-md-3 Speed (km/h)
 				th.col-md-3 Altitude (m)
 			.tbody
-				tr(ng-repeat='plane in planes track by plane.ICAO', ng-click='Selected();')
+				tr(ng-repeat='plane in planes track by plane.ICAO', ng-click='Selected();',ng-class="{'alert-info':plane.show,'':!plane.show}")
 					td.col-md-3 {{plane.ICAO}}
 					td.col-md-3 {{plane.callsign}}
-					td.col-md-3 {{plane.ground_speed}}
-					td.col-md-3 {{plane.altitude}}
+					td.col-md-3.text-center {{plane.ground_speed}}
+					td.col-md-3 
+						i.pull-left.glyphicon(ng-class="{'glyphicon-triangle-bottom red': (plane.vertical_rate<0),'glyphicon-triangle-top green': (plane.vertical_rate>0),'glyphicon-minus': (plane.vertical_rate==0)}")						
+						.pull-right{{plane.altitude}}
 .panel.panel-info
 	.panel-heading(ng-click="isInfoCollapsed = !isInfoCollapsed")
 		h3.panel-title Flight information
 	.panel-body(collapse="isInfoCollapsed")
-		p(ng-cloak)
-			text Registration :	{{planeinfo.aircraft.Registration}}
-		p(ng-cloak) 
-			text Plane type : {{planeinfo.plane.manufacturer}} {{planeinfo.plane.model}} ( {{planeinfo.plane.engines}} - {{planeinfo.plane.typeDesignator}})
-		p(ng-cloak)
-			text Operator :	{{planeinfo.aircraft.Operator}}
-		p(ng-cloak)
-			text Flight id {{planeinfo.flight.pink_flight}} 
-			text From :	{{planeinfo.flight.depapt}} 
-			text To : {{planeinfo.flight.arrapt}}
+		div.well
+			p(ng-cloak)
+				text Registration :	{{planeinfo.aircraft.Registration}}
+			p(ng-cloak) 
+				text Plane type : {{planeinfo.plane.manufacturer}} {{planeinfo.plane.model}} ( {{planeinfo.plane.engines}} - {{planeinfo.plane.typeDesignator}})
+			p(ng-cloak)
+				text Operator :	{{planeinfo.aircraft.Operator}}
+			p(ng-cloak)
+				text Flight id {{planeinfo.flight.pink_flight}} 
+				text From :	{{planeinfo.flight.depapt}} 
+				text To : {{planeinfo.flight.arrapt}}
 		carousel(interval="5000")
 			slide(ng-repeat="photo in planeinfo.photos")
 				img(ng-src="{{photo.thumbnailPath}}", style="margin:auto;")

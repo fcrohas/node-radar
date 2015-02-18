@@ -3,14 +3,32 @@ var mainControllers = angular.module('mainCtrl', []);
 mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$location) {
   $scope.connected = false;
   $scope.planes = [];
+  // Register general selected action
+  $scope.$on('planeSelected', function(event, ICAO) { 
+    // look for plane id to select
+    var selectId = -1;
+    for (var id in $scope.planes) {
+      // use also loop to unselect current plane
+      var plane = $scope.planes[id];
+      if (plane.ICAO == ICAO) {
+        selectId = id;
+      }
+      // unselect others
+      plane.show = false;
+    }
+    // Now select current plane
+    if (selectId >= 0) {
+      $scope.planes[selectId].show = true;
+    }
+  });  
   // Connect only once
   if ($scope.connected == false) {
     io.connect($location.protocol()+'://'+$location.host()+':'+$location.port()+'/socket/flight').on('connect', function(socket){
-        console.log('Connected to websocket');
+        //console.log('Connected to websocket');
         // use a delete flag to avoid override
         $scope.connected = true;
-        this.on('Disconnected from websocket', function(){
-          console.log('user disconnected');
+        this.on('disconnect', function(){
+          //console.log('user disconnected');
           $scope.connected = false;
         });
         this.on('client_count', function(count) {
@@ -33,7 +51,7 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
             msg.show = ! msg.show;
           };
           $scope.planes.push( msg );
-          console.log('add ICAO='+msg.ICAO+' length='+$scope.planes.length+ 'bound='+msg.out_of_bound);            
+          //console.log('add ICAO='+msg.ICAO+' length='+$scope.planes.length+ 'bound='+msg.out_of_bound);            
         });        
         this.on('quality', function(msg) {
           for(var id in $scope.planes) {
@@ -58,7 +76,7 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
                 // before delete
                 plane.trackhistory = [];
                 $scope.planes.splice(id,1);
-                console.log('remove ICAO='+msg.ICAO+' length='+$scope.planes.length); 
+                //console.log('remove ICAO='+msg.ICAO+' length='+$scope.planes.length); 
                 break;    
             }
           }
@@ -110,11 +128,12 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
             msg.lineColor = { 'color':'#00FF00', 'opacity':1.0,'weight':3 };
             msg.trackhistory = [];
             msg.show = false;
+            msg.showWindow = false;
             msg.onClick = function() {
-              msg.show = ! msg.show;
+              msg.showWindow = true;
             };
             $scope.planes.push( msg );
-            console.log('change add ICAO='+msg.ICAO+' length='+$scope.planes.length+ 'bound='+msg.out_of_bound);            
+            //console.log('change add ICAO='+msg.ICAO+' length='+$scope.planes.length+ 'bound='+msg.out_of_bound);            
           }
         });
     });
@@ -159,10 +178,11 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http',
     function ($scope, $http) {
 
         $scope.Selected = function() {
-            console.log('Selected plane ICAO '+this.plane.ICAO)
+            //console.log('Selected plane ICAO '+this.plane.ICAO)
             $http.get('/rest/flight/'+this.plane.ICAO).success(function(data) {
               $scope.planeinfo = data;
             });
+            $scope.$emit('planeSelected', this.plane.ICAO);
         };        
     }
 

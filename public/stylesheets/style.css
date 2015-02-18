@@ -9,6 +9,14 @@ img.logo {
   width: 35px;
   height: 35px; }
 
+.green {
+  color:green;
+}
+
+.red {
+  color:red;
+}
+
 .fixed-panel {
   min-height: 300px;
   max-height: 300px;
