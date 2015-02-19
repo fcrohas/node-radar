@@ -1,3 +1,4 @@
+var config = require('config-node');
 var http = require('http');
 var url = require('url');
 var events = require('events');
@@ -23,20 +24,26 @@ PlaneFinder.prototype.getPlaneInfo = function(ICAO, flightno, timestamp) {
 					+ '&ts=' + Math.floor(timestamp / 1000)
 					+ '&isFAA=' + (this.faa ? '1' : '0') 
 					+ '&_=' + Date.now());
-		var username = 'fcr';
-		var password = 'souris2lola*';
-		var auth = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
-		var options_proxy = {
-			host: "10.1.100.150",
-			port: 3128,
-			path: query,
-			headers: {
-				Host: "planefinder.net",
-				'X-Requested-With': 'XMLHttpRequest',
-				Authorization: auth
-			}			
-		};
-		var req = http.get(options_proxy/*url.parse(query)*/, this._handleResponse.bind(this));		
+		var options = '';
+		if (config.Proxy.enable)
+		{
+			options = {
+				host: config.Proxy.host,
+				port: config.Proxy.port,
+				path: query,
+				headers: {
+					Host: "planefinder.net",
+					'X-Requested-With': 'XMLHttpRequest'
+				}
+			};
+			if (config.Proxy.BasicAuth.enable) {
+				var auth = 'Basic ' + new Buffer(config.Proxy.BasicAuth.login + ':' + config.Proxy.BasicAuth.password).toString('base64');
+				options.headers.Authorization = auth;
+			}
+		} else {
+			options = url.parse(query);
+		}
+		var req = http.get(options, this._handleResponse.bind(this));		
 		req.on('error', this._emitError.bind(this));
 		req.end();
 		return this;
@@ -63,6 +70,7 @@ PlaneFinder.prototype._handleResponseEnd = function() {
 };
 
 PlaneFinder.prototype._emitError = function(err) {
+	this.emit('data', {aircraft : { Registration : "unknown"}});
 	this.emit('error', err);
 };
 

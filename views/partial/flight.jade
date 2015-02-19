@@ -1,4 +1,4 @@
-.panel.panel-info
+.panel.panel-primary
 	.panel-heading(ng-click="isFlightCollapsed = !isFlightCollapsed")
 		h3.panel-title Flight list
 	.panel-body.fixed-panel(collapse="isFlightCollapsed")
@@ -16,7 +16,7 @@
 					td.col-md-3 
 						i.pull-left.glyphicon(ng-class="{'glyphicon-triangle-bottom red': (plane.vertical_rate<0),'glyphicon-triangle-top green': (plane.vertical_rate>0),'glyphicon-minus': (plane.vertical_rate==0)}")						
 						.pull-right{{plane.altitude}}
-.panel.panel-info
+.panel.panel-primary
 	.panel-heading(ng-click="isInfoCollapsed = !isInfoCollapsed")
 		h3.panel-title Flight information
 	.panel-body(collapse="isInfoCollapsed")
@@ -27,10 +27,10 @@
 				text Plane type : {{planeinfo.plane.manufacturer}} {{planeinfo.plane.model}} ( {{planeinfo.plane.engines}} - {{planeinfo.plane.typeDesignator}})
 			p(ng-cloak)
 				text Operator :	{{planeinfo.aircraft.Operator}}
-			p(ng-cloak)
+			p(ng-if="planeinfo.flight.depapt",ng-cloak)
 				text Flight id {{planeinfo.flight.pink_flight}} 
-				text From :	{{planeinfo.flight.depapt}} 
-				text To : {{planeinfo.flight.arrapt}}
+				text from {{planeinfo.route[planeinfo.flight.depapt][0]}} ({{planeinfo.flight.deptim}}) 
+				text to {{planeinfo.route[planeinfo.flight.arrapt][0]}} ({{planeinfo.flight.arrtim}}) 
 		carousel(interval="5000")
 			slide(ng-repeat="photo in planeinfo.photos")
 				img(ng-src="{{photo.thumbnailPath}}", style="margin:auto;")

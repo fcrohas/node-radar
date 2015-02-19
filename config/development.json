@@ -1,0 +1,48 @@
+{
+	"HttpServer" : {
+		"port" : 3000
+	},
+	"SBS" : {
+		"host" : "127.0.0.1",
+		"port" : 30003
+	},
+	"Proxy" : {
+		"enable" : true,
+		"host" : "10.1.100.150",
+		"port" : 3128,
+		"BasicAuth" : {
+			"enable" : true,
+			"login" : "fcr",
+			"password" : "souris2lola*"
+		}
+	},
+	"Plane" : {
+		"quality" : {
+			"good" : {
+				"seen" : 10,		
+				"color" : "#1C1C1C",
+				"comment" : "Plane message under 10 s delay are displayed with color black" 
+			},
+			"poor" : {
+				"seen" : 30,		
+				"color" : "#DF0101",
+				"comment" : "Plane message between 10s and 30 s delay are displayed with color yellow" 
+			},
+			"bad" : {
+				"seen" : 60,		
+				"color" : "#D7DF01",
+				"comment" : "Plane message between 30s and 60 s delay are displayed with color red" 
+			},
+			"ghost" : {
+				"color" : "#D7DF01",
+				"comment" : "displayed with color red plane between bad quality and client timeout"
+			}
+		},
+		"memory" : {
+			"timeout_client" : 60, 
+			"timeout_server" : 180,
+			"comment" : "Clear plane memory after 60s on client side and clear plane memory after 180s on server side" 
+		},
+		"refresh_time" : 1000
+	}
+}

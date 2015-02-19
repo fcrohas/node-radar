@@ -15,10 +15,16 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
       }
       // unselect others
       plane.show = false;
+      $scope.planes[id].icon.strokeColor = '#1C1C1C';
+      $scope.planes[id].icon.strokeWeight = 1;
+      $scope.planes[id].icon.scale = 0.05;
     }
     // Now select current plane
     if (selectId >= 0) {
       $scope.planes[selectId].show = true;
+      $scope.planes[selectId].icon.strokeColor = '#00BFFF';
+      $scope.planes[selectId].icon.strokeWeight = 1;
+      $scope.planes[selectId].icon.scale = 0.06;
     }
   });  
   // Connect only once
@@ -44,11 +50,16 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
             rotation: msg.track,
             strokeWeight: 1
           };
+          if (msg.trackhistory == undefined) {
+            msg.trackhistory = new Array();
+          }
           msg.lineColor = { 'color':'#00FF00', 'opacity':1.0,'weight':3 };
-          msg.trackhistory = [];
           msg.show = false;
           msg.onClick = function() {
             msg.show = ! msg.show;
+          };
+          msg.onEvent = function(marker, event, model, args) {
+            console.log(event);
           };
           $scope.planes.push( msg );
           //console.log('add ICAO='+msg.ICAO+' length='+$scope.planes.length+ 'bound='+msg.out_of_bound);            
@@ -87,7 +98,7 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
             var plane = $scope.planes[id];                
             if (plane.ICAO == msg.ICAO) {
               // not of bound as we receive a signal
-              if ((msg.latitude != null) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {
+              if ((msg.latitude != undefined) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {
                 // polyline color from altitude
                 var color = (plane.altitude < 3000) ? '#00FF00' : (plane.altitude < 6000) ? '#01A9DB' : '#A901DB';
                 plane.trackhistory.push( { 'latitude':msg.latitude,'longitude':msg.longitude});
@@ -95,18 +106,18 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
                 plane.latitude = msg.latitude;
                 plane.longitude = msg.longitude;
               }
-              if (msg.altitude != plane.altitude)
+              if ((msg.altitude != undefined) && (msg.altitude != plane.altitude))
                 plane.altitude = msg.altitude;
-              if (msg.ground_speed != plane.ground_speed)
+              if ((msg.ground_speed != undefined) && (msg.ground_speed != plane.ground_speed))
                 plane.ground_speed = msg.ground_speed;
-              if (msg.vertical_rate != plane.vertical_rate)
+              if ((msg.vertical_rate != undefined) && (msg.vertical_rate != plane.vertical_rate))
                 plane.vertical_rate = msg.vertical_rate;
-              if (msg.squawk != plane.squawk)
+              if ((msg.squawk != undefined) && (msg.squawk != plane.squawk))
                 plane.squawk = msg.squawk;
-              if (msg.callsign != plane.callsign)
+              if ((msg.callsign != undefined) && (msg.callsign != plane.callsign))
                 plane.callsign = msg.callsign;
               // Update Icon
-              if (msg.track != plane.icon.rotation) {
+              if ((msg.track != undefined) && (msg.track != plane.icon.rotation)) {
                 plane.track = msg.track;
                 plane.icon.rotation = msg.track;
               }
@@ -125,12 +136,17 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
               rotation: msg.track,
               strokeWeight: 1
             };
+            if (msg.trackhistory == undefined) {
+              msg.trackhistory = new Array();
+            }
             msg.lineColor = { 'color':'#00FF00', 'opacity':1.0,'weight':3 };
-            msg.trackhistory = [];
             msg.show = false;
             msg.showWindow = false;
             msg.onClick = function() {
               msg.showWindow = true;
+            };
+            msg.onEvent = function(marker, event, model, args) {
+              console.log(event);
             };
             $scope.planes.push( msg );
             //console.log('change add ICAO='+msg.ICAO+' length='+$scope.planes.length+ 'bound='+msg.out_of_bound);            
