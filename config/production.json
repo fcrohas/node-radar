@@ -1,6 +1,6 @@
 {
 	"HttpServer" : {
-		"port" : 3000
+		"port" : 5000
 	},
 	"SBS" : {
 		"host" : "127.0.0.1",

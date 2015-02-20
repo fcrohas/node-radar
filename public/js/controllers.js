@@ -3,6 +3,10 @@ var mainControllers = angular.module('mainCtrl', []);
 mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$location) {
   $scope.connected = false;
   $scope.planes = [];
+  $scope.MarkersEvent = function(marker, event, model, args) {
+    console.log(marker);
+  };
+
   // Register general selected action
   $scope.$on('planeSelected', function(event, ICAO) { 
     // look for plane id to select
@@ -55,13 +59,14 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
           }
           msg.lineColor = { 'color':'#00FF00', 'opacity':1.0,'weight':3 };
           msg.show = false;
-          msg.onClick = function() {
-            msg.show = ! msg.show;
+          msg.WindowOptions = {
+            show : false
           };
-          msg.onEvent = function(marker, event, model, args) {
-            console.log(event);
+          msg.onClick = function() {
+            msg.show = !msg.show;
           };
           $scope.planes.push( msg );
+          $scope.$apply();          
           //console.log('add ICAO='+msg.ICAO+' length='+$scope.planes.length+ 'bound='+msg.out_of_bound);            
         });        
         this.on('quality', function(msg) {
@@ -141,12 +146,11 @@ mainControllers.controller('mainCtrl', ['$scope','$location', function ($scope,$
             }
             msg.lineColor = { 'color':'#00FF00', 'opacity':1.0,'weight':3 };
             msg.show = false;
-            msg.showWindow = false;
-            msg.onClick = function() {
-              msg.showWindow = true;
+            msg.WindowOptions = {
+              show : false
             };
-            msg.onEvent = function(marker, event, model, args) {
-              console.log(event);
+            msg.onClick = function() {
+              msg.show = !msg.show;
             };
             $scope.planes.push( msg );
             //console.log('change add ICAO='+msg.ICAO+' length='+$scope.planes.length+ 'bound='+msg.out_of_bound);            

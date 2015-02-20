@@ -5,8 +5,13 @@ var events = require('events');
 var path = require('path');
 var io = require('socket.io');
 var sbs1 = require('sbs1');
+var datalayer = require('./models/datalayer');
 var planefinder = require('./models/planefinder');
 
+// Database 
+var db = new datalayer();
+db.connect();
+console.log('Database initilized');
 // Express server
 var app = express();
 // Planes information list 
@@ -134,12 +139,11 @@ baseStation.on('message', function(msg) {
 			  	var current = planes[id];
 			  	var currentmsg = {};
 			  	currentmsg.ICAO = msg.hex_ident;
-		  		if ((current.longitude != msg.lon) || (current.latitude != msg.lat)) {
+		  		if (((current.latitude != null) && (current.longitude!=null)) && ((current.longitude != msg.lon) || (current.latitude != msg.lat))) {
 					if (current.trackhistory == undefined) {
 						current.trackhistory = new Array();
 					}
-					if ((current.latitude != null) && (current.longitude!=null))
-						current.trackhistory.push( { 'latitude':current.latitude,'longitude':current.longitude});
+					current.trackhistory.push( { 'latitude':current.latitude,'longitude':current.longitude});
 					current.latitude = msg.lat;
 					current.longitude = msg.lon;
 					currentmsg.latitude = current.latitude;
