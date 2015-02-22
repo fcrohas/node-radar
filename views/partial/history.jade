@@ -1,0 +1,21 @@
+.panel.panel-primary
+	.panel-heading(ng-click="isFlightCollapsed = !isFlightCollapsed")
+		h3.panel-title History Search
+	.panel-body(collapse="isFlightCollapsed")
+		.input-group
+			span.input-group-addon.glyphicon.glyphicon-search
+			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="searchValue",ng-keyup="$event.keyCode == 13 && Search(searchValue)")
+		table.table.table-condensed
+			.thead
+				th.col-md-2 Registration
+				th.col-md-2 Type
+				th.col-md-2 Operator
+				th.col-md-2 Seen
+			.tbody
+				tr(ng-repeat="result in results.rows track by result.AircraftId")
+					td.col-md-2 {{result.Registration}}
+					td.col-md-2 {{result.ModelType}}
+					td.col-md-2 {{result.Flights[0].Operator}}
+					td.col-md-2 {{result.Flights[0].LastSeen}}
+		p Found {{results.count}} result(s)
+

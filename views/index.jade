@@ -8,16 +8,6 @@ html(ng-app='nodeRadar')
 			.row(ng-if='map.show')
 				ui-gmap-google-map.col-md-9(pan='true',center='map.center',zoom='map.zoom',options='map.options',dragging='map.dragging',control='map.control',ng-cloak)
 					ui-gmap-markers(models="planes",idKey="'ICAO'",coords="'self'", icon="'icon'", click="'onClick'",events="MarkersEvent")
-					ui-gmap-windows(models="planes",idKey="'ICAO'",coords="'self'", show="'WindowOptions.show'", options="WindowOptions")
-						div(ng-non-bindable,id="plane-info")
-							i
-								"Callsign" {{callsign}}
-							br
-							i
-								"Speed" {{ground_speed}} km/h
-							br
-							i
-								"Altitude" {{altitude}} m
 					ui-gmap-polylines(models="planes",path="'trackhistory'",stroke="'lineColor'",static="true",visible="'show'",idKey="'ICAO'")
 				.col-md-3
 					div(id='infoView',ng-view)

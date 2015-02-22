@@ -1,0 +1,35 @@
+.panel.panel-primary
+	.panel-heading(ng-click="isFlightCollapsed = !isFlightCollapsed")
+		h3.panel-title Settings
+	.panel-body(collapse="isFlightCollapsed")
+		div.well
+			.row
+				label Base Station
+			.row
+				label.col-md-2 Host
+				input.col-md-8.text(type="text",ng-model="settings.SBS.host")
+			.row
+				label.col-md-2 Port
+				input.col-md-8.text(type="text",ng-model="settings.SBS.port")
+		div.well
+			.row
+				label Proxy
+			.row
+				input.checkbox(type="checkbox",ng-model="settings.Proxy.enable")
+			.row(ng-if="settings.Proxy.enable")
+				label.col-md-4 Host
+				input.col-md-8.text(type="text",ng-model="settings.Proxy.host")
+			.row(ng-if="settings.Proxy.enable")
+				label.col-md-4 Port
+				input.col-md-8.text(type="text",ng-model="settings.Proxy.port")
+		div.well(ng-repeat="(key,value) in settings.Plane.quality")
+			.row
+				label{{key}}
+			.row
+				label.col-md-4 Timeout
+				input.col-md-8.text(type="text",ng-model="value.seen")
+			.row
+				label.col-md-4 Color
+				input.col-md-8.text(type="text",ng-model="value.color")
+			.row
+				p {{value.comment}}

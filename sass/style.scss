@@ -9,14 +9,27 @@ body,html {
 }
 
 img.logo {
-	width:40px;
-	height:40px;
+	width:35px;
+	height:35px;
+}
+
+.green {
+  color:green;
+}
+
+.red {
+  color:red;
 }
 
 .fixed-panel {
     min-height: 300px;
     max-height: 300px;
     overflow-y:auto;     
+}
+
+.plane-info {
+  font-family: $helvetica;
+  font-size: 7; 
 }
 
 #mainView  {
@@ -35,13 +48,14 @@ img.logo {
 }
 
 .navbar {
-    margin:1px;
-    z-index: 10;
-  @include linear-gradient(to bottom, white, gray);
+  margin: 1px;
+  min-height:35px;
+  z-index: 10;
+  color: white;
 }
 
 .navbar-nav > li > a {
-    color:black;
+    color:white;
     line-height: 5px;  
 }
 

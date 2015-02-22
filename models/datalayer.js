@@ -9,7 +9,8 @@ DataAccessLayer.prototype = {
 		this.db = new Sequelize('adsb_radar','radar','radar', {
 			host: 'localhost',
 			dialect: 'sqlite',
-			storage : 'database/adsb-radar.sqlite'
+			storage : 'database/adsb-radar.sqlite',
+			omitNull: true
 		});		
 		this.db.authenticate().complete(function(err) {
 			if (!!err)
@@ -22,19 +23,19 @@ DataAccessLayer.prototype = {
 	},
 	initialize : function() {
 		this.Flight = this.db.define('Flight', {
-			FlightId : { type : Sequelize.STRING, allownull : false, autoIncrement: true},			
+			FlightId : { type : Sequelize.INTEGER, autoIncrement: true, primaryKey: true},			
 			AircraftId  : { type : Sequelize.INTEGER, allownull : true},
-			FlightName : { type : Sequelize.STRING, allownull : true, primaryKey: true},						
+			FlightName : { type : Sequelize.STRING, allownull : true},						
 			Operator : { type : Sequelize.STRING, allownull : true},
 			LastSeen : { type : Sequelize.DATE, allownull : true, defaultValue: Sequelize.NOW }
 		}, {
 			tableName : 'Flight',
-			freezeTableName: true,
+			freezeTableName: false,
 			timestamps : false
 		});
 		this.Aircraft = this.db.define('Aircraft', {
-			AircraftId  : { type : Sequelize.INTEGER, allownull : false, autoIncrement: true},
-			ModeS : { type : Sequelize.STRING, allownull : false, primaryKey: true},			
+			AircraftId  : { type : Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+			ModeS : { type : Sequelize.STRING, allownull : false},			
 			Registration : { type : Sequelize.STRING, allownull : true},
 			CodeType : { type : Sequelize.STRING, allownull : true},
 			Manufacturer : { type : Sequelize.STRING, allownull : true},
@@ -44,56 +45,97 @@ DataAccessLayer.prototype = {
 			BaseTown  : { type : Sequelize.STRING, allownull : true}
 		}, {
 			tableName : 'Aircraft',
-			freezeTableName: true,
+			freezeTableName: false,
 			timestamps : false
 		});
 		this.Route = this.db.define('Route', {
-			RouteId : { type : Sequelize.INTEGER, allownull : false, autoIncrement: true, primaryKey: true},
-			AircraftId : { type : Sequelize.INTEGER, allownull : false},
+			RouteId : { type : Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
 			FlightId  : { type : Sequelize.INTEGER, allownull : false},
 			DepartureId  : { type : Sequelize.STRING, allownull : false},
 			ArrivalId  : { type : Sequelize.STRING, allownull : false}			
 		}, {
 			tableName : 'Route',
-			freezeTableName: true,
+			freezeTableName: false,
 			timestamps : false
 		});
 		this.Airport = this.db.define('Airport', {
-			AirportId : { type : Sequelize.INTEGER, allownull : false, autoIncrement: true},
-			Code : { type : Sequelize.STRING, allownull : false, primaryKey: true},
+			AirportId : { type : Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+			Code : { type : Sequelize.STRING, allownull : false},
 			Town : { type : Sequelize.STRING, allownull : false},
 			Country  : { type : Sequelize.STRING, allownull : true},			
 			AirportName  : { type : Sequelize.STRING, allownull : true},			
-			Latitude  : { type : Sequelize.FLOAT, allownull : true},			
 			Longitude : { type : Sequelize.FLOAT, allownull : true},
-			AirportShort : { type : Sequelize.STRING, allownull : true},
+			Latitude  : { type : Sequelize.FLOAT, allownull : true},			
 			AirportCode : { type : Sequelize.STRING, allownull : true} 
 		}, {
 			tableName : 'Airport',
-			freezeTableName: true,
+			freezeTableName: false,
 			timestamps : false
 		});
 		// Relation define Flight and aircraft
-		this.Flight.hasOne(this.Aircraft);
-		this.Aircraft.belongsTo(this.Flight);
-		// A Flight can have a route
-		this.Route.hasMany(this.Flight);
-		this.Flight.belongsTo(this.Flight);
+		this.Aircraft.hasMany(this.Flight, {foreignKey : 'AircraftId'});
 		// An aircraft can have many route
-		this.Route.hasMany(this.Aircraft);
-		this.Aircraft.belongsTo(this.Route);
+		this.Route.hasOne(this.Flight, {as: 'Flight', foreignKey : 'FlightId'});
 		// One route as one airport departure and one airport arrival
-		this.Route.hasOne(this.Airport);
-		this.Airport.belongsTo(this.Route);
+		this.Airport.hasOne(this.Route, {as: 'Departure', foreignKey : 'DepartureId'});
+		this.Airport.hasOne(this.Route, {as: 'Arrival', foreignKey : 'ArrivalId'});
+
 
 	},
-	getAircraft : function(res, start, limit) {
-		this.Aircraft.find({ include : [ this.Flight ]}).then(function(batches) { // Not supported on SQL Server 2008 , offset : start, limit : limit
-			res.json(batches);		
-		}).done();
+	getAircraft : function(adsb) {
+		return this.Aircraft.findAndCount({ where:{ ModeS : adsb}});
 	},
-	AddAircraft : function(data) {
-		this.Aircraft.create( { ModeS : data.ICAO, Registration : data.Registration});
+	searchAircraft : function(search) {
+		return this.Aircraft.findAndCount({ include : this.Flight, where:{ Registration : {like : search+'%'}}});
+	},
+	addAircraft : function(data) {
+		var db = this;
+		this.Aircraft.create( data ).complete(function(err, aircraft) {
+			if (err != null) {
+				console.log('Error aircraft:'+err);
+				return;
+			}
+			var options = {};			
+			data.AircraftId = aircraft.AircraftId;
+			options.defaults = data;
+			options.where = {FlightName : data.FlightName};
+			db.Flight.findOrCreate( options ).complete(function(err, flightData) {
+				if (err != null) {
+					console.log('Error flight :'+err);
+					return;
+				}
+				var flight = flightData[0].FlightId;
+				if (data.Airport != undefined) {
+					// Find if exist or create it
+					options.defaults = data.Airport.departure;
+					options.where = { AirportCode : data.Airport.departure.AirportCode};
+					db.Airport.findOrCreate( options).complete(function(err, airport) {
+							if (err != null) {
+								console.log('Error airport :'+err);
+								return;
+							}
+							var departure = airport[0].AirportId;
+							options.defaults = data.Airport.arrival;
+							options.where = { AirportCode : data.Airport.arrival.AirportCode};
+							db.Airport.findOrCreate( options).complete(function(err, airport) {
+								var arrival = airport[0].AirportId;
+								if (err != null) {
+									console.log('Error airport :'+err);
+									return;
+								}
+								options.defaults = {FlightId : flight, DepartureId : departure, ArrivalId : arrival};
+								options.where = {FlightId : flight};
+								db.Route.findOrCreate( options ).complete(function(err, airport) {
+									if (err != null) {
+										console.log('Error route :'+err);
+										return;
+									}
+								});
+						});
+					});
+				}				
+			});
+		});
 	}
 }
 

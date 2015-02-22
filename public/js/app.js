@@ -11,7 +11,7 @@ radarManager.config(['$routeProvider',
         templateUrl: 'partial/flight',
         controller: 'FlightCtrl'
       }).
-      when('/flight/history/:callsign', {
+      when('/flight/history', {
         templateUrl: 'partial/history',
         controller: 'HistoryCtrl'
       }).

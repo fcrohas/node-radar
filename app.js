@@ -11,7 +11,7 @@ var planefinder = require('./models/planefinder');
 // Database 
 var db = new datalayer();
 db.connect();
-console.log('Database initilized');
+console.log('Database initialized');
 // Express server
 var app = express();
 // Planes information list 
@@ -33,6 +33,46 @@ websocket.set('destroy upgrade',false);
 var flight = websocket.of('/socket/flight');
 
 console.log('server is running');
+
+//Function tools
+function saveAircraft(adsb,callsign) {
+	db.getAircraft(adsb).complete(function(err,data) { 
+		if (data.count == 0) {
+			var plane = new planefinder();		
+			plane.getPlaneInfo(adsb, callsign,Date.now()).once('data', function(data) {
+				if (data != '') {
+					var item = { ModeS : adsb, Registration : data.aircraft.Registration, 
+									CodeType : data.aircraft.code, ModelType : data.aircraft.Model, 
+									Manufacturer : data.plane.manufacturer, Engines : data.plane.engines, 
+									DesignatorType : data.plane.typeDesignator, BaseTown : data.aircraft.base,
+									FlightName :data.flight.pink_flight, Operator : data.aircraft.Operator};
+					if (data.flight.depapt!='') {
+						item.Airport = { 
+								departure :
+									{Code : data.flight.depapt, Town:data.route[data.flight.depapt][0],
+									Country : data.route[data.flight.depapt][1],
+									AirportName : data.route[data.flight.depapt][2],
+									Longitude : data.route[data.flight.depapt][3],
+									Latitude : data.route[data.flight.depapt][4],
+									AirportCode : data.route[data.flight.depapt][6]},
+								arrival : 
+									{Code : data.flight.arrapt, Town:data.route[data.flight.arrapt][0],
+									Country : data.route[data.flight.arrapt][1],
+									AirportName : data.route[data.flight.arrapt][2],
+									Longitude : data.route[data.flight.arrapt][3],
+									Latitude : data.route[data.flight.arrapt][4],
+									AirportCode : data.route[data.flight.arrapt][6]}
+									};
+					}
+					// Save data
+					db.addAircraft( item);
+				}	
+			});
+		}
+	});	
+}
+
+
 // views as directory for all template files
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade'); // use either jade or ejs       
@@ -45,9 +85,45 @@ app.get('/', function(req, res) {
 });
 
 app.get('/partial/:name', function(req, res) {
-  console.log('partial/'+req.params.name);
   res.render('partial/'+req.params.name);
 });
+
+app.get('/rest/settings/read/:section', function (req, res) {
+	res.json(eval('config.'+req.params.section));
+});
+
+
+app.get('/rest/aircraft/history/:adsb', function (req, res) {
+	if (req.params.adsb != '') {
+		for (var id in planes) {		
+			if (planes[id].ICAO == req.params.adsb) {
+				if (planes[id].trackhistory) {
+					res.json({trackhistory:planes[id].trackhistory});
+				} else {
+					res.json({trackhistory:undefined});
+				}
+			}
+		}
+	} else
+		res.json({trackhistory:undefined});
+});
+
+app.get('/rest/aircraft/info/:adsb', function (req, res) {
+	db.getAircraft(req.params.adsb, res).complete(function(err,data) {
+		if (data.count > 0) {
+			res.json(data.rows[0]);
+		} else {
+			res.json({ModeS:000000});
+		}
+	});
+});
+
+app.get('/rest/aircraft/search/:search', function (req, res) {
+	db.searchAircraft(req.params.search, res).complete(function(err,data) {
+		res.json(data);
+	});
+});
+
 
 app.get('/rest/flight/:adsb', function (req, res) {
 	var adsb = req.params.adsb;
@@ -58,10 +134,40 @@ app.get('/rest/flight/:adsb', function (req, res) {
 			break;
 		}
 	}
-	if (planes[planeId].callsign!= undefined) {
+	if ((planeId != -1 ) && (planes[planeId].callsign!= undefined)) {
 		var plane = new planefinder();		
 		plane.getPlaneInfo(adsb, planes[planeId].callsign,Date.now()).once('data', function(data) {
-			res.json(data);
+			if (data != '') {
+				var item = { ModeS : adsb, Registration : data.aircraft.Registration, 
+								CodeType : data.aircraft.code, ModelType : data.aircraft.Model, 
+								Manufacturer : data.plane.manufacturer, Engines : data.plane.engines, 
+								DesignatorType : data.plane.typeDesignator, BaseTown : data.aircraft.base,
+								FlightName :data.flight.pink_flight, Operator : data.aircraft.Operator};
+				if ((data.flight.depapt) && (data.route)) {
+					item.Airport = { 
+							departure :
+								{Code : data.flight.depapt, Town:data.route[data.flight.depapt][0],
+								Country : data.route[data.flight.depapt][1],
+								AirportName : data.route[data.flight.depapt][2],
+								Longitude : data.route[data.flight.depapt][3],
+								Latitude : data.route[data.flight.depapt][4],
+								AirportCode : data.route[data.flight.depapt][6],
+								DepartureTime: data.flight.deptim},
+							arrival : 
+								{Code : data.flight.arrapt, Town:data.route[data.flight.arrapt][0],
+								Country : data.route[data.flight.arrapt][1],
+								AirportName : data.route[data.flight.arrapt][2],
+								Longitude : data.route[data.flight.arrapt][3],
+								Latitude : data.route[data.flight.arrapt][4],
+								AirportCode : data.route[data.flight.arrapt][6],
+								ArrivalTime: data.flight.arrtim}
+								};
+				}
+				if (data.photos) {
+					item.Photos = data.photos;
+				}
+			}
+			res.json(item);
 			res.end();
 		});
 	}
@@ -139,50 +245,65 @@ baseStation.on('message', function(msg) {
 			  	var current = planes[id];
 			  	var currentmsg = {};
 			  	currentmsg.ICAO = msg.hex_ident;
-		  		if (((current.latitude != null) && (current.longitude!=null)) && ((current.longitude != msg.lon) || (current.latitude != msg.lat))) {
+			  	var changed = false;
+		  		if (((msg.lat != null) && (msg.lon!=null)) && ((current.longitude != msg.lon) || (current.latitude != msg.lat))) {
 					if (current.trackhistory == undefined) {
 						current.trackhistory = new Array();
 					}
-					current.trackhistory.push( { 'latitude':current.latitude,'longitude':current.longitude});
+					if (current.latitude!=undefined)
+						current.trackhistory.push( { 'latitude':current.latitude,'longitude':current.longitude});
 					current.latitude = msg.lat;
 					current.longitude = msg.lon;
 					currentmsg.latitude = current.latitude;
 					currentmsg.longitude = current.longitude;
+					changed = true;
 		  		}
 		  		if ((msg.track != null) && (current.track != msg.track)) {
 		  			current.track= msg.track;
 		  			currentmsg.track = current.track;	
+		  			changed = true;
 		  		}
 		  		if ((msg.callsign != null) && (current.callsign != msg.callsign)) {
 		  			current.callsign = msg.callsign;
 		  			currentmsg.callsign = current.callsign;
+		  			// save aircraft
+		  			saveAircraft(msg.hex_ident,current.callsign);
+		  			changed = true;
+
 		  		}
 		  		if ((msg.ground_speed != null) && (current.ground_speed != msg.ground_speed)) {
 		  			current.ground_speed = Math.floor(msg.ground_speed * 1.8520); // km/h from knots
 		  			currentmsg.ground_speed = current.ground_speed;
+		  			changed = true;
 		  		}
 		  		if ((msg.vertical_rate != null) && (current.vertical_rate != msg.vertical_rate)) {
 		  			current.vertical_rate = Math.floor(msg.vertical_rate * 1.8520); // m/s from knots
 		  			currentmsg.vertical_rate = current.vertical_rate;
+		  			changed = true;
 		  		}
 		  		if ((msg.squawk != null) && (current.squawk != msg.squawk)) {
 		  			current.squawk = msg.squawk;
 		  			currentmsg.squawk =current.squawk;
+		  			changed = true;
 		  		}
 		  		if ((msg.altitude != null) && (current.altitude != msg.altitude)) {
 		  			current.altitude = Math.floor(msg.altitude * 0.3048); // feet en m
 		  			currentmsg.altitude = current.altitude;
+		  			changed = true;
 		  		}
 		  		if ((msg.logged_time != null) && (current.logged_time != msg.logged_time)) {
 		  			current.live_time = msg.logged_timestamp();
 		  			currentmsg.live_time = current.live_time;
+		  			changed = true;
 		  		}
-		  		// Plane is back ?
-		  		if (current.out_of_bound) {
-					current.out_of_bound = false;		  			
-		  			flight.emit('add', current);
-		  		} else {
-		  			flight.emit('change',currentmsg);
+		  		if (changed) {
+			  		// Plane is back ?
+			  		if (current.out_of_bound) {
+						current.out_of_bound = false;		  			
+			  			flight.emit('add', current);
+			  		} else {
+			  			flight.emit('change',currentmsg);
+			  		}
 		  		}
 		  	}
 		}

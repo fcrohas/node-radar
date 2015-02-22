@@ -61,16 +61,20 @@ PlaneFinder.prototype._handleResponseData = function(chunk) {
 };
 
 PlaneFinder.prototype._handleResponseEnd = function() {
+	var body = '';
 	try {
-		this.emit('data', JSON.parse(this.body));
-		this.body = '';
+		body = JSON.parse(this.body);
+		this.emit('data', body);		
 	} catch(e) {
-		console.log(e.message+' with body '+this.body);
+		console.log('Parse error' + e.message);
+		this.emit('data', '');		
 	}
+	this.emit('data', body);
+	this.body = '';	
 };
 
 PlaneFinder.prototype._emitError = function(err) {
-	this.emit('data', {aircraft : { Registration : "unknown"}});
+	this.emit('data', '');
 	this.emit('error', err);
 };
 
