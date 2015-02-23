@@ -3,17 +3,17 @@
 		"port" : 5000
 	},
 	"SBS" : {
-		"host" : "192.168.1.22",
+		"host" : "127.0.0.1",
 		"port" : 30003
 	},
 	"Proxy" : {
-		"enable" : true,
+		"enable" : false,
 		"host" : "10.1.100.150",
 		"port" : 3128,
 		"BasicAuth" : {
-			"enable" : true,
-			"login" : "fcr",
-			"password" : "souris2lola*"
+			"enable" : false,
+			"login" : "test",
+			"password" : "test"
 		}
 	},
 	"Plane" : {

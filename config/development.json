@@ -12,8 +12,8 @@
 		"port" : 3128,
 		"BasicAuth" : {
 			"enable" : true,
-			"login" : "fcr",
-			"password" : "souris2lola*"
+			"login" : "test",
+			"password" : "test"
 		}
 	},
 	"Plane" : {

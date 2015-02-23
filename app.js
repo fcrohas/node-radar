@@ -39,6 +39,7 @@ function saveAircraft(adsb,callsign) {
 	db.getAircraft(adsb).complete(function(err,data) { 
 		if (data.count == 0) {
 			var plane = new planefinder();		
+			console.log('save aircraft '+adsb+' callsign='+callsign);
 			plane.getPlaneInfo(adsb, callsign,Date.now()).once('data', function(data) {
 				if (data != '') {
 					var item = { ModeS : adsb, Registration : data.aircraft.Registration, 
@@ -46,25 +47,30 @@ function saveAircraft(adsb,callsign) {
 									Manufacturer : data.plane.manufacturer, Engines : data.plane.engines, 
 									DesignatorType : data.plane.typeDesignator, BaseTown : data.aircraft.base,
 									FlightName :data.flight.pink_flight, Operator : data.aircraft.Operator};
-					if (data.flight.depapt!='') {
-						item.Airport = { 
-								departure :
-									{Code : data.flight.depapt, Town:data.route[data.flight.depapt][0],
-									Country : data.route[data.flight.depapt][1],
-									AirportName : data.route[data.flight.depapt][2],
-									Longitude : data.route[data.flight.depapt][3],
-									Latitude : data.route[data.flight.depapt][4],
-									AirportCode : data.route[data.flight.depapt][6]},
-								arrival : 
-									{Code : data.flight.arrapt, Town:data.route[data.flight.arrapt][0],
-									Country : data.route[data.flight.arrapt][1],
-									AirportName : data.route[data.flight.arrapt][2],
-									Longitude : data.route[data.flight.arrapt][3],
-									Latitude : data.route[data.flight.arrapt][4],
-									AirportCode : data.route[data.flight.arrapt][6]}
-									};
+					try {				
+						if (data.flight.depapt!='') {
+							item.Airport = { 
+									departure :
+										{Code : data.flight.depapt, Town:data.route[data.flight.depapt][0],
+										Country : data.route[data.flight.depapt][1],
+										AirportName : data.route[data.flight.depapt][2],
+										Longitude : data.route[data.flight.depapt][3],
+										Latitude : data.route[data.flight.depapt][4],
+										AirportCode : data.route[data.flight.depapt][6]},
+									arrival : 
+										{Code : data.flight.arrapt, Town:data.route[data.flight.arrapt][0],
+										Country : data.route[data.flight.arrapt][1],
+										AirportName : data.route[data.flight.arrapt][2],
+										Longitude : data.route[data.flight.arrapt][3],
+										Latitude : data.route[data.flight.arrapt][4],
+										AirportCode : data.route[data.flight.arrapt][6]}
+										};
+						}
+					} catch(e) {
+						console.log(e.message);
 					}
 					// Save data
+					console.log('save aircraft '+adsb+' saved !!');
 					db.addAircraft( item);
 				}	
 			});
