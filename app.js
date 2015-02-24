@@ -6,6 +6,7 @@ var path = require('path');
 var io = require('socket.io');
 var sbs1 = require('sbs1');
 var datalayer = require('./models/datalayer');
+var Dump1090 = require('./models/dump1090');
 var planefinder = require('./models/planefinder');
 
 // Database 
@@ -21,7 +22,18 @@ var clients = new Array();
 
 // Connect to ads-b server
 var options = { host: config.SBS.host, port:config.SBS.port};
-var baseStation = sbs1.createClient(options);
+var baseStation = {};
+var baseStationPoll = {};
+if (true) {
+	baseStation = sbs1.createClient(options);
+} else {
+	baseStation = new Dump1090();
+	// Flight alert for out of bound
+	var baseStationPoll = setInterval( function() {
+		baseStation.getPlanes();
+	},1000);
+
+}
 
 // Set server port
 var server = app.listen(config.HttpServer.port);
@@ -256,7 +268,7 @@ baseStation.on('message', function(msg) {
 					if (current.trackhistory == undefined) {
 						current.trackhistory = new Array();
 					}
-					if (current.latitude!=undefined)
+					if (current.latitude!=null)
 						current.trackhistory.push( { 'latitude':current.latitude,'longitude':current.longitude});
 					current.latitude = msg.lat;
 					current.longitude = msg.lon;
@@ -323,7 +335,7 @@ baseStation.on('message', function(msg) {
 			var sendmsg = {'ICAO':msg.hex_ident,'latitude' : msg.lat, 'longitude' : msg.lon, 
 											'track': 0, 'callsign' : 'unknown', 'ground_speed':0, 
 											'altitude' : 0, 'vertical_rate':0, 'squawk' : 0, 'out_of_bound' : false, 
-											'live_time': msg.logged_timestamp(), 'delta_time': delta_time,'quality':100};
+											'live_time': msg.logged_timestamp(), 'delta_time': delta_time,'quality':100, 'trackhistory' : []};
 			planes.push(sendmsg);
 			flight.emit('add',sendmsg);			
 		}			

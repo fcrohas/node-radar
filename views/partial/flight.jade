@@ -9,7 +9,7 @@
 				th.col-md-3 Speed (km/h)
 				th.col-md-3 Altitude (m)
 			.tbody
-				tr(ng-repeat='plane in planes track by plane.ICAO', ng-click='Selected();',ng-class="{'alert-info':plane.show,'':!plane.show}")
+				tr.animate-repeat(ng-repeat='(key,plane) in planes track by key', ng-click='Selected();',ng-class="{'alert-info':plane.show,'':!plane.show}")
 					td.col-md-3 
 						img(ng-src="{{plane.silhouette}}")
 					td.col-md-3 {{plane.callsign}}

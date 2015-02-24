@@ -9,18 +9,38 @@ img.logo {
   width: 35px;
   height: 35px; }
 
+.animate-repeat {
+  line-height: 40px;
+  list-style: none;
+  box-sizing: border-box; }
+
+.animate-repeat.ng-move, .animate-repeat.ng-enter, .animate-repeat.ng-leave {
+  -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  transition: all 0.5s linear; }
+
+.animate-repeat.ng-leave.ng-leave-active, .animate-repeat.ng-move, .animate-repeat.ng-enter {
+  opacity: 0;
+  max-height: 0; }
+
+.animate-repeat.ng-leave, .animate-repeat.ng-move.ng-move-active, .animate-repeat.ng-enter.ng-enter-active {
+  opacity: 1;
+  max-height: 40px; }
+
 .green {
-  color:green;
-}
+  color: green; }
 
 .red {
-  color:red;
-}
+  color: red; }
 
 .fixed-panel {
   min-height: 300px;
   max-height: 300px;
   overflow-y: auto; }
+
+.plane-info {
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 7; }
 
 #mainView {
   padding: 0px; }
@@ -36,13 +56,12 @@ img.logo {
 
 .navbar {
   margin: 1px;
-  min-height:35px;
+  min-height: 35px;
   z-index: 10;
-  color: white;
-  }
+  color: white; }
 
 .navbar-nav > li > a {
-  color : white;
+  color: white;
   line-height: 5px; }
 
 .footer {
@@ -135,7 +154,5 @@ img.logo {
 @media (min-width: 768px) {
   #sidebar-wrapper {
     width: 250px; }
-
   #wrapper.toggled #sidebar-wrapper {
-    overflow: hidden; }
- }
+    overflow: hidden; } }

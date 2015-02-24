@@ -1,7 +1,7 @@
 .panel.panel-primary
 	.panel-heading(ng-click="isFlightCollapsed = !isFlightCollapsed")
 		h3.panel-title History Search
-	.panel-body(collapse="isFlightCollapsed")
+	.panel-body.fixed-panel(collapse="isFlightCollapsed")
 		.input-group
 			span.input-group-addon.glyphicon.glyphicon-search
 			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="searchValue",ng-keyup="$event.keyCode == 13 && Search(searchValue)")
