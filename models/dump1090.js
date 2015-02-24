@@ -65,7 +65,7 @@ Dump1090.prototype._handleResponseEnd = function() {
 	}
 	for (var id in body) {
 		this.emit('message', {message_type : "MSG",hex_ident : body[id].hex, squawk : body[id].squawk, 
-							callsign: body[id].flight, lat: body[id].lat, lon:body[id].lon,
+							callsign: body[id].flight, lat: ((body[id].lat=="")? null : body[id].lat), lon: ((body[id].lon=="")?null : body[id].lon),
 							altitude:body[id].altitude,	vertical_rate:body[id].vert_rate, 
 							track : body[id].track,	ground_speed:body[id].speed, logged_time : Date.now(),
 							logged_timestamp: function() { return Date.now();}

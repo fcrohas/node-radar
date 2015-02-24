@@ -74,6 +74,7 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
                 }
               });
             } else {
+              $scope.$emit('planeSelected', '000000'); 
               msg.trackhistory = [];              
             }
           };
