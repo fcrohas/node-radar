@@ -1,0 +1,21 @@
+.panel.panel-primary(ng-style="style(65)",resize)
+	.panel-heading(ng-click="isInfoCollapsed = !isInfoCollapsed")
+		h3.panel-title Flight information
+	.panel-body(collapse="isInfoCollapsed")
+		div.well
+			p(ng-cloak)
+				text Registration :	{{planeinfo.Registration}}
+			p(ng-cloak) 
+				text Plane type : {{planeinfo.Manufacturer}} {{planeinfo.ModelType}} ( {{planeinfo.Engines}} - {{planeinfo.DesignatorType}})
+			p(ng-cloak)
+				text Operator :	{{planeinfo.Operator}}
+			p(ng-if="planeinfo.Airport",ng-cloak)
+				text Flight id {{planeinfo.FlightName}} 
+				text from {{planeinfo.Airport.departure.AirportName}} ({{planeinfo.Airport.departure.DepartureTime}}) 
+				text to {{planeinfo.Airport.arrival.AirportName}} ({{planeinfo.Airport.arrival.ArrivalTime}}) 
+		carousel(interval="5000")
+			slide(ng-repeat="photo in planeinfo.Photos")
+				img(ng-src="{{photo.thumbnailPath}}", style="margin:auto;")
+				.carousel-caption
+					h4 {{planeinfo.ModelType}}
+					p {{photo.author}}

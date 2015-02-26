@@ -1,4 +1,5 @@
 // set variables for environment
+var fs = require('fs');
 var config = require('config-node')();
 var express = require('express');
 var events = require('events');
@@ -110,6 +111,15 @@ app.get('/rest/settings/read/:section', function (req, res) {
 	res.json(eval('config.'+req.params.section));
 });
 
+app.post('/rest/settings/write/:section', function (req,res) {
+	console.log(req.params);
+	/*fs.writeFile('config/current.json', config, function (err) {
+	  if (err) return console.log(err);
+	  console.log('Hello World > helloworld.txt');
+	});*/
+	// reload config
+	config = require('config-node')();
+});
 
 app.get('/rest/aircraft/history/:adsb', function (req, res) {
 	if (req.params.adsb != '') {

@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"accor",
+				"accordion-group"
+			],
+			[
+				"carou",
+				"carousel-caption"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"btn",
+				"btn-info"
+			],
+			[
+				"ac",
+				"accordion-group"
+			],
+			[
+				"panel",
+				"panel-info"
+			],
+			[
+				"btn-",
+				"btn-default"
+			],
+			[
 				"input-group",
 				"input-group-addon"
 			],
@@ -131,39 +159,104 @@
 			"file": "app.js",
 			"settings":
 			{
-				"buffer_size": 2702,
+				"buffer_size": 12093,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/js/controllers.js",
+			"file": "public/js/controllers/MainCtrl.js",
 			"settings":
 			{
-				"buffer_size": 7902,
+				"buffer_size": 10256,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/js/services/settings.js",
+			"settings":
+			{
+				"buffer_size": 474,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/js/app.js",
+			"contents": "angular.module('socket.flight', ['$location','$http']).\nfactory('flights', function($location,$http) {\n	var connected = false;\n	var socket = {};\n	var client_count = 0;\n	var watches = {};\n	var planes = [];\n	return {\n				init :function() {\n	    			socket = io.connect($location.protocol()+'://'+$location.host()+':'+$location.port()+'/socket/flight');\n	    			socket.on('connect', function(socket){\n	        			connected = true;\n	        		});\n			        socket.on('disconnect', function(){\n			          connected = false;\n			        });\n			        socket.on('client_count', function(count) {\n			          client_count = count;\n			        });\n			        socket.on('add', function(msg) {\n			          msg.icon = {\n			            //path: 'm 3.5461112,0.05367307 -76.2413922,0 L 3.5461112,-414.178 72.69528,0.05367307 z',\n			            path: 'm -1.3526448,-503.44497 c -12.9560102,0 -19.1740302,42.80954 -21.3773502,62.88076 -0.45814,6.08867 -0.97291,11.61987 -0.97291,17.30086 l 0,60.50256 c -0.13431,3.44701 -0.73266,4.40381 -2.7242,6.13875 l -46.71457,40.69575 c -3.18764,2.20418 -7.33515,2.12237 -7.01798,-5.45346 l 0,-5.40876 c 0,-2.98059 -2.38348,-5.40877 -5.36407,-5.40877 l -6.70508,0 c -2.98058,0 -5.40876,2.42818 -5.40876,5.40877 l 0,31.72032 c 0.0157,0.9701 -0.15769,1.05125 -0.84818,1.66519 l -44.299345,39.38693 c -4.53651,3.15795 -6.19859,0.0596 -6.43688,-5.49816 l 0,-9.87881 c 0,-2.98059 -2.38347,-5.40877 -5.36406,-5.40877 l -6.70508,0 c -2.98059,0 -5.40876,2.42818 -5.40876,5.40877 l 0,32.85504 c -0.003,0.41191 -0.17177,0.45043 -0.35881,0.66367 l -47.51545,40.99372 c -3.02542,3.87152 -4.81843,5.63897 -4.69355,12.20324 l -0.16908,18.42478 c -0.38261,2.50774 1.95765,3.50595 3.60106,2.71745 0,0 81.13485,-50.09326 112.25296,-63.82789 31.118125,-13.73463 72.593655,-23.15487 72.593655,-23.15487 3.19835,-0.77396 6.05794,-0.86459 7.28618,2.54793 l 0,133.07345 0,5.54286 c 0.0822,16.544666 6.33244,26.555332 0,32.497282 l -51.72296,50.26863 c -3.14093,3.34871 -4.95346,6.21196 -5.32091,11.62338 l 0.0775,5.7259399 c 0.17422,2.67887 1.18044,4.05562 3.63446,3.73986 l 66.1568,-16.2660699 c 1.7351202,-0.54805 3.1135602,-0.36124 4.3312402,1.32162 L 0.20984518,-3.5590481 8.5123854,-18.828058 c 1.147,-1.63534 3.3026396,-2.41373 4.9264696,-1.83124 20.40655,4.83258 40.8131,9.66517 61.21964,14.4977499 2.62547,0.31568 4.75398,0.26075 5.09024,-3.26192 l 0,-8.7426799 c -1.3742,-6.03068 -4.84032,-8.84032 -8.47592,-12.46919 l -51.92915,-44.22104 c -4.85769,-4.92351 -0.0429,-15.32292 1.60922,-32.005572 l 0,-5.49817 0,-131.50893 0.0446,-0.0446 0.0446,0 0,-0.0446 0.0446,0 0,-0.0446 0.0446,0 0,-0.0446 0.0446,0 c 0.0402,-0.19235 0.0865,-0.39686 0.13403,-0.58111 0.0473,-0.18425 0.1233,-0.36115 0.1788,-0.53641 0.0555,-0.17527 0.11458,-0.32632 0.1788,-0.4917 0.0642,-0.16539 0.10499,-0.33709 0.1788,-0.49171 0.0738,-0.15461 0.13918,-0.30406 0.22351,-0.447 0.0842,-0.1429 0.17275,-0.27191 0.2682,-0.40231 0.0954,-0.13045 0.20549,-0.24064 0.3129,-0.3576 0.10743,-0.11701 0.23745,-0.25499 0.35761,-0.35761 0.12015,-0.1027 0.22391,-0.18079 0.3576,-0.2682 0.13374,-0.0874 0.29902,-0.19691 0.44701,-0.2682 0.148,-0.0712 0.28391,-0.12459 0.447,-0.1788 0.16308,-0.0544 0.35743,-0.0978 0.53641,-0.13403 0.17897,-0.0363 0.34078,-0.0718 0.5364,-0.0894 0.19564,-0.0176 0.41274,-0.003 0.62581,0 0.21308,0.001 0.43921,0.022 0.67051,0.0446 0.2313,0.0226 0.4649,0.0453 0.71521,0.0894 0,0 37.6559,8.16667 69.42033,21.59007 31.764435,13.4234 116.465785,64.12202 116.465785,64.12202 1.94021,0.39708 3.57657,0.10198 3.82331,-1.80048 l 0,-17.12931 c 0.11215,-4.595 -2.60719,-8.67873 -4.60415,-10.50463 l -46.49641,-41.13968 c -1.60175,-1.94784 -1.95895,-2.32195 -2.00365,-3.47335 l 0,-32.54006 c 0,-2.98059 -2.42818,-5.40877 -5.40877,-5.40877 l -6.70507,0 c -2.98059,0 -5.36407,2.42818 -5.36407,5.40877 l 0,9.87881 c 0.52057,5.87725 -1.04367,8.05372 -4.69355,5.27466 l -45.600265,-39.16053 c -1.02016,-0.87224 -1.25859,-0.91239 -1.24588,-1.76292 l 0,-31.62549 c 0,-2.98059 -2.42817,-5.40877 -5.40876,-5.40877 l -6.70508,0 c -2.98059,0 -5.36406,2.42818 -5.36406,5.40877 l 0,5.40876 c 0.75793,7.53296 -4.18952,9.04252 -7.50969,5.40876 l -46.40138,-40.74939 c -2.16309,-1.95235 -2.36689,-3.14928 -2.59039,-5.87517 l 0,-60.66789 c -0.1463,-5.99709 -0.46962,-12.72278 -1.12829,-18.20055 -2.70364,-21.24879 -10.9380296,-67.1006 -21.1772698,-61.98098 z',\n			            fillColor: '#1C1C1C',\n			            fillOpacity: 1.0,\n			            scale: 0.05,\n			            strokeColor: '#1C1C1C',\n			            rotation: msg.track,\n			            strokeWeight: 1\n			          };\n			          var color = (msg.altitude < 3000) ? '#00FF00' : (msg.altitude < 6000) ? '#01A9DB' : '#A901DB';\n			          msg.lineColor = { 'color':color, 'opacity':1.0,'weight':3 };\n			          msg.show = false;\n			          msg.silhouette = '/img/SilhouettesLogos/FOLLOW%20ME.png';\n			          msg.onClick = function(data) {\n			            msg.show = !msg.show;\n			            var adsb = msg.ICAO;\n			            if (msg.show) {\n			              $scope.$emit('planeSelected', adsb);              \n			              $http.get('/rest/aircraft/history/'+adsb).success(function(data) {\n			                for(var id in $scope.planes) {\n			                  var plane = $scope.planes[id];                \n			                  if (plane.ICAO == adsb) {\n			                    plane.trackhistory = data.trackhistory;\n			                  }\n			                }\n			              });\n			            } else {\n			              $scope.$emit('planeSelected', '000000'); \n			              msg.trackhistory = [];              \n			            }\n			          };\n			          // Update silhouette\n			          $http.get('/rest/aircraft/info/'+msg.ICAO).success(function(data) {\n			              for(var id in $scope.planes) {\n			                var plane = $scope.planes[id];                \n			                if (plane.ICAO == data.ModeS) {\n			                  plane.silhouette = '/img/SilhouettesLogos/'+data.DesignatorType+'.png';\n			                }\n			              }\n			          });\n			          $scope.planes.push( msg );     \n			        });        \n		    	},\n		    	isConnected : function() {\n		    		return connected;\n		    	}\n		        socket.on('quality', function(msg) {\n		          for(var id in $scope.planes) {\n		            var plane = $scope.planes[id];  \n		            if (plane.ICAO == msg.ICAO) {\n		              if (msg.quality != plane.quality) {\n		                if (msg.quality<30)\n		                  plane.icon.fillColor = '#DF0101';\n		                else if (msg.quality<60)\n		                  plane.icon.fillColor = '#D7DF01';\n		                else\n		                  plane.icon.fillColor = '#1C1C1C';\n		                plane.quality = msg.quality;\n		              }\n		            }\n		          }\n		        });\n		        socket.on('delete', function(msg) {\n		          for(var id in $scope.planes) {\n		            var plane = $scope.planes[id];   \n		            if (plane.ICAO == msg.ICAO) {\n		                // before delete\n		                //plane.trackhistory = [];\n		                $scope.planes.splice(id,1);\n		                //console.log('remove ICAO='+msg.ICAO+' length='+$scope.planes.length); \n		                break;    \n		            }\n		          }\n		        });\n		        socket.on('change', function(msg) {\n		          var found = false\n		          for(var id in $scope.planes) {\n		            var plane = $scope.planes[id];                \n		            if (plane.ICAO == msg.ICAO) {\n		              // not of bound as we receive a signal\n		              if ((!isUndefinedOrNull(msg.latitude)) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {\n		                // polyline color from altitude\n		                //var color = (plane.altitude < 3000) ? '#00FF00' : (plane.altitude < 6000) ? '#01A9DB' : '#A901DB';\n		                if ((plane.show) && (!isUndefinedOrNull(plane.trackhistory))) {\n		                  plane.trackhistory.push( { 'latitude':plane.latitude,'longitude':plane.longitude}); \n		                }\n		               // plane.trackhistory.push( { 'latitude':msg.latitude,'longitude':msg.longitude});\n		                //plane.lineColor = { 'color':color, 'opacity':1.0,'weight':2 };\n		                plane.latitude = msg.latitude;\n		                plane.longitude = msg.longitude;\n		              }\n		              if ((!isUndefinedOrNull(msg.altitude)) && (msg.altitude != plane.altitude))\n		                plane.altitude = msg.altitude;\n		              if ((!isUndefinedOrNull(msg.ground_speed)) && (msg.ground_speed != plane.ground_speed))\n		                plane.ground_speed = msg.ground_speed;\n		              if ((!isUndefinedOrNull(msg.vertical_rate)) && (msg.vertical_rate != plane.vertical_rate))\n		                plane.vertical_rate = msg.vertical_rate;\n		              if ((!isUndefinedOrNull(msg.squawk)) && (msg.squawk != plane.squawk))\n		                plane.squawk = msg.squawk;\n		              if ((!isUndefinedOrNull(msg.callsign)) && (msg.callsign != plane.callsign))\n		                plane.callsign = msg.callsign;\n		              // Update Icon\n		              if ((!isUndefinedOrNull(msg.track)) && (msg.track != plane.icon.rotation)) {\n		                plane.track = msg.track;\n		                plane.icon.rotation = msg.track;\n		              }\n		              //console.log('update ICAO='+msg.ICAO+'length='+$scope.planes.length);                 \n		              found = true;\n		              break;\n		            }\n		          }\n		        });\n		    });	\n});",
 			"settings":
 			{
-				"buffer_size": 1194,
+				"buffer_size": 9533,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "views/includes/head.jade",
+			"file": "models/dump1090.js",
 			"settings":
 			{
-				"buffer_size": 1165,
+				"buffer_size": 2326,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "sass/style.scss",
+			"file": "public/js/controllers/MenuCtrl.js",
 			"settings":
 			{
-				"buffer_size": 2168,
+				"buffer_size": 1570,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/D/usr/fcr/node-radar/models/datalayer.js",
+			"settings":
+			{
+				"buffer_size": 5271,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 1191,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/partial/flight.jade",
+			"settings":
+			{
+				"buffer_size": 1849,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/partial/history.jade",
+			"settings":
+			{
+				"buffer_size": 835,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/partial/settings.jade",
+			"settings":
+			{
+				"buffer_size": 1087,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "models/planefinder.js",
+			"settings":
+			{
+				"buffer_size": 2145,
+				"line_ending": "Windows",
+				"name": "var PlaneFinder = function() {"
+			}
+		},
+		{
+			"file": "views/includes/sidebar.jade",
+			"settings":
+			{
+				"buffer_size": 766,
 				"line_ending": "Windows"
 			}
 		},
@@ -176,34 +269,99 @@
 			}
 		},
 		{
-			"file": "views/includes/sidebar.jade",
+			"file": "views/includes/navbar.jade",
 			"settings":
 			{
-				"buffer_size": 766,
+				"buffer_size": 981,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "views/includes/navbar.jade",
+			"file": "public/js/app.js",
 			"settings":
 			{
-				"buffer_size": 716,
+				"buffer_size": 1185,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/stylesheets/style.css",
+			"settings":
+			{
+				"buffer_size": 3197,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "views/index.jade",
 			"settings":
 			{
-				"buffer_size": 879,
+				"buffer_size": 745,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/ProductionManager.sln",
+			"settings":
+			{
+				"buffer_size": 99287,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/img/airplane-test.svg",
+			"settings":
+			{
+				"buffer_size": 3526,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/js/controllers/MapCtrl.js",
+			"settings":
+			{
+				"buffer_size": 1260,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/includes/head.jade",
+			"settings":
+			{
+				"buffer_size": 1365,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "angular.module('demo', ['google-maps'])\n\n.factory('demo', function($timeout, $q) {\n  \n})\n\n.controller('MainCtrl', function($scope, demo) {\n  \n  $scope.activeTab = 1;\n  \n  $scope.map = {\n      zoom: 14,\n      center: {\n        latitude: 45,\n        longitude: -73\n      },\n      options: {\n        streetViewControl: false,\n        overviewMapControl: false,\n        panControl: false,\n        zoomControl: false,\n        mapTypeControl: false,\n        disableDoubleClickZoom: true,\n      }\n  };\n  \n    $scope.triangle = {\n      path: 'M 0 0 L -35 -100 L 35 -100 z',\n      fillColor: '#3884ff',\n      fillOpacity: 0.7,\n      scale: 1,\n      strokeColor: '#356cde',\n      rotation: 90,\n      strokeWeight: 1\n    };\n    \n    $scope.customSVGmarkerCircle = {\n      //path: 'M40,20  A30,30 0 0,0 60,60',\n      path: 'M 0,0  A10,10 0 1,0 1,1',\n      fillColor: 'green',\n      fillOpacity: 0.7,\n      anchor: new google.maps.Point(-7, 7)\n    };\n    \n    $scope.standardSymbolCircle = {\n      path: google.maps.SymbolPath.CIRCLE,\n      fillColor: 'red',\n       fillOpacity: 0.7,\n      strokeWeight: 1,\n      scale: 5\n    };\n  \n});\n\n/**!\n * The MIT License\n * \n * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org\n * \n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n * \n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n * \n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n * \n * angular-google-maps\n * https://github.com/nlaplante/angular-google-maps\n * \n * @author Nicolas Laplante https://plus.google.com/108189012221374960701\n */\n\nangular.module('google-maps', []);/**!\n * The MIT License\n *\n * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n *\n * angular-google-maps\n * https://github.com/nlaplante/angular-google-maps\n *\n * @author Nicolas Laplante https://plus.google.com/108189012221374960701\n */\n\nangular.module('google-maps')\n    .directive('googleMap', ['$log', '$timeout', function ($log, $timeout) {\n\n        \"use strict\";\n\n        var DEFAULTS = {\n          mapTypeId: google.maps.MapTypeId.ROADMAP\n        };\n\n        /*\n         * Utility functions\n         */\n\n        /**\n         * Check if a value is true\n         */\n        function isTrue(val) {\n            return angular.isDefined(val) &&\n                val !== null &&\n                val === true ||\n                val === '1' ||\n                val === 'y' ||\n                val === 'true';\n        }\n\n        return {\n            /**\n             *\n             */\n            restrict: 'ECMA',\n\n            /**\n             *\n             */\n            transclude: true,\n\n            /**\n             *\n             */\n            replace: false,\n\n            /**\n             *\n             */\n            //priority: 100,\n\n            /**\n             *\n             */\n            template: '<div class=\"angular-google-map\"><div class=\"angular-google-map-container\"></div><div ng-transclude style=\"display: none\"></div></div>',\n\n            /**\n             *\n             */\n            scope: {\n                center: '=center',          // required\n                zoom: '=zoom',              // required\n                dragging: '=dragging',      // optional\n                markers: '=markers',        // optional\n                refresh: '&refresh',        // optional\n                windows: '=windows',        // optional\n                events: '=events'           // optional\n            },\n\n            /**\n             *\n             */\n            controller: ['$scope', function ($scope) {\n                /**\n                 * @return the map instance\n                 */\n                this.getMap = function () {\n                    return $scope.map;\n                };\n            }],\n\n            /**\n             *\n             * @param scope\n             * @param element\n             * @param attrs\n             */\n            link: function (scope, element, attrs) {\n\n                // Center property must be specified and provide lat &\n                // lng properties\n                if (!angular.isDefined(scope.center) ||\n                    (!angular.isDefined(scope.center.latitude) || !angular.isDefined(scope.center.longitude))) {\n\n                    $log.error(\"angular-google-maps: could not find a valid center property\");\n                    return;\n                }\n\n                if (!angular.isDefined(scope.zoom)) {\n                    $log.error(\"angular-google-maps: map zoom property not set\");\n                    return;\n                }\n\n                var el = angular.element(element);\n\n                el.addClass(\"angular-google-map\");\n\n                // Parse options\n                var opts = {options: {}};\n                if (attrs.options) {\n                    opts.options = angular.fromJson(attrs.options);\n                }\n\n                if (attrs.type) {\n                    var type = attrs.type.toUpperCase();\n\n                    if (google.maps.MapTypeId.hasOwnProperty(type)) {\n                        opts.mapTypeId = google.maps.MapTypeId[attrs.type.toUpperCase()];\n                    }\n                    else {\n                        $log.error('angular-google-maps: invalid map type \"' + attrs.type + '\"');\n                    }\n                }\n\n                // Create the map\n                var _m = new google.maps.Map(el.find('div')[1], angular.extend({}, DEFAULTS, opts, {\n                    center: new google.maps.LatLng(scope.center.latitude, scope.center.longitude),\n                    draggable: isTrue(attrs.draggable),\n                    zoom: scope.zoom\n                }));\n\n                var dragging = false;\n\n                google.maps.event.addListener(_m, 'dragstart', function () {\n                    dragging = true;\n                    $timeout(function () {\n                        scope.$apply(function (s) {\n                            s.dragging = dragging;\n                        });\n                    });\n                });\n\n                google.maps.event.addListener(_m, 'dragend', function () {\n                    dragging = false;\n                    $timeout(function () {\n                        scope.$apply(function (s) {\n                            s.dragging = dragging;\n                        });\n                    });\n                });\n\n                google.maps.event.addListener(_m, 'drag', function () {\n                    var c = _m.center;\n\n                    $timeout(function () {\n                        scope.$apply(function (s) {\n                            s.center.latitude = c.lat();\n                            s.center.longitude = c.lng();\n                        });\n                    });\n                });\n\n                google.maps.event.addListener(_m, 'zoom_changed', function () {\n                    if (scope.zoom != _m.zoom) {\n\n                        $timeout(function () {\n                            scope.$apply(function (s) {\n                                s.zoom = _m.zoom;\n                            });\n                        });\n                    }\n                });\n\n                google.maps.event.addListener(_m, 'center_changed', function () {\n                    var c = _m.center;\n\n                    $timeout(function () {\n                        scope.$apply(function (s) {\n                            if (!_m.dragging) {\n                                s.center.latitude = c.lat();\n                                s.center.longitude = c.lng();\n                            }\n                        });\n                    });\n                });\n\n                if (angular.isDefined(scope.events) &&\n                    scope.events !== null &&\n                    angular.isObject(scope.events)) {\n\n                    var getEventHandler = function (eventName) {\n                        return function () {\n                            scope.events[eventName].apply(scope, [_m, eventName, arguments ]);\n                        };\n                    };\n\n                    for (var eventName in scope.events) {\n\n                        if (scope.events.hasOwnProperty(eventName) && angular.isFunction(scope.events[eventName])) {\n                            google.maps.event.addListener(_m, eventName, getEventHandler(eventName));\n                        }\n                    }\n                }\n\n                // Put the map into the scope\n                scope.map = _m;\n\n                google.maps.event.trigger(_m, \"resize\");\n\n                // Check if we need to refresh the map\n                if (!angular.isUndefined(scope.refresh())) {\n                    scope.$watch(\"refresh()\", function (newValue, oldValue) {\n                        if (newValue && !oldValue) {\n                            //  _m.draw();\n                            var coords = new google.maps.LatLng(newValue.latitude, newValue.longitude);\n\n                            if (isTrue(attrs.pan)) {\n                                _m.panTo(coords);\n                            }\n                            else {\n                                _m.setCenter(coords);\n                            }\n\n\n                        }\n                    });\n                }\n\n                // Update map when center coordinates change\n                scope.$watch('center', function (newValue, oldValue) {\n                    if (newValue === oldValue) {\n                        return;\n                    }\n\n                    if (!dragging) {\n\n                        var coords = new google.maps.LatLng(newValue.latitude, newValue.longitude);\n\n                        if (isTrue(attrs.pan)) {\n                            _m.panTo(coords);\n                        }\n                        else {\n                            _m.setCenter(coords);\n                        }\n\n                        //_m.draw();\n                    }\n                }, true);\n\n                scope.$watch('zoom', function (newValue, oldValue) {\n                    if (newValue === oldValue) {\n                        return;\n                    }\n\n                    _m.setZoom(newValue);\n\n                    //_m.draw();\n                });\n            }\n        };\n    }]);\n;/**!\n * The MIT License\n *\n * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n *\n * angular-google-maps\n * https://github.com/nlaplante/angular-google-maps\n *\n * @author Nicolas Laplante https://plus.google.com/108189012221374960701\n */\n\n/**\n * Map marker directive\n *\n * This directive is used to create a marker on an existing map.\n * This directive creates a new scope.\n *\n * {attribute coords required}  object containing latitude and longitude properties\n * {attribute icon optional}  string url to image used for marker icon\n * {attribute animate optional} if set to false, the marker won't be animated (on by default)\n */\n\nangular.module('google-maps')\n    .directive('marker', ['$log', '$timeout', function ($log, $timeout) {\n\n        \"use strict\";\n\n        var DEFAULTS = {\n            // Animation is enabled by default\n            animation: google.maps.Animation.DROP\n        };\n\n        /**\n         * Check if a value is literally false\n         * @param value the value to test\n         * @returns {boolean} true if value is literally false, false otherwise\n         */\n        function isFalse(value) {\n            return ['false', 'FALSE', 0, 'n', 'N', 'no', 'NO'].indexOf(value ) !== -1;\n        }\n        \n        return {\n            restrict: 'ECMA',\n            require: '^googleMap',\n            priority: -1,\n            transclude: true,\n            template: '<span class=\"angular-google-map-marker\" ng-transclude></span>',\n            replace: true,\n            scope: {\n                coords: '=coords',\n                icon: '=icon',\n                click: '&click'\n            },\n            controller: function ($scope, $element) {\n             this.getMarker = function () {\n                 return $element.data('instance');\n             };\n            },\n            link: function (scope, element, attrs, mapCtrl) {\n\n                // Validate required properties\n                if (angular.isUndefined(scope.coords) ||\n                    scope.coords === null ||\n                    angular.isUndefined(scope.coords.latitude) ||\n                    angular.isUndefined(scope.coords.longitude)) {\n\n                    $log.error(\"marker: no valid coords attribute found\");\n                    return;\n                }\n\n                // Wrap marker initialization inside a $timeout() call to make sure the map is created already\n                $timeout(function () {\n                    var opts = angular.extend({}, DEFAULTS, {\n                        position: new google.maps.LatLng(scope.coords.latitude, scope.coords.longitude),\n                        map: mapCtrl.getMap(),\n                        icon: scope.icon,\n                        visible: scope.coords.latitude !== null && scope.coords.longitude !== null\n                    });\n\n                    // Disable animations\n                    if (angular.isDefined(attrs.animate) && isFalse(attrs.animate)) {\n                        delete opts.animation;\n                    }\n\n                    var marker = new google.maps.Marker(opts);\n                    element.data('instance', marker);\n\n                    google.maps.event.addListener(marker, 'click', function () {\n                        if (angular.isDefined(attrs.click) && scope.click !== null)\n                            scope.click();\n                    });\n\n                    scope.$watch('coords', function (newValue, oldValue) {\n                        if (newValue !== oldValue) {\n                            if (newValue) {\n                                marker.setMap(mapCtrl.getMap());\n                                marker.setPosition(new google.maps.LatLng(newValue.latitude, newValue.longitude));\n                                marker.setVisible(newValue.latitude !== null && newValue.longitude !== null);\n                            }\n                            else {\n                                // Remove marker\n                                marker.setMap(null);\n                            }\n                        }\n                    }, true);\n\n                    scope.$watch('icon', function (newValue, oldValue) {\n                        if (newValue !== oldValue) {\n                            marker.icon = newValue;\n                            marker.setMap(null);   \n                            marker.setMap(mapCtrl.getMap());\n                            marker.setPosition(new google.maps.LatLng(scope.coords.latitude, scope.coords.longitude));\n                            marker.setVisible(scope.coords.latitude !== null && scope.coords.longitude !== null);\n                        }\n                    }, true);\n\n                    // remove marker on scope $destroy\n                    scope.$on(\"$destroy\", function () {\n                        marker.setMap(null);\n                    });\n                });\n            }\n        };\n    }]);\n;/**!\n * The MIT License\n *\n * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n *\n * angular-google-maps\n * https://github.com/nlaplante/angular-google-maps\n *\n * @author Nicolas Laplante https://plus.google.com/108189012221374960701\n */\n\nangular.module(\"google-maps\")\n    .directive(\"polyline\", ['$log', '$timeout', function ($log, $timeout) {\n\n        \"use strict\";\n\n        var DEFAULTS = {\n\n        };\n\n        function validatePathPoints(path) {\n            for (var i = 0; i < path.length; i++) {\n              if (angular.isUndefined(path[i].latitude) ||\n                  angular.isUndefined(path[i].longitude)) {\n                  return false;\n              }\n            }\n\n            return true;\n        }\n\n        function convertPathPoints(path) {\n            var result = [];\n\n            for (var i = 0; i < path.length; i++) {\n                result.push(new google.maps.LatLng(path[i].latitude, path[i].longitude));\n            }\n\n            return result;\n        }\n\n        function extendMapBounds(map, points) {\n            var bounds = new google.maps.LatLngBounds();\n\n            for (var i = 0; i < points.length; i++) {\n                bounds.extend(points[i]);\n            }\n\n            map.fitBounds(bounds);\n        }\n\n        /*\n         * Utility functions\n         */\n\n        /**\n         * Check if a value is true\n         */\n        function isTrue(val) {\n            return angular.isDefined(val) &&\n                val !== null &&\n                val === true ||\n                val === '1' ||\n                val === 'y' ||\n                val === 'true';\n        }\n\n        return {\n            restrict: 'ECA',\n            require: '^googleMap',\n            scope: {\n                path: '=path',\n                stroke: '=stroke'\n            },\n            link: function (scope, element, attrs, mapCtrl) {\n                // Validate required properties\n                if (angular.isUndefined(scope.path) ||\n                    scope.path === null ||\n                    scope.path.length < 2 ||\n                    !validatePathPoints(scope.path)) {\n\n                    $log.error(\"polyline: no valid path attribute found\");\n                    return;\n                }\n\n                // Wrap polyline initialization inside a $timeout() call to make sure the map is created already\n                $timeout(function () {\n                    var map = mapCtrl.getMap();\n\n                    var pathPoints = convertPathPoints(scope.path);\n\n                    var opts = angular.extend({}, DEFAULTS, {\n                        map: map,\n                        path: pathPoints,\n                        strokeColor: scope.stroke && scope.stroke.color,\n                        strokeOpacity: scope.stroke && scope.stroke.opacity,\n                        strokeWeight: scope.stroke && scope.stroke.weight\n                    });\n\n                    var polyline = new google.maps.Polyline(opts);\n\n                    if (isTrue(attrs.fit)) {\n                        extendMapBounds(map, pathPoints);\n                    }\n\n                    scope.$watch('path', function (newValue, oldValue) {\n                        if (newValue !== oldValue) {\n                            if (newValue) {\n                                var newPathPoints = convertPathPoints(newValue);\n\n                                polyline.setMap(map);\n                                polyline.setPath(newPathPoints);\n\n                                if (isTrue(attrs.fit)) {\n                                    extendMapBounds(map, newPathPoints);\n                                }\n                            }\n                            else {\n                                // Remove polyline\n                                polyline.setMap(null);\n                            }\n                        }\n                    }, true);\n\n                    // Remove polyline on scope $destroy\n                    scope.$on(\"$destroy\", function () {\n                        polyline.setMap(null);\n                    });\n                });\n            }\n        };\n    }]);\n;/**!\n * The MIT License\n *\n * Copyright (c) 2010-2012 Google, Inc. http://angularjs.org\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n *\n * angular-google-maps\n * https://github.com/nlaplante/angular-google-maps\n *\n * @author Nicolas Laplante https://plus.google.com/108189012221374960701\n */\n\n/**\n * Map info window directive\n *\n * This directive is used to create an info window on an existing map.\n * This directive creates a new scope.\n *\n * {attribute coords required}  object containing latitude and longitude properties\n * {attribute show optional}    map will show when this expression returns true\n */\n\nangular.module(\"google-maps\").\n    directive(\"window\", ['$log', '$timeout','$compile', '$http', '$templateCache', function ($log, $timeout, $compile, $http, $templateCache) {\n\n        \"use strict\";\n\n        var DEFAULTS = {\n\n        };\n\n        return {\n          restrict: 'ECMA',\n          template: '<span class=\"angular-google-maps-window\" ng-transclude></span>',\n          transclude: true,\n          priority: -100,\n          require: ['^googleMap', '^?marker'],\n          scope: {\n            coords: '=coords',\n            show: '&show',\n            templateUrl: '=templateurl',\n            templateParameter: '=templateparameter',\n            isIconVisibleOnClick: '=isiconvisibleonclick',\n            closeClick: '&closeclick'           //scope glue to gmap InfoWindow closeclick\n          },\n          link: function (scope, element, attrs, ctrls) {\n              $timeout(function () {\n\n                  var isIconVisibleOnClick = true;\n\n                  if (angular.isDefined(attrs.isiconvisibleonclick)) \n                        isIconVisibleOnClick = scope.isIconVisibleOnClick;\n\n                  var mapCtrl = ctrls[0],\n                      markerCtrl = ctrls.length > 1 ? ctrls[1] : null;\n\n                  var opts = angular.extend({}, DEFAULTS, {\n                      content: element.html(),\n                      position: angular.isDefined(markerCtrl) ? markerCtrl.getMarker().getPosition() :\n                          new google.maps.LatLng(scope.coords.latitude, scope.coords.longitude)\n                  });\n\n                  var win = new google.maps.InfoWindow(opts);\n\n                  if (angular.isDefined(markerCtrl)) {\n                      // Open window on click\n                      var markerInstance = markerCtrl.getMarker();\n\n                      markerInstance.setClickable(true);\n\n                      // Show the window and hide the marker on click\n                      var initialMarkerVisibility;\n                      google.maps.event.addListener(markerInstance, 'click', function () {\n                          win.setPosition(markerInstance.getPosition());\n                          win.open(mapCtrl.getMap());\n\n                          initialMarkerVisibility = markerInstance.getVisible();\n\n                          markerInstance.setVisible(isIconVisibleOnClick);\n                      });\n\n                      // Set visibility of marker back to what it was before opening the window\n                      google.maps.event.addListener(win, 'closeclick', function () {\n                        markerInstance.setVisible(initialMarkerVisibility);\n                        scope.closeClick();\n                      });\n                  }\n\n                   function showWindow() {\n                    if (scope.templateUrl) {\n                        $http.get(scope.templateUrl, { cache: $templateCache })\n                             .then(function (content) {\n                                    var templateScope = scope.$new();\n                                    if (angular.isDefined(scope.templateParameter)) {\n                                        templateScope.parameter = scope.templateParameter;\n                                    }\n                                    var compiled = $compile(content.data)(templateScope);\n                                    win.setContent(compiled.get(0));\n                                    win.open(mapCtrl.getMap());\n                              });\n                    } else {\n                        win.open(mapCtrl.getMap());\n                    }\n                  }\n\n                  function hideWindow() {\n                    win.close();\n                  }\n\n                  scope.$watch('show()', function (newValue, oldValue) {\n                    if (newValue !== oldValue) {\n                        if (newValue) {\n                            showWindow();\n                        }\n                        else {\n                            hideWindow();\n                        }\n                    } else if (newValue && !win.getMap()) {\n                        // If we're initially showing the marker and it's not yet visible, show it.\n                        showWindow();\n                    }\n                  },true);\n              }, 50);\n          }\n        };\n    }]);\n",
+			"settings":
+			{
+				"buffer_size": 29267,
+				"line_ending": "Windows",
+				"name": "angular.module('demo', ['google-maps'])"
+			}
+		},
+		{
+			"contents": "\n<html ng-app=\"demo\" >\n<head>\n  <meta charset=\"utf-8\">\n  <title>AngularJS Plunker</title>\n  <script data-require=\"jquery@*\" data-semver=\"2.0.3\" src=\"http://code.jquery.com/jquery-2.0.3.min.js\"></script>\n    <script data-require=\"bootstrap@3.1.1\" data-semver=\"3.1.1\" src=\"//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>\n    <link data-require=\"bootstrap-css@3.1.1\" data-semver=\"3.1.1\" rel=\"stylesheet\" href=\"//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css\" />\n    \n    \n  <script src=\"http://maps.googleapis.com/maps/api/js?sensor=false&language=en&libraries=geometry\"></script>\n\n  <script>document.write(\"<base href=\\\"\" + document.location + \"\\\" />\");</script>\n  <script src=\"https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js\"></script>\n\n</head>\n<body ng-controller=\"MainCtrl\">\n  <h1>Marker rotation</h1>\n    \n  <div class=\"google-map\"  \n    center=\"map.center\" \n    zoom=\"map.zoom\" \n    draggable=\"false\">\n      <marker coords=\"map.center\" icon=\"triangle\"></marker> \n      <marker coords=\"map.center\" icon=\"customSVGmarkerCircle\"></marker>\n      <marker coords=\"map.center\" icon=\"standardSymbolCircle\"></marker>\n    </div>\n    \n    \n    <div class=\"well\">\n      You may need to compensate for the way you draw your svg by \n      changing the anchor point\n    \n    <div ng-form >\n      Set Rotation of blue triangle: \n      <input type=\"text\" ng-model=\"triangle.rotation\" />\n      \n    </div>\n    </div>\n    \n</body>\n</html>",
+			"settings":
+			{
+				"buffer_size": 1481,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/img/airplane.svg",
+			"settings":
+			{
+				"buffer_size": 5970,
+				"line_ending": "Unix"
 			}
 		}
 	],
 	"build_system": "Packages/User/jscript.sublime-build",
 	"command_palette":
 	{
-		"height": 352.0,
+		"height": 392.0,
 		"selected_items":
 		[
 			[
@@ -271,7 +429,7 @@
 				"Set Syntax: R Console"
 			]
 		],
-		"width": 530.0
+		"width": 472.0
 	},
 	"console":
 	{
@@ -291,8 +449,38 @@
 	},
 	"file_history":
 	[
-		"/D/usr/fcr/productionmanager/app.js",
+		"/D/usr/fcr/Node-radar/sass/style.scss",
+		"/D/usr/fcr/Node-radar/public/img/airplane-test-bis.svg",
+		"/C/oracle/product/11.2.0/client_1/network/admin/tnsnames.ora",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/packages/repositories.config",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/ProductionManager.vssscc",
+		"/D/usr/fcr/Node-radar/node_modules/sbs1/bin/sbs1.js",
+		"/D/usr/fcr/Node-radar/node_modules/sbs1/index.js",
+		"/D/usr/fcr/Node-radar/node_modules/sbs1/msgs.txt",
+		"/D/usr/fcr/Node-radar/config/development.json",
+		"/D/usr/fcr/Node-radar/config/production.json",
+		"/D/usr/fcr/Node-radar/public/js/controllers/MainCtrl.js",
+		"/D/usr/fcr/Node-radar/public/js/controllers.js",
+		"/D/usr/fcr/Node-radar/models/DataAccessLayer.js",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/Java/IntegrationService/pom.xml",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
+		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/Talend/UserDatamart/PRODUCTIONMANAGER/metadata/connections/Datamart_0.1.item",
+		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/Talend/UserDatamart/PRODUCTIONMANAGER/metadata/connections/ProductionManager_0.1.item",
+		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/Talend/UserDatamart/PRODUCTIONMANAGER/metadata/connections/Datamart_0.1.properties",
+		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/Talend/UserDatamart/PRODUCTIONMANAGER/metadata/connections/ProductionManager_0.1.properties",
+		"/D/usr/fcr/QIcomPCR/Web/models/socketserver.js",
+		"//itesoft.local/aim/IT_Ref/2.5/2.5.4/ITESOFT.FreeMind/reference/slfi/datas/mod/FI_FULLTEXT.xft",
+		"//itesoft.local/aim/IT_Ref/2.5/2.5.4/ITESOFT.FreeMind/reference/slfi/datas/mod/FI_FTREC.mtx",
+		"//itesoft.local/aim/IT_Ref/2.5/2.5.4/ITESOFT.FreeMind/reference/slfi/datas/database/Structure/MySQL/MYSQL_FMFI_Create.sql",
+		"/D/usr/fcr/productionmanager/public/js/controllers.js",
+		"/D/usr/fcr/Node-radar/views/includes/head.jade",
+		"/D/usr/fcr/Node-radar/node_modules/sbs1/mlat.py~",
+		"/C/Program Files (x86)/VirtualRadar/Web/script/vrs/aircraft.js",
+		"/C/Program Files (x86)/VirtualRadar/Web/script/vrs/aircraftPlotter.js",
+		"/C/Program Files (x86)/VirtualRadar/Web/desktop.html",
+		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
 		"/D/usr/fcr/productionmanager/models/DataAccessLayer.js",
+		"/D/usr/fcr/productionmanager/app.js",
 		"/D/usr/fcr/productionmanager/views/includes/sidebar.jade",
 		"/D/usr/fcr/productionmanager/views/includes/navbar.jade",
 		"/D/usr/fcr/productionmanager/public/js/app.js",
@@ -300,7 +488,6 @@
 		"/D/usr/fcr/productionmanager/sass/style.scss",
 		"/D/usr/fcr/productionmanager/views/index.jade",
 		"/D/usr/fcr/productionmanager/views/partial/users.jade",
-		"/D/usr/fcr/productionmanager/public/js/controllers.js",
 		"/D/usr/fcr/productionmanager/views/includes/footer.jade",
 		"/D/usr/fcr/productionmanager/views/includes/head.jade",
 		"/D/usr/fcr/productionmanager/gruntfile.js",
@@ -334,7 +521,6 @@
 		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/slfi/ITFI_FtHeader/src/Main.pas",
 		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/slfi/ITFI_FtHeader/src/CheckData.pas",
 		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/App_Data/Profiles.xml",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
 		"/C/Python27/get-pip.py",
 		"/C/qwt-6.1.2/qwtbuild.pri",
 		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/tst/MSTest/DataIngestion.BLL.TestProject/DataIngestion.BLL.TestProject.csproj",
@@ -350,7 +536,6 @@
 		"/X/v2/sl/slfi/ITFI_Com3Event/src/main.pas",
 		"/D/usr/fcr/wxWidgets-3.0.2/build/msw/build2013.bat",
 		"/X/v2/sl/slfi/ITFI_check/src/FMFI.pas",
-		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
 		"/X/v2/sl/sle/Dashboard/Data/UserDataMart/Postgre User Datamart Initialize.sql",
 		"/C/Program Files (x86)/itesoft/ProductionManager/Services/ITDATAMARTINTEGRATION/job/UserDatamart/Default.properties.sample",
 		"/C/Program Files (x86)/itesoft/ProductionManager/Services/ITDATAMARTINTEGRATION/job/UserDatamart/Default.properties.new",
@@ -382,7 +567,6 @@
 		"/D/usr/fcr/rtl-sdr/src/convenience/convenience.h",
 		"/X/v2/xdfcom3/src/com3common.pas",
 		"/X/v2/sl/slfi/ITFI_check/src/Check.pas",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/Java/IntegrationService/pom.xml",
 		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/pom.xml",
 		"/C/Users/fcr/Desktop/ProductionManager.js",
 		"/X/v2/sl/sle/Dashboard/WebApp/Dashboard.WebApp/Web.dev.Debug.config",
@@ -392,37 +576,11 @@
 		"/X/v2/sl/common/Ssd_Obj.pas",
 		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/target/classes/log4j.xml",
 		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/common/Ssd_Obj.pas",
-		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManager.js",
-		"/C/Users/fcr/Desktop/pocsag.txt",
-		"/C/Users/fcr/Desktop/jabberlog.txt",
-		"/C/Users/fcr/Desktop/sdr-install/rtl-sdr-release/rtl-sdr.h",
-		"/C/Users/fcr/Desktop/fax2ps.c",
-		"/C/Users/fcr/Desktop/tiff2pdf.c",
-		"/C/Users/fcr/Desktop/timesheet.txt",
-		"/C/Users/fcr/Desktop/jwx-20141028-163419.wbt",
-		"/C/Users/fcr/Desktop/sdr-install/rtl-sdr-release/README.windows.txt",
-		"/C/Users/fcr/Desktop/sdr-install/rtl-sdr-release/rtl-sdr_export.h",
-		"/C/Users/fcr/AppData/Local/Temp/7zEBAAB.tmp/tiff2pdf.c",
-		"/C/Users/fcr/Desktop/auth.xml",
-		"/C/Users/fcr/Desktop/results.xml",
-		"/C/Users/fcr/Desktop/params.xml",
-		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/Areas/Assign/Views/_ViewStart.cshtml",
-		"/C/Users/fcr/Desktop/IT_XMLDOM.sj",
-		"/C/Users/fcr/Desktop/testbis3.xml",
-		"/C/Users/fcr/Desktop/testbis2.xml",
-		"/C/Users/fcr/Desktop/testbis.xml",
-		"/C/Users/fcr/Desktop/test.xml",
-		"/C/Users/fcr/AppData/Roaming/Sublime Text 3/Packages/User/jscript.sublime-build",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/it_processsrv/src/PostProcThread.pas",
-		"/X/v2/sl/sle/Dashboard/Data/Oracle/Oracle FreeMind Messaging Create.sql",
-		"/X/v2/sl/sle/Dashboard/Data/MySQL/MySQL FreeMind Messaging Create.sql",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/tst/MSTest/DataIngestion.BLL.TestProject/packages.config",
-		"/K/Visual Studio 2013/Projects/WebCheckSpeed/WebCheckSpeed/Scripts/models/DataControl.js",
-		"/K/Visual Studio 2013/Projects/WebCheckSpeed/WebCheckSpeed/Scripts/Views/ImageView.js"
+		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManager.js"
 	],
 	"find":
 	{
-		"height": 36.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -436,6 +594,30 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Build",
+			"splice",
+			"type",
+			"PlaneFinder",
+			"apply",
+			"type",
+			"saveAircraft",
+			"ojdbc",
+			"$apply",
+			"JSON",
+			"ora",
+			"out_of",
+			"out_of_bound",
+			"=\"69\"",
+			"REM",
+			"REMMIT",
+			"=\"61\"",
+			"=\"67\"",
+			"STATUS_CHANGE",
+			"svg",
+			"M ",
+			"triangle",
+			"customSVGmarkerCircle",
+			"svg",
 			"ActivityACTIVITYID",
 			"activityActi",
 			"icon",
@@ -539,31 +721,7 @@
 			"nWindowConfidence",
 			"&",
 			"java",
-			"checkContinentWinner",
-			".win",
-			"Debug",
-			"FCR_PM_255.",
-			"dbo.",
-			"FCR_PM_255.",
-			"dbo.",
-			"TiffRead",
-			"t2p_read_tiff_data",
-			"&quot;",
-			"\\\"",
-			"&quot;",
-			"\\\"",
-			"RSRFR",
-			"&quot;",
-			"boProcessCreate",
-			".Create",
-			"FThreadHandle",
-			".Init",
-			"SendLaunchMessage",
-			"unit",
-			"CreateAndLaunchNewSession",
-			"WaitingforSessionStarted",
-			"TProcessThread",
-			".create"
+			"checkContinentWinner"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -571,6 +729,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"Dump1090",
 			"",
 			"\\\"\"+context.SourceDatabase_Schema+\"\\\".",
 			"",
@@ -587,7 +746,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -596,15 +755,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2702,
+						"buffer_size": 12093,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3749,
+								3750
 							]
 						],
 						"settings":
@@ -612,123 +771,62 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 38.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "public/js/controllers.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7902,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "public/js/app.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1194,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1710.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "views/includes/head.jade",
+					"buffer": 1,
+					"file": "public/js/controllers/MainCtrl.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1165,
+						"buffer_size": 10256,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								134,
-								134
+								9853,
+								9853
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": -0.0,
+						"translation.y": 114.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "sass/style.scss",
+					"buffer": 2,
+					"file": "public/js/services/settings.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2168,
+						"buffer_size": 474,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								283,
+								283
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -738,7 +836,297 @@
 					"type": "text"
 				},
 				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9533,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8341,
+								8341
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": -0.0,
+						"translation.y": 798.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "models/dump1090.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1880,
+								1880
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
 					"buffer": 5,
+					"file": "public/js/controllers/MenuCtrl.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1570,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								540,
+								540
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 285.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/D/usr/fcr/node-radar/models/datalayer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5271,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								679,
+								683
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1191,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								723,
+								723
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "views/partial/flight.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1849,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								365,
+								365
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "views/partial/history.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 835,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								144,
+								144
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "views/partial/settings.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1087,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								138,
+								138
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "models/planefinder.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2145,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								920,
+								920
+							]
+						],
+						"settings":
+						{
+							"auto_name": "var PlaneFinder = function() {",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "views/includes/sidebar.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 766,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								538,
+								538
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
 					"file": "views/includes/footer.jade",
 					"semi_transient": false,
 					"settings":
@@ -756,36 +1144,66 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "views/includes/sidebar.jade",
+					"buffer": 14,
+					"file": "views/includes/navbar.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 766,
+						"buffer_size": 981,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
+								952,
+								952
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "public/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1185,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								46,
 								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -795,20 +1213,78 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "views/includes/navbar.jade",
+					"buffer": 16,
+					"file": "public/stylesheets/style.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 716,
+						"buffer_size": 3197,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								250,
+								250
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "views/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 745,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								510,
+								510
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/ProductionManager.sln",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 99287,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								503,
+								503
 							]
 						],
 						"settings":
@@ -820,35 +1296,185 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "views/index.jade",
+					"buffer": 19,
+					"file": "public/img/airplane-test.svg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 879,
+						"buffer_size": 3526,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3446,
+								2326
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 912.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "public/js/controllers/MapCtrl.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1260,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								840,
+								844
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "views/includes/head.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1365,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								64,
+								65
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29267,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								717,
+								498
+							]
+						],
+						"settings":
+						{
+							"auto_name": "angular.module('demo', ['google-maps'])",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1481,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								963,
+								963
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "public/img/airplane.svg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5970,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2174,
+								2174
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1083.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
 					"type": "text"
 				}
 			]
@@ -856,7 +1482,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -896,7 +1522,7 @@
 	"project": "node-radar.sublime-project",
 	"replace":
 	{
-		"height": 66.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":

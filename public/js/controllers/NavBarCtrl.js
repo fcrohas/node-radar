@@ -3,7 +3,8 @@ var navControllers = angular.module('navbarCtrl', []);
 navControllers.controller('navbarCtrl', function ($scope) {
   $scope.menuList = [
     {'dropmenu': 'Radar',
-     'subaction': [{'name' : 'Flight detail','link' : '#/flight/detail'},
+     'subaction': [{'name' : 'Flight list','link' : '#/flight'},
+                   {'name' : 'Flight detail','link' : '#/flight/detail'},
                    {'name':'Flight history','link':'#/flight/history'}, 
                    {'name':'Settings','link':'#/settings'}
                   ]},

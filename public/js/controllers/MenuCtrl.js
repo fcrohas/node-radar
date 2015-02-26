@@ -14,8 +14,13 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http',
 
   ]);
 
-menuControllers.controller('HistoryCtrl', ['$scope', '$http',
-  function($scope, $http) {
+menuControllers.controller('FlightDetailCtrl', ['$scope', '$http',
+    function ($scope, $http) {
+    }
+]);
+
+menuControllers.controller('HistoryCtrl', ['$scope', '$http', '$window',
+  function($scope, $http, $window) {
     $scope.results = '';
     $scope.results.count = 0;
     $scope.results.rows = [];
@@ -46,7 +51,12 @@ menuControllers.controller('HelpCtrl', ['$scope', '$routeParams', '$http',
     }
   ]);
 
-menuControllers.controller('AboutCtrl', ['$scope', '$routeParams', '$http',
+menuControllers.controller('AboutCtrl', ['$scope', '$routeParams', '$http', 
   function($scope, $routeParams, $http) {
+    $scope.name = $routeParams.name;
+    switch($routeParams.name) {
+      case "noderadar" : $scope.Title = "ADSB-Radar"; break;
+      case "nodejs" : $scope.Title = "NodeJS"; break;
+      case "adsb" : $scope.Title = "ADS-B"; break;
     }
-  ]);
+  }]);

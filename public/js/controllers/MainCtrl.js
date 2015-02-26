@@ -17,11 +17,12 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
         selectId = id;
       }
       // unselect others
-      if (plane.show) {
+      if ((plane.show) && (plane.ICAO != ICAO)) {
         plane.show= false;
         $scope.planes[id].icon.strokeColor = '#1C1C1C';
         $scope.planes[id].icon.strokeWeight = 1;
         $scope.planes[id].icon.scale = 0.05;
+        $scope.planes[id].trackhistory = [];  
       }
     }
     // Now select current plane
@@ -30,6 +31,15 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
       $scope.planes[selectId].icon.strokeColor = '#00BFFF';
       $scope.planes[selectId].icon.strokeWeight = 1;
       $scope.planes[selectId].icon.scale = 0.06;
+      $http.get('/rest/aircraft/history/'+ICAO).success(function(data) {
+        for(var id in $scope.planes) {
+          var plane = $scope.planes[id];                
+          if (plane.ICAO == ICAO) {
+            plane.trackhistory = data.trackhistory;
+          }
+        }
+      });
+
     }
   });  
   // Connect only once
@@ -61,19 +71,12 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
           msg.show = false;
           msg.silhouette = '/img/SilhouettesLogos/FOLLOW%20ME.png';
           msg.onClick = function(data) {
-            msg.show = !msg.show;
+            //msg.show = !msg.show;
             var adsb = msg.ICAO;
-            if (msg.show) {
+            if (!msg.show) {
               $scope.$emit('planeSelected', adsb);              
-              $http.get('/rest/aircraft/history/'+adsb).success(function(data) {
-                for(var id in $scope.planes) {
-                  var plane = $scope.planes[id];                
-                  if (plane.ICAO == adsb) {
-                    plane.trackhistory = data.trackhistory;
-                  }
-                }
-              });
             } else {
+              // Send event with the empty ICAO number
               $scope.$emit('planeSelected', '000000'); 
               msg.trackhistory = [];              
             }

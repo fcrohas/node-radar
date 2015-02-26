@@ -6,16 +6,15 @@
 			span.input-group-addon.glyphicon.glyphicon-search
 			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="searchValue",ng-keyup="$event.keyCode == 13 && Search(searchValue)")
 		table.table.table-condensed
-			.thead
+			thead
 				th.col-md-2 Registration
 				th.col-md-2 Type
 				th.col-md-2 Operator
 				th.col-md-2 Seen
-			.tbody
+			tbody(ng-style="style(250)",resize)
 				tr(ng-repeat="result in results.rows track by result.AircraftId")
 					td.col-md-2 {{result.Registration}}
 					td.col-md-2 {{result.ModelType}}
 					td.col-md-2 {{result.Flights[0].Operator}}
 					td.col-md-2 {{result.Flights[0].LastSeen}}
 		p Found {{results.count}} result(s)
-
