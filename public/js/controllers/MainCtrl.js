@@ -3,13 +3,40 @@ var mainControllers = angular.module('mainCtrl', []);
 mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function ($scope,$location,$http) {
   $scope.connected = false;
   $scope.planes = [];
+  $scope.trackhistory = [];
+  $scope.trackhistory.show = false;
   function isUndefinedOrNull(value) {
     return ((value == undefined) && (value == null));
+  }
+  // Make gradient color between two color
+  function makeGradientColor(color1, color2, percent) {
+    var newColor = {};
+    function makeChannel(a, b) {
+        return(a + Math.round((b-a)*(percent/100)));
+    }
+    function makeColorPiece(num) {
+        num = Math.min(num, 255);   // not more than 255
+        num = Math.max(num, 0);     // not less than 0
+        var str = num.toString(16);
+        if (str.length < 2) {
+            str = "0" + str;
+        }
+        return(str);
+    }
+    newColor.r = makeChannel(color1.r, color2.r);
+    newColor.g = makeChannel(color1.g, color2.g);
+    newColor.b = makeChannel(color1.b, color2.b);
+    newColor.cssColor = "#" + 
+                        makeColorPiece(newColor.r) + 
+                        makeColorPiece(newColor.g) + 
+                        makeColorPiece(newColor.b);
+    return(newColor);
   }
   // Register general selected action
   $scope.$on('planeSelected', function(event, ICAO) { 
     // look for plane id to select
     var selectId = -1;
+    $scope.trackhistory = [];      
     for (var id in $scope.planes) {
       // use also loop to unselect current plane
       var plane = $scope.planes[id];
@@ -22,7 +49,6 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
         $scope.planes[id].icon.strokeColor = '#1C1C1C';
         $scope.planes[id].icon.strokeWeight = 1;
         $scope.planes[id].icon.scale = 0.05;
-        $scope.planes[id].trackhistory = [];  
       }
     }
     // Now select current plane
@@ -35,7 +61,8 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
         for(var id in $scope.planes) {
           var plane = $scope.planes[id];                
           if (plane.ICAO == ICAO) {
-            plane.trackhistory = data.trackhistory;
+            $scope.trackhistory = data.trackhistory;
+            $scope.trackhistory.show = true;            
             $scope.$broadcast('planeFromMap', ICAO);
           }
         }
@@ -67,9 +94,8 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
             rotation: msg.track,
             strokeWeight: 1
           };
-          var color = (msg.altitude < 3000) ? '#00FF00' : (msg.altitude < 6000) ? '#01A9DB' : '#A901DB';
-          msg.lineColor = { 'color':color, 'opacity':1.0,'weight':3 };
           msg.show = false;
+          msg.desciption = '';
           msg.silhouette = '/img/SilhouettesLogos/FOLLOW%20ME.png';
           msg.onClick = function(data) {
             //msg.show = !msg.show;
@@ -79,7 +105,6 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
             } else {
               // Send event with the empty ICAO number
               $scope.$emit('planeSelected', '000000'); 
-              msg.trackhistory = [];              
             }
           };
           // Update silhouette
@@ -87,7 +112,9 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
               for(var id in $scope.planes) {
                 var plane = $scope.planes[id];                
                 if (plane.ICAO == data.ModeS) {
-                  plane.silhouette = '/img/SilhouettesLogos/'+data.DesignatorType+'.png';
+                  plane.description = data.Manufacturer+' '+data.ModelType+'('+data.Engines+')';
+                  if (data.DesignatorType!='N/A')
+                    plane.silhouette = '/img/SilhouettesLogos/'+data.DesignatorType+'.png';
                 }
               }
           });
@@ -115,6 +142,7 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
             if (plane.ICAO == msg.ICAO) {
                 // before delete
                 //plane.trackhistory = [];
+                plane.show = false;
                 $scope.planes.splice(id,1);
                 //console.log('remove ICAO='+msg.ICAO+' length='+$scope.planes.length); 
                 break;    
@@ -130,8 +158,17 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
               if ((!isUndefinedOrNull(msg.latitude)) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {
                 // polyline color from altitude
                 //var color = (plane.altitude < 3000) ? '#00FF00' : (plane.altitude < 6000) ? '#01A9DB' : '#A901DB';
-                if ((plane.show) && (!isUndefinedOrNull(plane.trackhistory))) {
-                  plane.trackhistory.push( { 'latitude':plane.latitude,'longitude':plane.longitude}); 
+                if (plane.show) {
+                  var color = {};
+                  if (msg.altitude < 3000) {
+                      color = makeGradientColor({r:0,g:255,b:0}, {r:1,g:169,b:219}, (msg.altitude * 100 / 3000));
+                  } else if (msg.altitude < 6000) {
+                      color = makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((msg.altitude-3000) * 100 / 3000));
+                  } else {
+                    color = makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((msg.altitude-6000) * 100 / 10000));
+                  }
+                  var lineColor = { 'color':color.cssColor, 'opacity':1.0,'weight':3 };
+                  $scope.trackhistory.push( { id : $scope.trackhistory.length, track : [{ 'latitude':plane.latitude,'longitude':plane.longitude},{'latitude':msg.latitude,'longitude':msg.longitude}], color : lineColor }); 
                 }
                // plane.trackhistory.push( { 'latitude':msg.latitude,'longitude':msg.longitude});
                 //plane.lineColor = { 'color':color, 'opacity':1.0,'weight':2 };

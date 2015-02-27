@@ -8,7 +8,7 @@ html(ng-app='nodeRadar')
 			.row(ng-if='map.show')
 				ui-gmap-google-map.col-md-9(pan='true',center='map.center',zoom='map.zoom',options='map.options',control='map.control',ng-cloak)
 					ui-gmap-markers(models="planes",idKey="'ICAO'",coords="'self'", icon="'icon'", click="'onClick'")
-					ui-gmap-polylines(models="planes",path="'trackhistory'",stroke="'lineColor'",static="true",visible="'show'",idKey="'ICAO'")
+					ui-gmap-polylines(models="trackhistory",path="'track'",stroke="'color'",static="true",visible="'show'",idKey="'id'")
 				.col-md-3
 					div(id='infoView',ng-view)
 		include ./includes/footer.jade

@@ -251,18 +251,39 @@ var flightalert = setInterval( function() {
 		}
 		if ((seenDelta > config.Plane.memory.timeout_client) && (!current.out_of_bound))  { // 1 minutes delta ?
 			current.out_of_bound = true;
-			console.log("ICAO="+current.ICAO+' time='+seenDelta);
 			flight.emit('delete',current);
 		}
 		// After outbound of 3 minutes delte it
 		if (seenDelta > config.Plane.memory.timeout_server) {
-			var log = 'ICAO='+planes[id].ICAO+' , length='+planes.length+' ';
 			planes.splice(id,1);
-			log += 'after splice='+planes.length;
-			console.log(log);
 		}
 	}
 }, config.Plane.refresh_time);	
+
+// Make gradient color between two color
+function makeGradientColor(color1, color2, percent) {
+	var newColor = {};
+	function makeChannel(a, b) {
+	    return(a + Math.round((b-a)*(percent/100)));
+	}
+	function makeColorPiece(num) {
+	    num = Math.min(num, 255);   // not more than 255
+	    num = Math.max(num, 0);     // not less than 0
+	    var str = num.toString(16);
+	    if (str.length < 2) {
+	        str = "0" + str;
+	    }
+	    return(str);
+	}
+	newColor.r = makeChannel(color1.r, color2.r);
+	newColor.g = makeChannel(color1.g, color2.g);
+	newColor.b = makeChannel(color1.b, color2.b);
+	newColor.cssColor = "#" + 
+	                    makeColorPiece(newColor.r) + 
+	                    makeColorPiece(newColor.g) + 
+	                    makeColorPiece(newColor.b);
+	return(newColor);
+}
 
 baseStation.on('message', function(msg) {
 	if (msg.message_type === sbs1.MessageType.TRANSMISSION) {
@@ -274,18 +295,6 @@ baseStation.on('message', function(msg) {
 			  	var currentmsg = {};
 			  	currentmsg.ICAO = msg.hex_ident;
 			  	var changed = false;
-		  		if (((msg.lat != null) && (msg.lon!=null)) && ((current.longitude != msg.lon) || (current.latitude != msg.lat))) {
-					if (current.trackhistory == undefined) {
-						current.trackhistory = new Array();
-					}
-					if (current.latitude!=null)
-						current.trackhistory.push( { 'latitude':current.latitude,'longitude':current.longitude});
-					current.latitude = msg.lat;
-					current.longitude = msg.lon;
-					currentmsg.latitude = current.latitude;
-					currentmsg.longitude = current.longitude;
-					changed = true;
-		  		}
 		  		if ((msg.track != null) && (current.track != msg.track)) {
 		  			current.track= msg.track;
 		  			currentmsg.track = current.track;	
@@ -319,6 +328,28 @@ baseStation.on('message', function(msg) {
 		  			currentmsg.altitude = current.altitude;
 		  			changed = true;
 		  		}
+		  		if (((msg.lat != null) && (msg.lon!=null)) && ((current.longitude != msg.lon) || (current.latitude != msg.lat))) {
+					if (current.trackhistory == undefined) {
+						current.trackhistory = new Array();
+					}
+					if (current.latitude!=null) {
+						var color = {};
+						if (current.altitude < 3000) {
+						  color = makeGradientColor({r:0,g:255,b:0}, {r:1,g:169,b:219}, (current.altitude * 100 / 3000));
+						} else if (current.altitude < 6000) {
+						  color = makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((current.altitude-3000) * 100 / 3000));
+						} else {
+						color = makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((current.altitude-6000) * 100 / 10000));
+						}
+          				var lineColor = { 'color':color.cssColor, 'opacity':1.0,'weight':3 };
+						current.trackhistory.push( { id : current.trackhistory.length, track : [{ 'latitude':current.latitude,'longitude':current.longitude},{'latitude':msg.lat,'longitude':msg.lon}], color : lineColor } );
+					}
+					current.latitude = msg.lat;
+					current.longitude = msg.lon;
+					currentmsg.latitude = current.latitude;
+					currentmsg.longitude = current.longitude;
+					changed = true;
+		  		}		  		
 		  		if ((msg.logged_time != null) && (current.logged_time != msg.logged_time)) {
 		  			current.live_time = msg.logged_timestamp();
 		  			currentmsg.live_time = current.live_time;
