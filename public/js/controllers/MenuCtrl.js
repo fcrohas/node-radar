@@ -16,6 +16,12 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http',
 
 menuControllers.controller('FlightDetailCtrl', ['$scope', '$http',
     function ($scope, $http) {
+      $scope.$watch($scope.planes, function(newValue) {
+        console.log(newValue);
+        $http.get('/rest/flight/'+newValue.ICAO).success(function(data) {
+          $scope.planeinfo = data;
+        });
+      });
     }
 ]);
 
@@ -48,12 +54,6 @@ menuControllers.controller('SettingsCtrl', ['$scope', '$http',
 
 menuControllers.controller('HelpCtrl', ['$scope', '$routeParams', '$http',
   function($scope, $routeParams, $http) {
-      $scope.$watch($scope.planes, function(newValue) {
-        console.log(newValue);
-        $http.get('/rest/flight/'+this.plane.ICAO).success(function(data) {
-          $scope.planeinfo = data;
-        });
-      });
     }
   ]);
 
