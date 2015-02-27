@@ -16,9 +16,8 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http',
 
 menuControllers.controller('FlightDetailCtrl', ['$scope', '$http',
     function ($scope, $http) {
-      $scope.$watch($scope.planes, function(newValue) {
-        console.log(newValue);
-        $http.get('/rest/flight/'+newValue.ICAO).success(function(data) {
+      $scope.$on('planeFromMap', function(event, ICAO) { 
+        $http.get('/rest/flight/'+ICAO).success(function(data) {
           $scope.planeinfo = data;
         });
       });

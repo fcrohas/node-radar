@@ -36,6 +36,7 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
           var plane = $scope.planes[id];                
           if (plane.ICAO == ICAO) {
             plane.trackhistory = data.trackhistory;
+            $scope.$broadcast('planeFromMap', ICAO);
           }
         }
       });

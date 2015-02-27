@@ -4,7 +4,7 @@
 	.panel-body.fixed-panel(collapse="isFlightCollapsed")
 		.input-group
 			span.input-group-addon.glyphicon.glyphicon-search
-			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="searchValue",ng-keyup="$event.keyCode == 13 && Search(searchValue)")
+			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="searchValue",ng-keyup="$event.keyCode == 13 && Search(searchValue)",autofocus)
 		table.table.table-condensed
 			thead
 				th.col-md-2 Registration
