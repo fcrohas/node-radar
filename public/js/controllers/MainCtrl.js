@@ -97,6 +97,13 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http',function (
             strokeWeight: 1
           };
           msg.show = false;
+          msg.showWindow = false;
+          msg.options = {
+            labelContent: ' ',
+            //labelAnchor: new google.maps.Point(50, 50),
+            labelInBackground: true,
+            labelClass: "labels"
+          };
           msg.desciption = '';
           msg.silhouette = '/img/SilhouettesLogos/FOLLOW%20ME.png';
           msg.onClick = function(data) {

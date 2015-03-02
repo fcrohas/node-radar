@@ -32,7 +32,22 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogle
       refresh: function () {
         $scope.map.control.refresh(origCenter);
       }, 
-      markers : []
+      markers : [],
+      clusterOptions: {
+            title: 'Hi I am a Cluster!', gridSize: 60, ignoreHidden: true, minimumClusterSize: 2
+      },
+      markersEvents : {
+        mouseover: function (marker, eventName, model, args) {
+          model.options.labelContent = "Squawk: " + model.squawk+"<br>Altitude: "+model.altitude+" m<br>Speed: "+model.ground_speed+" km/h";
+          model.showWindow = true;
+          $scope.$apply();
+        },
+        mouseout: function (marker, eventName, model, args) {
+           model.options.labelContent = " ";
+           model.showWindow = false;
+           $scope.$apply();
+        }
+      }
     }  
   });
   

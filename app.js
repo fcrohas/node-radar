@@ -308,12 +308,12 @@ baseStation.on('message', function(msg) {
 		  			changed = true;
 
 		  		}
-		  		if ((msg.ground_speed != null) && (current.ground_speed != msg.ground_speed)) {
+		  		if ((msg.ground_speed != null) && (current.ground_speed != Math.floor(msg.ground_speed * 1.8520))) {
 		  			current.ground_speed = Math.floor(msg.ground_speed * 1.8520); // km/h from knots
 		  			currentmsg.ground_speed = current.ground_speed;
 		  			changed = true;
 		  		}
-		  		if ((msg.vertical_rate != null) && (current.vertical_rate != msg.vertical_rate)) {
+		  		if ((msg.vertical_rate != null) && (current.vertical_rate != Math.floor(msg.vertical_rate * 1.8520))) {
 		  			current.vertical_rate = Math.floor(msg.vertical_rate * 1.8520); // m/s from knots
 		  			currentmsg.vertical_rate = current.vertical_rate;
 		  			changed = true;
@@ -323,7 +323,7 @@ baseStation.on('message', function(msg) {
 		  			currentmsg.squawk =current.squawk;
 		  			changed = true;
 		  		}
-		  		if ((msg.altitude != null) && (current.altitude != msg.altitude)) {
+		  		if ((msg.altitude != null) && (current.altitude != Math.floor(msg.altitude * 0.3048))) {
 		  			current.altitude = Math.floor(msg.altitude * 0.3048); // feet en m
 		  			currentmsg.altitude = current.altitude;
 		  			changed = true;
@@ -339,7 +339,7 @@ baseStation.on('message', function(msg) {
 						} else if (current.altitude < 6000) {
 						  color = makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((current.altitude-3000) * 100 / 3000));
 						} else {
-						color = makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((current.altitude-6000) * 100 / 10000));
+						color = makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((current.altitude-6000) * 100 / 6000));
 						}
           				var lineColor = { 'color':color.cssColor, 'opacity':1.0,'weight':3 };
 						current.trackhistory.push( { id : current.trackhistory.length, track : [{ 'latitude':current.latitude,'longitude':current.longitude},{'latitude':msg.lat,'longitude':msg.lon}], color : lineColor } );
