@@ -159,7 +159,7 @@
 			"file": "app.js",
 			"settings":
 			{
-				"buffer_size": 12093,
+				"buffer_size": 13359,
 				"line_ending": "Windows"
 			}
 		},
@@ -167,24 +167,8 @@
 			"file": "public/js/controllers/MainCtrl.js",
 			"settings":
 			{
-				"buffer_size": 10256,
+				"buffer_size": 12034,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "public/js/services/settings.js",
-			"settings":
-			{
-				"buffer_size": 474,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "angular.module('socket.flight', ['$location','$http']).\nfactory('flights', function($location,$http) {\n	var connected = false;\n	var socket = {};\n	var client_count = 0;\n	var watches = {};\n	var planes = [];\n	return {\n				init :function() {\n	    			socket = io.connect($location.protocol()+'://'+$location.host()+':'+$location.port()+'/socket/flight');\n	    			socket.on('connect', function(socket){\n	        			connected = true;\n	        		});\n			        socket.on('disconnect', function(){\n			          connected = false;\n			        });\n			        socket.on('client_count', function(count) {\n			          client_count = count;\n			        });\n			        socket.on('add', function(msg) {\n			          msg.icon = {\n			            //path: 'm 3.5461112,0.05367307 -76.2413922,0 L 3.5461112,-414.178 72.69528,0.05367307 z',\n			            path: 'm -1.3526448,-503.44497 c -12.9560102,0 -19.1740302,42.80954 -21.3773502,62.88076 -0.45814,6.08867 -0.97291,11.61987 -0.97291,17.30086 l 0,60.50256 c -0.13431,3.44701 -0.73266,4.40381 -2.7242,6.13875 l -46.71457,40.69575 c -3.18764,2.20418 -7.33515,2.12237 -7.01798,-5.45346 l 0,-5.40876 c 0,-2.98059 -2.38348,-5.40877 -5.36407,-5.40877 l -6.70508,0 c -2.98058,0 -5.40876,2.42818 -5.40876,5.40877 l 0,31.72032 c 0.0157,0.9701 -0.15769,1.05125 -0.84818,1.66519 l -44.299345,39.38693 c -4.53651,3.15795 -6.19859,0.0596 -6.43688,-5.49816 l 0,-9.87881 c 0,-2.98059 -2.38347,-5.40877 -5.36406,-5.40877 l -6.70508,0 c -2.98059,0 -5.40876,2.42818 -5.40876,5.40877 l 0,32.85504 c -0.003,0.41191 -0.17177,0.45043 -0.35881,0.66367 l -47.51545,40.99372 c -3.02542,3.87152 -4.81843,5.63897 -4.69355,12.20324 l -0.16908,18.42478 c -0.38261,2.50774 1.95765,3.50595 3.60106,2.71745 0,0 81.13485,-50.09326 112.25296,-63.82789 31.118125,-13.73463 72.593655,-23.15487 72.593655,-23.15487 3.19835,-0.77396 6.05794,-0.86459 7.28618,2.54793 l 0,133.07345 0,5.54286 c 0.0822,16.544666 6.33244,26.555332 0,32.497282 l -51.72296,50.26863 c -3.14093,3.34871 -4.95346,6.21196 -5.32091,11.62338 l 0.0775,5.7259399 c 0.17422,2.67887 1.18044,4.05562 3.63446,3.73986 l 66.1568,-16.2660699 c 1.7351202,-0.54805 3.1135602,-0.36124 4.3312402,1.32162 L 0.20984518,-3.5590481 8.5123854,-18.828058 c 1.147,-1.63534 3.3026396,-2.41373 4.9264696,-1.83124 20.40655,4.83258 40.8131,9.66517 61.21964,14.4977499 2.62547,0.31568 4.75398,0.26075 5.09024,-3.26192 l 0,-8.7426799 c -1.3742,-6.03068 -4.84032,-8.84032 -8.47592,-12.46919 l -51.92915,-44.22104 c -4.85769,-4.92351 -0.0429,-15.32292 1.60922,-32.005572 l 0,-5.49817 0,-131.50893 0.0446,-0.0446 0.0446,0 0,-0.0446 0.0446,0 0,-0.0446 0.0446,0 0,-0.0446 0.0446,0 c 0.0402,-0.19235 0.0865,-0.39686 0.13403,-0.58111 0.0473,-0.18425 0.1233,-0.36115 0.1788,-0.53641 0.0555,-0.17527 0.11458,-0.32632 0.1788,-0.4917 0.0642,-0.16539 0.10499,-0.33709 0.1788,-0.49171 0.0738,-0.15461 0.13918,-0.30406 0.22351,-0.447 0.0842,-0.1429 0.17275,-0.27191 0.2682,-0.40231 0.0954,-0.13045 0.20549,-0.24064 0.3129,-0.3576 0.10743,-0.11701 0.23745,-0.25499 0.35761,-0.35761 0.12015,-0.1027 0.22391,-0.18079 0.3576,-0.2682 0.13374,-0.0874 0.29902,-0.19691 0.44701,-0.2682 0.148,-0.0712 0.28391,-0.12459 0.447,-0.1788 0.16308,-0.0544 0.35743,-0.0978 0.53641,-0.13403 0.17897,-0.0363 0.34078,-0.0718 0.5364,-0.0894 0.19564,-0.0176 0.41274,-0.003 0.62581,0 0.21308,0.001 0.43921,0.022 0.67051,0.0446 0.2313,0.0226 0.4649,0.0453 0.71521,0.0894 0,0 37.6559,8.16667 69.42033,21.59007 31.764435,13.4234 116.465785,64.12202 116.465785,64.12202 1.94021,0.39708 3.57657,0.10198 3.82331,-1.80048 l 0,-17.12931 c 0.11215,-4.595 -2.60719,-8.67873 -4.60415,-10.50463 l -46.49641,-41.13968 c -1.60175,-1.94784 -1.95895,-2.32195 -2.00365,-3.47335 l 0,-32.54006 c 0,-2.98059 -2.42818,-5.40877 -5.40877,-5.40877 l -6.70507,0 c -2.98059,0 -5.36407,2.42818 -5.36407,5.40877 l 0,9.87881 c 0.52057,5.87725 -1.04367,8.05372 -4.69355,5.27466 l -45.600265,-39.16053 c -1.02016,-0.87224 -1.25859,-0.91239 -1.24588,-1.76292 l 0,-31.62549 c 0,-2.98059 -2.42817,-5.40877 -5.40876,-5.40877 l -6.70508,0 c -2.98059,0 -5.36406,2.42818 -5.36406,5.40877 l 0,5.40876 c 0.75793,7.53296 -4.18952,9.04252 -7.50969,5.40876 l -46.40138,-40.74939 c -2.16309,-1.95235 -2.36689,-3.14928 -2.59039,-5.87517 l 0,-60.66789 c -0.1463,-5.99709 -0.46962,-12.72278 -1.12829,-18.20055 -2.70364,-21.24879 -10.9380296,-67.1006 -21.1772698,-61.98098 z',\n			            fillColor: '#1C1C1C',\n			            fillOpacity: 1.0,\n			            scale: 0.05,\n			            strokeColor: '#1C1C1C',\n			            rotation: msg.track,\n			            strokeWeight: 1\n			          };\n			          var color = (msg.altitude < 3000) ? '#00FF00' : (msg.altitude < 6000) ? '#01A9DB' : '#A901DB';\n			          msg.lineColor = { 'color':color, 'opacity':1.0,'weight':3 };\n			          msg.show = false;\n			          msg.silhouette = '/img/SilhouettesLogos/FOLLOW%20ME.png';\n			          msg.onClick = function(data) {\n			            msg.show = !msg.show;\n			            var adsb = msg.ICAO;\n			            if (msg.show) {\n			              $scope.$emit('planeSelected', adsb);              \n			              $http.get('/rest/aircraft/history/'+adsb).success(function(data) {\n			                for(var id in $scope.planes) {\n			                  var plane = $scope.planes[id];                \n			                  if (plane.ICAO == adsb) {\n			                    plane.trackhistory = data.trackhistory;\n			                  }\n			                }\n			              });\n			            } else {\n			              $scope.$emit('planeSelected', '000000'); \n			              msg.trackhistory = [];              \n			            }\n			          };\n			          // Update silhouette\n			          $http.get('/rest/aircraft/info/'+msg.ICAO).success(function(data) {\n			              for(var id in $scope.planes) {\n			                var plane = $scope.planes[id];                \n			                if (plane.ICAO == data.ModeS) {\n			                  plane.silhouette = '/img/SilhouettesLogos/'+data.DesignatorType+'.png';\n			                }\n			              }\n			          });\n			          $scope.planes.push( msg );     \n			        });        \n		    	},\n		    	isConnected : function() {\n		    		return connected;\n		    	}\n		        socket.on('quality', function(msg) {\n		          for(var id in $scope.planes) {\n		            var plane = $scope.planes[id];  \n		            if (plane.ICAO == msg.ICAO) {\n		              if (msg.quality != plane.quality) {\n		                if (msg.quality<30)\n		                  plane.icon.fillColor = '#DF0101';\n		                else if (msg.quality<60)\n		                  plane.icon.fillColor = '#D7DF01';\n		                else\n		                  plane.icon.fillColor = '#1C1C1C';\n		                plane.quality = msg.quality;\n		              }\n		            }\n		          }\n		        });\n		        socket.on('delete', function(msg) {\n		          for(var id in $scope.planes) {\n		            var plane = $scope.planes[id];   \n		            if (plane.ICAO == msg.ICAO) {\n		                // before delete\n		                //plane.trackhistory = [];\n		                $scope.planes.splice(id,1);\n		                //console.log('remove ICAO='+msg.ICAO+' length='+$scope.planes.length); \n		                break;    \n		            }\n		          }\n		        });\n		        socket.on('change', function(msg) {\n		          var found = false\n		          for(var id in $scope.planes) {\n		            var plane = $scope.planes[id];                \n		            if (plane.ICAO == msg.ICAO) {\n		              // not of bound as we receive a signal\n		              if ((!isUndefinedOrNull(msg.latitude)) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {\n		                // polyline color from altitude\n		                //var color = (plane.altitude < 3000) ? '#00FF00' : (plane.altitude < 6000) ? '#01A9DB' : '#A901DB';\n		                if ((plane.show) && (!isUndefinedOrNull(plane.trackhistory))) {\n		                  plane.trackhistory.push( { 'latitude':plane.latitude,'longitude':plane.longitude}); \n		                }\n		               // plane.trackhistory.push( { 'latitude':msg.latitude,'longitude':msg.longitude});\n		                //plane.lineColor = { 'color':color, 'opacity':1.0,'weight':2 };\n		                plane.latitude = msg.latitude;\n		                plane.longitude = msg.longitude;\n		              }\n		              if ((!isUndefinedOrNull(msg.altitude)) && (msg.altitude != plane.altitude))\n		                plane.altitude = msg.altitude;\n		              if ((!isUndefinedOrNull(msg.ground_speed)) && (msg.ground_speed != plane.ground_speed))\n		                plane.ground_speed = msg.ground_speed;\n		              if ((!isUndefinedOrNull(msg.vertical_rate)) && (msg.vertical_rate != plane.vertical_rate))\n		                plane.vertical_rate = msg.vertical_rate;\n		              if ((!isUndefinedOrNull(msg.squawk)) && (msg.squawk != plane.squawk))\n		                plane.squawk = msg.squawk;\n		              if ((!isUndefinedOrNull(msg.callsign)) && (msg.callsign != plane.callsign))\n		                plane.callsign = msg.callsign;\n		              // Update Icon\n		              if ((!isUndefinedOrNull(msg.track)) && (msg.track != plane.icon.rotation)) {\n		                plane.track = msg.track;\n		                plane.icon.rotation = msg.track;\n		              }\n		              //console.log('update ICAO='+msg.ICAO+'length='+$scope.planes.length);                 \n		              found = true;\n		              break;\n		            }\n		          }\n		        });\n		    });	\n});",
-			"settings":
-			{
-				"buffer_size": 9533,
-				"line_ending": "Windows"
 			}
 		},
 		{
@@ -199,7 +183,23 @@
 			"file": "public/js/controllers/MenuCtrl.js",
 			"settings":
 			{
-				"buffer_size": 1570,
+				"buffer_size": 2117,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/partial/about.jade",
+			"settings":
+			{
+				"buffer_size": 2385,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/js/controllers/NavBarCtrl.js",
+			"settings":
+			{
+				"buffer_size": 864,
 				"line_ending": "Unix"
 			}
 		},
@@ -223,7 +223,15 @@
 			"file": "views/partial/flight.jade",
 			"settings":
 			{
-				"buffer_size": 1849,
+				"buffer_size": 1142,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/partial/flightdetail.jade",
+			"settings":
+			{
+				"buffer_size": 979,
 				"line_ending": "Windows"
 			}
 		},
@@ -231,15 +239,23 @@
 			"file": "views/partial/history.jade",
 			"settings":
 			{
-				"buffer_size": 835,
+				"buffer_size": 871,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 410,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "views/partial/settings.jade",
 			"settings":
 			{
-				"buffer_size": 1087,
+				"buffer_size": 1117,
 				"line_ending": "Unix"
 			}
 		},
@@ -280,23 +296,23 @@
 			"file": "public/js/app.js",
 			"settings":
 			{
-				"buffer_size": 1185,
+				"buffer_size": 1894,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/stylesheets/style.css",
+			"file": "sass/style.scss",
 			"settings":
 			{
-				"buffer_size": 3197,
-				"line_ending": "Unix"
+				"buffer_size": 3218,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "views/index.jade",
 			"settings":
 			{
-				"buffer_size": 745,
+				"buffer_size": 736,
 				"line_ending": "Windows"
 			}
 		},
@@ -449,6 +465,9 @@
 	},
 	"file_history":
 	[
+		"/D/usr/fcr/Node-radar/public/stylesheets/style.css",
+		"/D/usr/fcr/Node-radar/public/js/services/settings.js",
+		"/C/Program Files/Boot2Docker for Windows/start.sh",
 		"/D/usr/fcr/Node-radar/sass/style.scss",
 		"/D/usr/fcr/Node-radar/public/img/airplane-test-bis.svg",
 		"/C/oracle/product/11.2.0/client_1/network/admin/tnsnames.ora",
@@ -573,10 +592,7 @@
 		"/X/v2/sl/slfi/ITFI_FtHeader/src/Main.pas",
 		"/X/v2/sl/slfi/ITFI_FtHeader/src/CheckData.pas",
 		"/X/v2/sl/slfi/common/ConstFMFI.pas",
-		"/X/v2/sl/common/Ssd_Obj.pas",
-		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/target/classes/log4j.xml",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/common/Ssd_Obj.pas",
-		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManager.js"
+		"/X/v2/sl/common/Ssd_Obj.pas"
 	],
 	"find":
 	{
@@ -594,6 +610,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".push",
+			"trackhisto",
+			"trackhistory",
+			"track",
+			"21",
 			"Build",
 			"splice",
 			"type",
@@ -716,12 +737,7 @@
 			"EliminateUnvalidDates",
 			"ManageDocDate",
 			"Date",
-			"StandardWebCapture",
-			"capture",
-			"nWindowConfidence",
-			"&",
-			"java",
-			"checkContinentWinner"
+			"StandardWebCapture"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -746,7 +762,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -755,15 +771,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12093,
+						"buffer_size": 13359,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3749,
-								3750
+								10706,
+								10706
 							]
 						],
 						"settings":
@@ -771,10 +787,10 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1710.0,
+						"translation.y": 5686.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -783,15 +799,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10256,
+						"buffer_size": 12034,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9853,
-								9853
+								7875,
+								7875
 							]
 						],
 						"settings":
@@ -800,70 +816,15 @@
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 114.0,
+						"translation.x": 0.0,
+						"translation.y": 1881.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "public/js/services/settings.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 474,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								283,
-								283
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9533,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8341,
-								8341
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": -0.0,
-						"translation.y": 798.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "models/dump1090.js",
 					"semi_transient": false,
 					"settings":
@@ -888,24 +849,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 3,
 					"file": "public/js/controllers/MenuCtrl.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1570,
+						"buffer_size": 2117,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								540,
-								540
+								1116,
+								1116
 							]
 						],
 						"settings":
@@ -915,10 +876,68 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": -0.0,
-						"translation.y": 285.0,
+						"translation.y": 57.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "views/partial/about.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2385,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								471,
+								471
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 1207.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/js/controllers/NavBarCtrl.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 864,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								702,
+								711
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -944,10 +963,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 171.0,
+						"translation.y": 1197.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
@@ -977,7 +996,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
@@ -986,43 +1005,43 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1849,
+						"buffer_size": 1142,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								365,
-								365
+								721,
+								721
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
 						},
-						"translation.x": 0.0,
+						"translation.x": 145.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 9,
-					"file": "views/partial/history.jade",
+					"file": "views/partial/flightdetail.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 835,
+						"buffer_size": 979,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								144,
-								144
+								215,
+								215
 							]
 						],
 						"settings":
@@ -1034,24 +1053,81 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 10,
-					"file": "views/partial/settings.jade",
+					"file": "views/partial/history.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1087,
+						"buffer_size": 871,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								138,
-								138
+								414,
+								414
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 118.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "gruntfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 410,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								153,
+								153
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "views/partial/settings.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1117,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								50,
+								50
 							]
 						],
 						"settings":
@@ -1063,11 +1139,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 13,
 					"file": "models/planefinder.js",
 					"semi_transient": false,
 					"settings":
@@ -1093,11 +1169,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 14,
 					"file": "views/includes/sidebar.jade",
 					"semi_transient": false,
 					"settings":
@@ -1122,11 +1198,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 15,
 					"file": "views/includes/footer.jade",
 					"semi_transient": false,
 					"settings":
@@ -1150,11 +1226,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 16,
 					"file": "views/includes/navbar.jade",
 					"semi_transient": false,
 					"settings":
@@ -1179,24 +1255,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 17,
 					"file": "public/js/app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1185,
+						"buffer_size": 1894,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								46,
-								0
+								1451,
+								1490
 							]
 						],
 						"settings":
@@ -1206,32 +1282,32 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 342.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
-					"file": "public/stylesheets/style.css",
+					"buffer": 18,
+					"file": "sass/style.scss",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3197,
+						"buffer_size": 3218,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								250,
-								250
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -1239,24 +1315,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 19,
 					"file": "views/index.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 745,
+						"buffer_size": 736,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								510,
-								510
+								541,
+								546
 							]
 						],
 						"settings":
@@ -1267,11 +1343,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 20,
 					"file": "/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/ProductionManager.sln",
 					"semi_transient": false,
 					"settings":
@@ -1296,11 +1372,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 21,
 					"file": "public/img/airplane-test.svg",
 					"semi_transient": false,
 					"settings":
@@ -1326,11 +1402,11 @@
 						"translation.y": 912.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 22,
 					"file": "public/js/controllers/MapCtrl.js",
 					"semi_transient": false,
 					"settings":
@@ -1356,11 +1432,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 23,
 					"file": "views/includes/head.jade",
 					"semi_transient": false,
 					"settings":
@@ -1385,11 +1461,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 24,
 					"semi_transient": false,
 					"settings":
 					{
@@ -1415,11 +1491,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 25,
 					"semi_transient": false,
 					"settings":
 					{
@@ -1444,11 +1520,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
-					"buffer": 24,
+					"buffer": 26,
 					"file": "public/img/airplane.svg",
 					"semi_transient": false,
 					"settings":
@@ -1474,7 +1550,7 @@
 						"translation.y": 1083.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 22,
 					"type": "text"
 				}
 			]
@@ -1530,6 +1606,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"inde",
+				"D:\\usr\\fcr\\Node-radar\\views\\index.jade"
+			],
+			[
+				"index",
+				"D:\\usr\\fcr\\Node-radar\\views\\index.jade"
+			],
+			[
+				"men",
+				"D:\\usr\\fcr\\Node-radar\\public\\js\\controllers\\MenuCtrl.js"
+			],
 			[
 				"nav",
 				"D:\\usr\\fcr\\productionmanager\\views\\includes\\navbar.jade"

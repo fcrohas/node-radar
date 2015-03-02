@@ -6,10 +6,10 @@ html(ng-app='nodeRadar')
 		//include ./includes/sidebar.jade
 		.container-fluid(id='mainView',ng-controller='mapCtrl')
 			.row(ng-if='map.show')
-				ui-gmap-google-map.col-md-9(pan='true',center='map.center',zoom='map.zoom',options='map.options',control='map.control',ng-cloak)
+				ui-gmap-google-map.col-xs-12.col-md-9(pan='true',center='map.center',zoom='map.zoom',options='map.options',control='map.control',ng-cloak)
 					ui-gmap-markers(models="planes",idKey="'ICAO'",coords="'self'", icon="'icon'", click="'onClick'")
 					ui-gmap-polylines(models="trackhistory",path="'track'",stroke="'color'",static="true",visible="'show'",idKey="'id'")
-				.col-md-3
+				.hidden-xs.hidden-sm.col-md-3
 					div(id='infoView',ng-view)
 		include ./includes/footer.jade
 	script(src='//localhost:35729/livereload.js')

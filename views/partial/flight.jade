@@ -1,7 +1,7 @@
-.panel.panel-primary
-	.panel-heading(ng-click="isFlightCollapsed = !isFlightCollapsed")
-		h3.panel-title Flight list
-	.panel-body.fixed-panel(collapse="isFlightCollapsed")
+accordion(close-others='false')
+	accordion-group.panel-primary(ng-init="status.openList=true",is-open="status.openList")
+		accordion-heading List
+			i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.openList, 'glyphicon-chevron-right': !status.openList}")
 		.input-group
 			span.input-group-addon.glyphicon.glyphicon-search
 			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="searchValue",autofocus)
@@ -11,7 +11,7 @@
 				th.col-md-3 Callsign
 				th.col-md-3 Speed (km/h)
 				th.col-md-3 Altitude (m)
-			tbody(ng-style="style(240)",resize)
+			tbody(ng-style="style(650)",resize)
 				tr.animate-repeat(ng-repeat='plane in planes | filter:searchValue', ng-click='Selected();',ng-class="{'alert-info':plane.show,'':!plane.show}",tooltip="{{plane.description}}")
 					td.col-md-3 
 						img(ng-src="{{plane.silhouette}}")
@@ -20,3 +20,22 @@
 					td.col-md-3 
 						i.pull-left.glyphicon(ng-class="{'glyphicon-triangle-bottom red': (plane.vertical_rate<0),'glyphicon-triangle-top green': (plane.vertical_rate>0),'glyphicon-minus': (plane.vertical_rate==0)}")						
 						.pull-right{{plane.altitude}}
+	accordion-group.panel-primary(ng-init="status.openDetail=true",is-open="status.openDetail")
+		accordion-heading Detail
+			i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.openDetail, 'glyphicon-chevron-right': !status.openDetail}")
+		div.well
+			text(ng-cloak) Registration :	{{planeinfo.Registration}}
+			br
+			text(ng-cloak) Plane type : {{planeinfo.Manufacturer}} {{planeinfo.ModelType}} ( {{planeinfo.Engines}} - {{planeinfo.DesignatorType}})
+			br
+			text(ng-cloak) Operator :	{{planeinfo.Operator}}
+			br
+			text(ng-if="planeinfo.Airport",ng-cloak) Flight id {{planeinfo.FlightName}} 
+			text(ng-if="planeinfo.Airport",ng-cloak) from {{planeinfo.Airport.departure.AirportName}} ({{planeinfo.Airport.departure.DepartureTime}}) 
+			text(ng-if="planeinfo.Airport",ng-cloak) to {{planeinfo.Airport.arrival.AirportName}} ({{planeinfo.Airport.arrival.ArrivalTime}}) 
+		carousel(interval="5000")
+			slide(ng-repeat="photo in planeinfo.Photos", style="height=100px;")
+				img(ng-src="{{photo.thumbnailPath}}", style="margin:auto;")
+				.carousel-caption
+					h4 {{planeinfo.ModelType}}
+					p {{photo.author}}

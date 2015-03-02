@@ -1,28 +1,33 @@
 .navbar.navbar-inverse(role='navigation',ng-controller='navbarCtrl')
-	.container-fluid
-		.navbar-header
-			a
-				img.logo(src='img/noderadar-logo.png')
-			button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-				span.sr-only Toggle navigation
-				span.icon-bar
-				span.icon-bar
-				span.icon-bar
-		.navbar-collapse.collapse
+	.navbar-header
+		a
+			img.logo(src='img/noderadar-logo.png')
+		.btn.btn-navbar.navbar-toggle(ng-init='navCollapsed = true', ng-click='navCollapsed = !navCollapsed')
+		div(ng-if="navCollapsed == false")
+			.btn.btn-navbar.pull-right(type="button")
+				span.glyphicon.glyphicon-user
+				span.badge(ng-cloak)
+					{{client_count}}
+			.btn.btn-navbar.pull-right(type="button")
+				span.glyphicon.glyphicon-plane
+				span.badge(ng-cloak)
+					{{planes.length}}
+	.navbar-collapse.collapse(collapse='navCollapsed')
+		div(ng-if="navCollapsed == true")
 			ul.nav.navbar-nav
 				li.btn-group(ng-repeat='itemMenu in menuList',dropdown)
-					a.dropdown-toggle(type="button",dropdown-toggle, ng-disabeld='disabled', ng-cloak)
+					a.dropdown-toggle(type="button",dropdown-toggle, ng-cloak)
 						{{itemMenu.dropmenu}}
 						span.caret
 					ul.dropdown-menu(role='menu')
 						li(ng-repeat='action in itemMenu.subaction')
 							a(href='{{action.link}}', ng-cloak)
 								{{action.name}}
-			.button.btn.pull-right(type="button")
+			.btn.btn-navbar.pull-right(type="button")
 				span.glyphicon.glyphicon-user
 				span.badge(ng-cloak)
 					{{client_count}}
-			.button.btn.pull-right(type="button")
+			.btn.btn-navbar.pull-right(type="button")
 				span.glyphicon.glyphicon-plane
 				span.badge(ng-cloak)
-					{{planes.length}}					
+					{{planes.length}}

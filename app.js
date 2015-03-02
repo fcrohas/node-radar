@@ -353,7 +353,6 @@ baseStation.on('message', function(msg) {
 		  		if ((msg.logged_time != null) && (current.logged_time != msg.logged_time)) {
 		  			current.live_time = msg.logged_timestamp();
 		  			currentmsg.live_time = current.live_time;
-		  			changed = true;
 		  		}
 		  		if (changed) {
 			  		// Plane is back ?

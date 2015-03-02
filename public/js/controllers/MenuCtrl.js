@@ -10,6 +10,11 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http',
             });
             $scope.$emit('planeSelected', this.plane.ICAO);
         };        
+        $scope.$on('planeFromMap', function(event, ICAO) { 
+          $http.get('/rest/flight/'+ICAO).success(function(data) {
+            $scope.planeinfo = data;
+          });
+        });
     }
 
   ]);
