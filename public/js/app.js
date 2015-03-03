@@ -1,4 +1,4 @@
-var radarManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl']); 
+var radarManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl','ServiceModule']); 
 
 radarManager.config(['$routeProvider',
   function($routeProvider) {
@@ -56,7 +56,7 @@ radarManager.config(['$routeProvider',
         }, true);
 
         w.bind('resize', function () {
-            scope.$apply();
+            //scope.$apply();
         });
     }
 });

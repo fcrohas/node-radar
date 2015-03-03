@@ -40,7 +40,6 @@ if (true) {
 var server = app.listen(config.HttpServer.port);
 
 var websocket = io.listen(server);
-websocket.set('destroy upgrade',false);
 
 // listen websocket on suburl
 var flight = websocket.of('/socket/flight');

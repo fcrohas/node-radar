@@ -11,7 +11,7 @@ accordion(close-others='false')
 				th.col-md-3 Callsign
 				th.col-md-3 Speed (km/h)
 				th.col-md-3 Altitude (m)
-			tbody(ng-style="style(650)",resize)
+			tbody
 				tr.animate-repeat(ng-repeat='plane in planes | filter:searchValue', ng-click='Selected();',ng-class="{'alert-info':plane.show,'':!plane.show}",tooltip="{{plane.description}}")
 					td.col-md-3 
 						img(ng-src="{{plane.silhouette}}")
