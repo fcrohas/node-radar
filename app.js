@@ -9,6 +9,7 @@ var sbs1 = require('sbs1');
 var datalayer = require('./models/datalayer');
 var Dump1090 = require('./models/dump1090');
 var planefinder = require('./models/planefinder');
+var extend = require('util')._extend;
 
 // Database 
 var db = new datalayer();
@@ -209,7 +210,10 @@ flight.on('connection', function(socket) {
 	// Send all flight to client
 	for (var id in planes) {
 		if (!planes[id].out_of_bound) {
-			socket.emit('add',planes[id]);
+			// Empty trackhistory
+			var planecopy = extend({}, planes[id]);
+			planecopy.trackhistory = [];
+			socket.emit('add',planecopy);
 		}
 	}
 	socket.on('disconnect', function() {
@@ -234,23 +238,24 @@ var flightalert = setInterval( function() {
 	// Check time delta for each plane
 	for (var id in planes) {
 		var current = planes[id];
+		// Empty trackhistory
 		var seenDelta = Math.floor(delta - (current.live_time / 1000) - current.delta_time);
 		//console.log("plane "+current.ICAO+" seen since "+seenDelta);
 		if ((seenDelta < config.Plane.quality.good.seen) && (current.quality != 100)) {
 			current.quality = 100;
-			flight.emit('quality',current);
+			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
 		}
 		if ((seenDelta > config.Plane.quality.good.seen) && (seenDelta < config.Plane.quality.poor.seen) && (current.quality != 50)) {
 			current.quality = 50;
-			flight.emit('quality',current);
+			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
 		}
 		if ((seenDelta > config.Plane.quality.poor.seen) && (seenDelta < config.Plane.quality.bad.seen) && (current.quality != 20)) {
 			current.quality = 20;
-			flight.emit('quality',current);
+			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
 		}
 		if ((seenDelta > config.Plane.memory.timeout_client) && (!current.out_of_bound))  { // 1 minutes delta ?
 			current.out_of_bound = true;
-			flight.emit('delete',current);
+			flight.emit('delete', {ICAO:current.ICAO, quality:current.quality });
 		}
 		// After outbound of 3 minutes delte it
 		if (seenDelta > config.Plane.memory.timeout_server) {
@@ -356,8 +361,11 @@ baseStation.on('message', function(msg) {
 		  		if (changed) {
 			  		// Plane is back ?
 			  		if (current.out_of_bound) {
-						current.out_of_bound = false;		  			
-			  			flight.emit('add', current);
+						current.out_of_bound = false;
+						// Empty trackhistory
+						var planecopy = extend({}, current);
+						planecopy.trackhistory = [];
+			  			flight.emit('add', planecopy);
 			  		} else {
 			  			flight.emit('change',currentmsg);
 			  		}

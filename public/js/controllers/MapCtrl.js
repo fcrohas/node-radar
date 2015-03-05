@@ -1,10 +1,11 @@
 var mapControllers = angular.module('mapCtrl', []); 
 
-mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogleMapApi','uiGmapIsReady', function($scope,$timeout,$http,GoogleMapApi,IsReady) { 
+mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogleMapApi','uiGmapIsReady', '$rootScope', function($scope,$timeout,$http,GoogleMapApi,IsReady,$rootScope) { 
 
   GoogleMapApi.then(function(maps) {
       $scope.googleVersion = maps.version;
       maps.visualRefresh = true;
+      $rootScope.maps = maps;
   });
   
   angular.extend($scope, {
@@ -40,12 +41,14 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogle
         mouseover: function (marker, eventName, model, args) {
           model.options.labelContent = "Squawk: " + model.squawk+"<br>Altitude: "+model.altitude+" m<br>Speed: "+model.ground_speed+" km/h";
           model.showWindow = true;
-          $scope.$apply();
+          model.options.labelVisible = true;
+          //$scope.$apply();
         },
         mouseout: function (marker, eventName, model, args) {
            model.options.labelContent = " ";
            model.showWindow = false;
-           $scope.$apply();
+           model.options.labelVisible = false;
+           //$scope.$apply();
         }
       }
     }  
