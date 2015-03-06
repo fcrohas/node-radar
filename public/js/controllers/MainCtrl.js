@@ -136,18 +136,8 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http', 'SocketSe
         // labelVisible : false
       };
       msg.desciption = '';
-      msg.silhouette = '/img/SilhouettesLogos/FOLLOW%20ME.png';
-      msg.onClick = function(data) {
-        //msg.show = !msg.show;
-        var adsb = msg.ICAO;
-        if (!msg.show) {
-          $scope.$emit('planeSelected', adsb);              
-        } else {
-          // Send event with the empty ICAO number
-          $scope.$emit('planeSelected', '000000'); 
-        }
-      };
       // Update silhouette
+      plane.silhouette = '/img/SilhouettesLogos/FOLLOW%20ME.png';
       $http.get('/rest/aircraft/info/'+msg.ICAO).success(function(data) {
           for(var id in $scope.planes) {
             var plane = $scope.planes[id];                
@@ -171,37 +161,7 @@ mainControllers.controller('mainCtrl', ['$scope','$location', '$http', 'SocketSe
       });
       $scope.planes.push( msg );     
     });        
-    socket.on('quality', function(msg) {
-      for(var id in $scope.planes) {
-        var plane = $scope.planes[id];  
-        if (plane.ICAO == msg.ICAO) {
-          if (msg.quality != plane.quality) {
-            if (msg.quality<30)
-              plane.icon.fillColor = '#DF0101';
-            else if (msg.quality<60)
-              plane.icon.fillColor = '#D7DF01';
-            else
-              plane.icon.fillColor = '#1C1C1C';
-            plane.quality = msg.quality;
-          }
-        }
-      }
-    });
-    socket.on('delete', function(msg) {
-      for(var id in $scope.planes) {
-        var plane = $scope.planes[id];   
-        if (plane.ICAO == msg.ICAO) {
-            // before delete
-            if (plane.show == true) {
-              $scope.trackhistory = [];                  
-            }
-            plane.show = false;
-            $scope.planes.splice(id,1);
-            //console.log('remove ICAO='+msg.ICAO+' length='+$scope.planes.length); 
-            break;    
-        }
-      }
-    });
+
     socket.on('change', function(msg) {
       var found = false;
       for(var id in $scope.planes) {
