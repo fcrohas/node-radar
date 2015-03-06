@@ -2,18 +2,73 @@ var menuControllers = angular.module('menuCtrl', []);
 
 menuControllers.controller('FlightCtrl', ['$scope', '$http',
     function ($scope, $http) {
-
+        // clone plane object
+        function clone(obj) {
+            if (null == obj || "object" != typeof obj) return obj;
+            var copy = obj.constructor();
+            for (var attr in obj) {
+                if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+            }
+            return copy;
+        }
+        $scope.planes = [];
         $scope.Selected = function() {
             //console.log('Selected plane ICAO '+this.plane.ICAO)
-            $http.get('/rest/flight/'+this.plane.ICAO).success(function(data) {
-              $scope.planeinfo = data;
-            });
-            $scope.$emit('planeSelected', this.plane.ICAO);
+            if (!this.plane.show) {
+              $http.get('/rest/flight/'+this.plane.ICAO).success(function(data) {
+                $scope.planeinfo = data;
+              });
+              this.plane.show = true;
+              $scope.$emit('planeSelect', this.plane.ICAO);
+            } else {
+              $scope.$emit('planeUnSelect', this.plane.ICAO);
+              this.plane.show = false;
+            }
         };        
-        $scope.$on('planeFromMap', function(event, ICAO) { 
-          $http.get('/rest/flight/'+ICAO).success(function(data) {
-            $scope.planeinfo = data;
-          });
+        $scope.$on('planeSelected', function(event, ICAO) { 
+          for(var id in $scope.planes) {
+            var plane = $scope.planes[id];   
+            if (plane.ICAO == ICAO) {
+              plane.show = true;
+              $http.get('/rest/flight/'+ICAO).success(function(data) {
+                $scope.planeinfo = data;
+              });
+            }
+          }
+        });
+        $scope.$on('planeUnSelected', function(event, ICAO) { 
+          for(var id in $scope.planes) {
+            var plane = $scope.planes[id];   
+            if (plane.ICAO == ICAO) {
+              plane.show = false;
+              $scope.planeinfo = {};
+            }
+          }
+        });
+
+        $scope.$on('addPlane', function(event,msg) {
+          var plane = clone(msg);
+           $scope.planes.push(plane);
+        });
+        $scope.$on('deletePlane', function(event,msg) {
+          for(var id in $scope.planes) {
+            var plane = $scope.planes[id];   
+            if (plane.ICAO == msg.ICAO) {
+              $scope.planes.splice(id,1);
+            }
+          }
+        });
+        $scope.$on('updateInfo', function(event,msg) {
+          for(var id in $scope.planes) {
+            var plane = $scope.planes[id];   
+            if (plane.ICAO == msg.ICAO) {
+              $scope.planes[id].altitude = msg.altitude;
+              $scope.planes[id].ground_speed = msg.ground_speed;
+              $scope.planes[id].vertical_rate = msg.vertical_rate;
+              $scope.planes[id].callsign = msg.callsign;
+              $scope.planes[id].silhouette = msg.silhouette;
+            }
+          }
         });
     }
 
@@ -21,10 +76,13 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http',
 
 menuControllers.controller('FlightDetailCtrl', ['$scope', '$http',
     function ($scope, $http) {
-      $scope.$on('planeFromMap', function(event, ICAO) { 
+      $scope.$on('planeSelected', function(event, ICAO) { 
         $http.get('/rest/flight/'+ICAO).success(function(data) {
           $scope.planeinfo = data;
         });
+      });
+      $scope.$on('planeUnSelected', function(event, ICAO) { 
+          $scope.planeinfo = {};
       });
     }
 ]);

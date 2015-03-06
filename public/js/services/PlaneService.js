@@ -1,4 +1,6 @@
-ajax.factory('PlaneService', ['$http', function($http) {
+var planeService = angular.module('PlaneService', []);
+
+planeService.factory('PlaneService', ['$http', function($http) {
   return {
     getInfo: function(params, callback) {
       $http.get('/rest/aircraft/info/'+ params).

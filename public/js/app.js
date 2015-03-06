@@ -1,4 +1,4 @@
-var radarManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl','ServiceModule']); 
+var radarManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl','SocketService','PlaneService']); 
 
 radarManager.config(['$routeProvider',
   function($routeProvider) {
