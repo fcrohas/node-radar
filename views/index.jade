@@ -1,14 +1,15 @@
 doctype html
 html(ng-app='nodeRadar')
 	include ./includes/head.jade
-	body(ng-controller='mainCtrl')
+	body(ng-controller='mainCtrl',ng-init="mobileMenu=false",ng-swipe-left="mobileMenu = false",ng-swipe-right="mobileMenu = true")
 		include ./includes/navbar.jade
 		//include ./includes/sidebar.jade
 		.container-fluig(id='mainView',ng-controller='mapCtrl')
 			.row.full-height(ng-if='map.show')
-				ui-gmap-google-map.col-xs-12.col-md-9.full-height(pan='true',center='map.center',zoom='map.zoom',options='map.options',control='map.control',events='map.events',ng-cloak)
+				ui-gmap-google-map.col-xs-12.col-md-9.full-height(ng-show="!mobileMenu", pan='true',center='map.center',zoom='map.zoom',options='map.options',control='map.control',events='map.events',ng-cloak)
 					ui-gmap-markers(models="planesMarkers",idKey="'ICAO'",coords="'self'", icon="'icon'", click="'onClick'",modelsbyref="false",doCluster="false",events="map.markersEvents",clusterOptions="map.clusterOptions",options="'options'")
 					ui-gmap-polylines(models="trackhistory",path="'track'",stroke="'color'",static="true",visible="'show'",idKey="'id'")
 				div.hidden-xs.hidden-sm.col-md-3.full-height(id='infoView',ng-view)
+				div.col-xs-12.col-sm-12.full-height(id='infoView',ng-show="mobileMenu",ng-view)
 		include ./includes/footer.jade
 	script(src='//localhost:35729/livereload.js')

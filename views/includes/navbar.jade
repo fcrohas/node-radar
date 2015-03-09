@@ -2,40 +2,41 @@
 	.navbar-header
 		a
 			img.logo(src='img/noderadar-logo.png')
-		.btn.btn-navbar.navbar-toggle(ng-init='navCollapsed = true', ng-click='navCollapsed = !navCollapsed')
-		div(ng-if="navCollapsed == false")
-			.btn.btn-navbar.pull-right(type="button")
-				span.glyphicon.glyphicon-user
-				span.badge(ng-cloak)
-					{{client_count}}
-			.btn.btn-navbar.pull-right(type="button")
-				span.glyphicon.glyphicon-plane
-				span.badge(ng-cloak)
-					{{plane_count}}
-			.btn.btn-navbar.pull-right(type="button")
-				span.glyphicon.glyphicon-eye-open
-				span.badge(ng-cloak)
-					{{in_view}}
-	.navbar-collapse.collapse(collapse='navCollapsed')
-		div(ng-if="navCollapsed == true")
-			ul.nav.navbar-nav
-				li.btn-group(ng-repeat='itemMenu in menuList',dropdown)
-					a.dropdown-toggle(type="button",dropdown-toggle, ng-cloak)
-						{{itemMenu.dropmenu}}
-						span.caret
-					ul.dropdown-menu(role='menu')
-						li(ng-repeat='action in itemMenu.subaction')
-							a(href='{{action.link}}', ng-cloak)
-								{{action.name}}
-			.btn.btn-navbar.pull-right(type="button")
-				span.glyphicon.glyphicon-user
-				span.badge(ng-cloak)
-					{{client_count}}
-			.btn.btn-navbar.pull-right(type="button")
-				span.glyphicon.glyphicon-plane
-				span.badge(ng-cloak)
-					{{plane_count}}
-			.btn.btn-navbar.pull-right(type="button")
-				span.glyphicon.glyphicon-eye-open
-				span.badge(ng-cloak)
-					{{in_view}}
+		h2.label.hidden-md.hidden-lg.hidden-sm(ng-show="!mobileMenu") Map
+			span.glyphicon.glyphicon-chevron-right
+		span.glyphicon.glyphicon-chevron-left(ng-show="mobileMenu")
+			h2.label.hidden-md.hidden-lg.hidden-sm(ng-show="mobileMenu") List
+		.btn.btn-navbar.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
+			span.glyphicon.glyphicon-user
+			span.badge(ng-cloak)
+				{{client_count}}
+		.btn.btn-navbar.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
+			span.glyphicon.glyphicon-plane
+			span.badge(ng-cloak)
+				{{plane_count}}
+		.btn.btn-navbar.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
+			span.glyphicon.glyphicon-eye-open
+			span.badge(ng-cloak)
+				{{in_view}}
+	.navbar-collapse.collapse
+		ul.nav.navbar-nav
+			li.btn-group(ng-repeat='itemMenu in menuList',dropdown)
+				a.dropdown-toggle(type="button",dropdown-toggle, ng-cloak)
+					{{itemMenu.dropmenu}}
+					span.caret
+				ul.dropdown-menu(role='menu')
+					li(ng-repeat='action in itemMenu.subaction')
+						a(href='{{action.link}}', ng-cloak)
+							{{action.name}}
+		.btn.btn-navbar.pull-right(type="button")
+			span.glyphicon.glyphicon-user
+			span.badge(ng-cloak)
+				{{client_count}}
+		.btn.btn-navbar.pull-right(type="button")
+			span.glyphicon.glyphicon-plane
+			span.badge(ng-cloak)
+				{{plane_count}}
+		.btn.btn-navbar.pull-right(type="button")
+			span.glyphicon.glyphicon-eye-open
+			span.badge(ng-cloak)
+				{{in_view}}

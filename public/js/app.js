@@ -1,4 +1,4 @@
-var radarManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl','SocketService','PlaneService']); 
+var radarManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl','SocketService','PlaneService','ngTouch']); 
 
 radarManager.config(['$routeProvider',
   function($routeProvider) {
@@ -42,21 +42,10 @@ radarManager.config(['$routeProvider',
     });
 }]).directive('resize', function ($window) {
     return function (scope, element) {
-        var w = angular.element($window);
-        scope.getWindowDimensions = function () {
-            return { 'h': w.height() };
-        };
-        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
-            scope.style = function (size) {
-                return { 
-                    'height': (newValue.h - size) + 'px'
-                };
-            };
+        console.log(element);
+        scope.$watch( element[0].offsetHeight, function () {
+          
 
         }, true);
-
-        w.bind('resize', function () {
-            //scope.$apply();
-        });
     }
 });
