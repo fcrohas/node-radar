@@ -58,6 +58,24 @@ img.logo {
 
 #mainView  {
     padding:0px;
+    height: 100%;
+}
+
+#infoView {
+  padding:0px;
+    height: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.half-height {
+    height: 60%;
+}
+
+.max-height {
+    height: 85%;  
 }
 
 .plane-info{
@@ -66,7 +84,7 @@ img.logo {
 }
 
 .angular-google-map-container {
-    height: 920px;
+    height: 100%;
     width: 100%;
     position: absolute;
 }
@@ -201,13 +219,13 @@ tr:after {
 }
 
 thead th {
-    height: 30px;
+    height: 5%;
 
     /*text-align: left;*/
 }
 
 tbody {
-    height: 120px;
+    height: 70%;
     overflow-y: auto;
 }
 

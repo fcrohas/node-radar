@@ -1,7 +1,10 @@
 var menuControllers = angular.module('menuCtrl', []);
 
-menuControllers.controller('FlightCtrl', ['$scope', '$http',
-    function ($scope, $http) {
+menuControllers.controller('FlightCtrl', ['$scope', '$http', 'SocketService',
+    function ($scope, $http, socket) {
+        $scope.$on('$viewContentLoaded', function(event) {
+            $scope.planes = clone(socket.getPlaneList());
+        });      
         // clone plane object
         function clone(obj) {
             if (null == obj || "object" != typeof obj) return obj;

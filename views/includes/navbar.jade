@@ -12,6 +12,10 @@
 				span.glyphicon.glyphicon-plane
 				span.badge(ng-cloak)
 					{{plane_count}}
+			.btn.btn-navbar.pull-right(type="button")
+				span.glyphicon.glyphicon-eye-open
+				span.badge(ng-cloak)
+					{{in_view}}
 	.navbar-collapse.collapse(collapse='navCollapsed')
 		div(ng-if="navCollapsed == true")
 			ul.nav.navbar-nav
@@ -31,3 +35,7 @@
 				span.glyphicon.glyphicon-plane
 				span.badge(ng-cloak)
 					{{plane_count}}
+			.btn.btn-navbar.pull-right(type="button")
+				span.glyphicon.glyphicon-eye-open
+				span.badge(ng-cloak)
+					{{in_view}}

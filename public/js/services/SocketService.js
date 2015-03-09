@@ -137,6 +137,9 @@ socketService.factory('SocketService', ['$rootScope','$location','PlaneService',
     },
     getPlaneCount : function() {
       return planes.length;
+    },
+    getPlaneList : function() {
+      return planes;
     }
   };
 }]);
