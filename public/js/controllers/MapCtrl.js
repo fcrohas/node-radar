@@ -119,12 +119,6 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogle
       }
     }  
   });
-  
-  IsReady.promise(2).then(function (instances) {
-    instances.forEach(function(inst){
-      inst.map.ourID = inst.instance;
-    });
-  }); 
 
   // When plane marker is added
   $scope.$on('addPlane', function(event,msg) {
