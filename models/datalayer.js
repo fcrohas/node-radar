@@ -10,7 +10,8 @@ DataAccessLayer.prototype = {
 			host: 'localhost',
 			dialect: 'sqlite',
 			storage : 'database/adsb-radar.sqlite',
-			omitNull: true
+			omitNull: true,
+			logging: false
 		});		
 		this.db.authenticate().complete(function(err) {
 			if (!!err)

@@ -36,6 +36,7 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http', 'SocketService',
               $http.get('/rest/flight/'+ICAO).success(function(data) {
                 $scope.planeinfo = data;
               });
+              break;
             }
           }
         });
@@ -45,21 +46,25 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http', 'SocketService',
             if (plane.ICAO == ICAO) {
               plane.show = false;
               $scope.planeinfo = {};
+              break;
             }
           }
         });
 
         $scope.$on('addPlane', function(event,msg) {
           var plane = clone(msg);
-           $scope.planes.push(plane);
+          $scope.planes.push(plane);
+          msg = null;
         });
         $scope.$on('deletePlane', function(event,msg) {
           for(var id in $scope.planes) {
             var plane = $scope.planes[id];   
             if (plane.ICAO == msg.ICAO) {
               $scope.planes.splice(id,1);
+              break;
             }
           }
+          msg = null;
         });
         $scope.$on('updateInfo', function(event,msg) {
           for(var id in $scope.planes) {
@@ -70,8 +75,10 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http', 'SocketService',
               $scope.planes[id].vertical_rate = msg.vertical_rate;
               $scope.planes[id].callsign = msg.callsign;
               $scope.planes[id].silhouette = msg.silhouette;
+              break;
             }
           }
+          msg = null;
         });
     }
 

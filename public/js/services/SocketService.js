@@ -28,20 +28,22 @@ socketService.factory('SocketService', ['$rootScope','$location','PlaneService',
     // new plane added
     $rootScope.$broadcast('addPlane', plane);
     // Update silhouette and info async
-    PlaneService.getInfo(msg.ICAO, function(data) {
+    PlaneService.getInfo(plane.ICAO, function(data) {
         for(var id in planes) {
-          var plane = planes[id];                
-          if (plane.ICAO == data.ModeS) {
-            plane.description = data.Manufacturer+' '+data.ModelType+'('+data.Engines+')';
-            plane.Manufacturer = data.Manufacturer;
-            plane.ModelType = data.ModelType;
-            plane.Engines = data.Engines;
+          var planeInfo = planes[id];                
+        if (planeInfo.ICAO == data.ModeS) {
+            planeInfo.description = data.Manufacturer+' '+data.ModelType+'('+data.Engines+')';
+            planeInfo.Manufacturer = data.Manufacturer;
+            planeInfo.ModelType = data.ModelType;
+            planeInfo.Engines = data.Engines;
             if (data.DesignatorType!='N/A')
-              plane.silhouette = '/img/SilhouettesLogos/'+data.DesignatorType+'.png';
+              planeInfo.silhouette = '/img/SilhouettesLogos/'+data.DesignatorType+'.png';
+            $rootScope.$broadcast('updatePlane', planeInfo);
+            break;
           }
-          $rootScope.$broadcast('updatePlane', plane);
         }
-    });    
+    });
+    msg = null;    
   });
   // Manage plane changes
   socket.on('change', function(msg) {
@@ -94,6 +96,7 @@ socketService.factory('SocketService', ['$rootScope','$location','PlaneService',
 
       }
     }
+    msg = null;
   });
 // Manage quality signal
   socket.on('quality', function(msg) {
@@ -104,8 +107,10 @@ socketService.factory('SocketService', ['$rootScope','$location','PlaneService',
           plane.quality = msg.quality;
           $rootScope.$broadcast('qualityPlane', {ICAO : msg.ICAO, quality: plane.quality});
         }
+        break;
       }
     }
+    msg = null;
   });
   // Manage remove older plane
   socket.on('delete', function(msg) {
@@ -118,6 +123,7 @@ socketService.factory('SocketService', ['$rootScope','$location','PlaneService',
           break;    
       }
     }
+    msg = null;
   });
   // Otherwise use custom update
   return {

@@ -289,6 +289,31 @@ function makeGradientColor(color1, color2, percent) {
 	return(newColor);
 }
 
+  function radians(n) {
+    return n * (Math.PI / 180);
+  }
+  function degrees(n) {
+    return n * (180 / Math.PI);
+  }
+
+  function getBearing(startLat,startLong,endLat,endLong){
+    startLat = radians(startLat);
+    startLong = radians(startLong);
+    endLat = radians(endLat);
+    endLong = radians(endLong);
+
+    var dLong = endLong - startLong;
+    var dPhi = Math.log(Math.tan(endLat/2.0+Math.PI/4.0)/Math.tan(startLat/2.0+Math.PI/4.0));
+    if (Math.abs(dLong) > Math.PI){
+      if (dLong > 0.0)
+         dLong = -(2.0 * Math.PI - dLong);
+      else
+         dLong = (2.0 * Math.PI + dLong);
+    }
+
+    return (degrees(Math.atan2(dLong, dPhi)) + 360.0) % 360.0;
+  }
+
 baseStation.on('message', function(msg) {
 	if (msg.message_type === sbs1.MessageType.TRANSMISSION) {
 		var found = false;
@@ -346,7 +371,18 @@ baseStation.on('message', function(msg) {
 						color = makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((current.altitude-6000) * 100 / 6000));
 						}
           				var lineColor = { 'color':color.cssColor, 'opacity':1.0,'weight':3 };
-						current.trackhistory.push( { id : current.trackhistory.length, track : [{ 'latitude':current.latitude,'longitude':current.longitude},{'latitude':msg.lat,'longitude':msg.lon}], color : lineColor } );
+          				// compute bearing
+          				var bearing = Math.abs(getBearing(current.latitude, current.longitude, msg.lat, msg.lon) - current.track);
+          				var delta_altitude = Math.abs(current.altitude - Math.floor(msg.altitude * 0.3048));
+          				// Reduce point using bearing and altitude
+          				if ((bearing > 10) || (delta_altitude > 500) || (current.trackhistory.length == 0)) {
+							current.trackhistory.push( { id : current.trackhistory.length, track : [{ 'latitude':current.latitude,'longitude':current.longitude},{'latitude':msg.lat,'longitude':msg.lon}], color : lineColor } );
+          				} else {
+          					// Modify last coord point with current
+          					current.trackhistory[current.trackhistory.length -1].track[1].longitude = msg.lon;
+          					current.trackhistory[current.trackhistory.length -1].track[1].latitude = msg.lat;
+          				}
+
 					}
 					current.latitude = msg.lat;
 					current.longitude = msg.lon;

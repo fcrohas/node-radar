@@ -1,5 +1,5 @@
 .container-fluid.full-height(ng-init="status.openDetail=false")
-	.panel.panel-primary(ng-class="{'half-height': !status.openDetail, 'max-height' : status.openDetail}")
+	.panel.panel-primary(ng-class="{'half-height': !status.openDetail, 'max-height' : status.openDetail, 'full-height' : mobileMenu}")
 		.panel-heading.panel-title.hidden-xs.hidden-sm List
 		.input-group
 			span.input-group-addon.glyphicon.glyphicon-search
@@ -21,7 +21,7 @@
 						.pull-right {{plane.altitude}}
 	.panel.panel-primary.hidden-xs.hidden-sm
 		.panel-heading.panel-title(ng-click="status.openDetail = !status.openDetail") Detail
-			i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.openDetail, 'glyphicon-chevron-right': !status.openDetail}")
+			i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': !status.openDetail, 'glyphicon-chevron-right': status.openDetail}")
 		.panel-body(collapse='status.openDetail')
 			div.well
 				text(ng-cloak) Registration : {{planeinfo.Registration}}
@@ -33,7 +33,7 @@
 				text(ng-if="planeinfo.Airport",ng-cloak) Flight id {{planeinfo.FlightName}} 
 				text(ng-if="planeinfo.Airport",ng-cloak) from {{planeinfo.Airport.departure.AirportName}} ({{planeinfo.Airport.departure.DepartureTime}}) 
 				text(ng-if="planeinfo.Airport",ng-cloak) to {{planeinfo.Airport.arrival.AirportName}} ({{planeinfo.Airport.arrival.ArrivalTime}}) 
-			.hidden-xs.hidden-sm.hidden-md.carousel(interval="5000")
+			carousel.hidden-xs.hidden-sm.hidden-md(interval="5000")
 				slide(ng-repeat="photo in planeinfo.Photos")
 					img(ng-src="{{photo.thumbnailPath}}", style="margin:auto;width:50%;")
 					.carousel-caption

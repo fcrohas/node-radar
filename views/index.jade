@@ -1,10 +1,10 @@
 doctype html
 html(ng-app='nodeRadar')
 	include ./includes/head.jade
-	body(ng-controller='mainCtrl',ng-init="mobileMenu=false",ng-swipe-left="mobileMenu = false",ng-swipe-right="mobileMenu = true")
+	body(ng-controller='mainCtrl',ng-init="mobileMenu=false",ng-swipe-left="mobileMenu = false",ng-swipe-right="mobileMenu = true",ng-swipe-disable-mouse)
 		include ./includes/navbar.jade
 		//include ./includes/sidebar.jade
-		.container-fluig(id='mainView',ng-controller='mapCtrl')
+		.container-fluid(id='mainView',ng-controller='mapCtrl')
 			.row.full-height(ng-if='map.show')
 				ui-gmap-google-map.col-xs-12.col-md-9.full-height(ng-show="!mobileMenu", pan='true',center='map.center',zoom='map.zoom',options='map.options',control='map.control',events='map.events',ng-cloak)
 					ui-gmap-markers(models="planesMarkers",idKey="'ICAO'",coords="'self'", icon="'icon'", click="'onClick'",modelsbyref="false",doCluster="false",events="map.markersEvents",clusterOptions="map.clusterOptions",options="'options'")
