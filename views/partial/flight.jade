@@ -1,6 +1,6 @@
 .container-fluid.full-height(ng-init="status.openDetail=false")
 	.panel.panel-primary(ng-class="{'half-height': !status.openDetail, 'max-height' : status.openDetail}")
-		.panel-heading.panel-title List
+		.panel-heading.panel-title.hidden-xs.hidden-sm List
 		.input-group
 			span.input-group-addon.glyphicon.glyphicon-search
 			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="searchValue")
