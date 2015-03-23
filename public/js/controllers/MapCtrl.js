@@ -1,7 +1,8 @@
 var mapControllers = angular.module('mapCtrl', []); 
 
-mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogleMapApi','uiGmapIsReady', '$rootScope','PlaneService', function($scope,$timeout,$http,GoogleMapApi,IsReady,$rootScope,PlaneService) { 
+mapControllers.controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','uiGmapIsReady', '$rootScope','PlaneService', function($scope,$http,GoogleMapApi,IsReady,$rootScope,PlaneService) { 
   var googleMaps = {};
+  var phaseCount = 0;
   $rootScope.in_view = 0;
   // clone plane object
   function clone(obj) {
@@ -134,12 +135,13 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogle
         strokeWeight: 1
       };
       plane.show = false;
-      /*plane.labelContent= '';
-      plane.labelAnchor= '22 0';
-      plane.labelInBackground= true;
-      plane.labelClass = "labels";
-      plane.labelVisible = false;*/
-      plane.options = {};
+      plane.options = {
+        /*labelContent : '',
+        labelAnchor : '22 0',
+        labelInBackground : true,
+        labelClass : 'labels',
+        labelVisible : false*/
+      };
       // Set overlay
       if ((plane.latitude != null) && (plane.longitude != null)) {
           plane.options.visible = true;
@@ -234,7 +236,7 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogle
                   var bearing = Math.abs(getBearing(plane.latitude, plane.longitude, msg.latitude, msg.longitude) - plane.icon.rotation);
                   var delta_altitude = Math.abs(plane.altitude - msg.altitude);
                   // Reduce point using bearing and altitude
-                  if ((bearing > 10) || (delta_altitude > 500) || ($scope.trackhistory.length == 0)) {
+                  if ((bearing > 5) || (delta_altitude > 250) || ($scope.trackhistory.length == 0)) {
                     $scope.trackhistory.push( { id : $scope.trackhistory.length, 
                                                 track : [{ 'latitude':plane.latitude,'longitude':plane.longitude},
                                                          {'latitude':msg.latitude,'longitude':msg.longitude}], 
@@ -256,6 +258,13 @@ mapControllers.controller('mapCtrl', ['$scope','$http', '$timeout','uiGmapGoogle
             plane.latitude = msg.latitude;
             plane.longitude = msg.longitude;
           }
+          if(!$scope.$$phase) {
+            if (phaseCount > 5) {
+              $scope.$apply();     
+              phaseCount = 0;
+            }
+            else phaseCount += 1;
+          }     
           break;    
       }
     }

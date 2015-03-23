@@ -375,7 +375,7 @@ baseStation.on('message', function(msg) {
           				var bearing = Math.abs(getBearing(current.latitude, current.longitude, msg.lat, msg.lon) - current.track);
           				var delta_altitude = Math.abs(current.altitude - Math.floor(msg.altitude * 0.3048));
           				// Reduce point using bearing and altitude
-          				if ((bearing > 10) || (delta_altitude > 500) || (current.trackhistory.length == 0)) {
+          				if ((bearing > 5) || (delta_altitude > 250) || (current.trackhistory.length == 0)) {
 							current.trackhistory.push( { id : current.trackhistory.length, track : [{ 'latitude':current.latitude,'longitude':current.longitude},{'latitude':msg.lat,'longitude':msg.lon}], color : lineColor } );
           				} else {
           					// Modify last coord point with current

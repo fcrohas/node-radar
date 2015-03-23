@@ -19,6 +19,6 @@ planeService.factory('PlaneService', ['$http', function($http) {
         error(function(error, status) {
           callback(error, status);
         });
-    },
+    }
   };
 }]);
