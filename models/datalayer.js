@@ -11,7 +11,7 @@ DataAccessLayer.prototype = {
 			dialect: 'sqlite',
 			storage : 'database/adsb-radar.sqlite',
 			omitNull: true,
-			logging: false
+			logging: console.log
 		});		
 		this.db.authenticate().complete(function(err) {
 			if (!!err)
@@ -84,10 +84,10 @@ DataAccessLayer.prototype = {
 
 	},
 	getAircraft : function(adsb) {
-		return this.Aircraft.findAndCount({ where:{ ModeS : adsb}});
+		return this.Aircraft.findAndCountAll({ where:{ ModeS : adsb}});
 	},
 	searchAircraft : function(search) {
-		return this.Aircraft.findAndCount({ include : this.Flight, where:{ Registration : {like : search+'%'}}});
+		return this.Aircraft.findAndCountAll({ include : this.Flight, where:{ Registration : {like : search+'%'}}});
 	},
 	addAircraft : function(data) {
 		var db = this;

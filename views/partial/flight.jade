@@ -11,7 +11,7 @@
 				th.col-md-3 Speed (km/h)
 				th.col-md-3 Altitude (m)
 			tbody
-				tr.animate-repeat(ng-repeat='plane in planes | filter:searchValue', ng-click='Selected();',ng-class="{'alert-info':plane.show,'':!plane.show}",tooltip="{{plane.description}}")
+				tr.animate-repeat(ng-repeat='plane in socket.Planes | filter:searchValue', ng-click='getPlaneInfo(plane)',ng-class="{'alert-info':plane.show,'':!plane.show}",tooltip="{{plane.description}}")
 					td.hidden-md.col-lg-3 
 						img(ng-src="{{plane.silhouette}}")
 					td.col-md-3 {{plane.callsign}}
@@ -24,18 +24,18 @@
 			i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': !status.openDetail, 'glyphicon-chevron-right': status.openDetail}")
 		.panel-body(collapse='status.openDetail')
 			div.well
-				text(ng-cloak) Registration : {{planeinfo.Registration}}
+				text(ng-cloak) Registration : {{planeInfo.Registration}}
 				br
-				text(ng-cloak) Plane type : {{planeinfo.Manufacturer}} {{planeinfo.ModelType}} ({{planeinfo.Engines}} - {{planeinfo.DesignatorType}})
+				text(ng-cloak) Plane type : {{planeInfo.Manufacturer}} {{planeInfo.ModelType}} ({{planeInfo.Engines}} - {{planeInfo.DesignatorType}})
 				br
-				text(ng-cloak) Operator : {{planeinfo.Operator}}
+				text(ng-cloak) Operator : {{planeInfo.Operator}}
 				br
-				text(ng-if="planeinfo.Airport",ng-cloak) Flight id {{planeinfo.FlightName}} 
-				text(ng-if="planeinfo.Airport",ng-cloak) from {{planeinfo.Airport.departure.AirportName}} ({{planeinfo.Airport.departure.DepartureTime}}) 
-				text(ng-if="planeinfo.Airport",ng-cloak) to {{planeinfo.Airport.arrival.AirportName}} ({{planeinfo.Airport.arrival.ArrivalTime}}) 
+				text(ng-if="planeInfo.Airport",ng-cloak) Flight id {{planeInfo.FlightName}} 
+				text(ng-if="planeInfo.Airport",ng-cloak) from {{planeInfo.Airport.departure.AirportName}} ({{planeInfo.Airport.departure.DepartureTime}}) 
+				text(ng-if="planeInfo.Airport",ng-cloak) to {{planeInfo.Airport.arrival.AirportName}} ({{planeInfo.Airport.arrival.ArrivalTime}}) 
 			carousel.hidden-xs.hidden-sm.hidden-md(interval="5000")
-				slide(ng-repeat="photo in planeinfo.Photos")
+				slide(ng-repeat="photo in planeInfo.Photos")
 					img(ng-src="{{photo.thumbnailPath}}", style="margin:auto;width:50%;")
 					.carousel-caption
-						h4 {{planeinfo.ModelType}}
+						h4 {{planeInfo.ModelType}}
 						p {{photo.author}}

@@ -1,8 +1,12 @@
-var menuControllers = angular.module('menuCtrl', []);
-
-menuControllers.controller('FlightCtrl', ['$scope', '$http', 'SocketService',
-    function ($scope, $http, socket) {
-        $scope.$on('$viewContentLoaded', function(event) {
+angular.module('controllers').controller('FlightCtrl', ['$scope', 'SocketService',
+    function ($scope, socket) {
+        $scope.socket = socket;
+        $scope.getPlaneInfo = function(plane) {
+          socket.getPlaneInfo(plane).then(function(info) {
+              $scope.planeInfo = info;
+          });
+        };
+        /*$scope.$on('$viewContentLoaded', function(event) {
             $scope.planes = clone(socket.getPlaneList());
         });      
         // clone plane object
@@ -15,6 +19,7 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http', 'SocketService',
             return copy;
         }
         $scope.planes = [];
+        
         $scope.Selected = function() {
             //console.log('Selected plane ICAO '+this.plane.ICAO)
             if (!this.plane.show) {
@@ -50,7 +55,7 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http', 'SocketService',
             }
           }
         });
-
+        
         $scope.$on('addPlane', function(event,msg) {
           var plane = clone(msg);
           $scope.planes.push(plane);
@@ -80,11 +85,10 @@ menuControllers.controller('FlightCtrl', ['$scope', '$http', 'SocketService',
           }
           msg = null;
         });
+        */
     }
 
-  ]);
-
-menuControllers.controller('FlightDetailCtrl', ['$scope', '$http',
+  ]).controller('FlightDetailCtrl', ['$scope', '$http',
     function ($scope, $http) {
       $scope.$on('planeSelected', function(event, ICAO) { 
         $http.get('/rest/flight/'+ICAO).success(function(data) {
@@ -95,9 +99,7 @@ menuControllers.controller('FlightDetailCtrl', ['$scope', '$http',
           $scope.planeinfo = {};
       });
     }
-]);
-
-menuControllers.controller('HistoryCtrl', ['$scope', '$http', '$window',
+]).controller('HistoryCtrl', ['$scope', '$http', '$window',
   function($scope, $http, $window) {
     $scope.results = '';
     $scope.results.count = 0;
@@ -107,9 +109,7 @@ menuControllers.controller('HistoryCtrl', ['$scope', '$http', '$window',
         $scope.results = data;
       });
     };
-  }]);
-
-menuControllers.controller('SettingsCtrl', ['$scope', '$http',
+  }]).controller('SettingsCtrl', ['$scope', '$http',
   function($scope, $http) {
       $scope.settings = {};
       $http.get('/rest/settings/read/SBS').success(function(data) {
@@ -122,14 +122,10 @@ menuControllers.controller('SettingsCtrl', ['$scope', '$http',
           $scope.settings.Plane = data;
       });
     }
-  ]);
-
-menuControllers.controller('HelpCtrl', ['$scope', '$routeParams', '$http',
+  ]).controller('HelpCtrl', ['$scope', '$routeParams', '$http',
   function($scope, $routeParams, $http) {
     }
-  ]);
-
-menuControllers.controller('AboutCtrl', ['$scope', '$routeParams', '$http', 
+  ]).controller('AboutCtrl', ['$scope', '$routeParams', '$http', 
   function($scope, $routeParams, $http) {
     $scope.name = $routeParams.name;
     switch($routeParams.name) {

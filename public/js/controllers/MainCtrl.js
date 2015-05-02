@@ -1,11 +1,8 @@
-var mainControllers = angular.module('mainCtrl', []);
-
-mainControllers.controller('mainCtrl', ['$scope', 'SocketService', function ($scope,socket) {
+angular.module('controllers').controller('mainCtrl', ['$scope', 'SocketService', function ($scope,socket) {
   var selectedPlane = '';
 
   $scope.connected = false;
-  $scope.client_count = 0;
-  $scope.plane_count = socket.getPlaneCount();
+  $scope.socket = socket;
 
   // Register general selected action
   $scope.$on('planeSelect', function(event, ICAO) { 
@@ -33,18 +30,6 @@ mainControllers.controller('mainCtrl', ['$scope', 'SocketService', function ($sc
     socket.on('disconnect', function() {
       $scope.connected = false;
     });
-
-    // Detect client count
-    socket.on('client_count', function(count) {
-      $scope.client_count = count;
-    }); 
-    // On plane added
-    $scope.$on('addPlane', function(data) {
-      $scope.plane_count = socket.getPlaneCount();
-    })   
-    // On plane added
-    $scope.$on('deletePlane', function(data) {
-      $scope.plane_count = socket.getPlaneCount();
-    })   
   }
+  
 }]);

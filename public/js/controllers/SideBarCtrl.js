@@ -1,6 +1,4 @@
-var sidebarControllers = angular.module('sidebarCtrl', []);
-
-sidebarControllers.controller('sidebarCtrl', function ($scope) {
+angular.module('controllers').controller('sidebarCtrl', function ($scope) {
   $scope.show = true;
   $scope.toggleClass = '';
   $scope.toggle = function() {

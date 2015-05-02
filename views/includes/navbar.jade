@@ -9,15 +9,15 @@
 		.btn.btn-navbar.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
 			span.glyphicon.glyphicon-user
 			span.badge(ng-cloak)
-				{{client_count}}
+				{{socket.getClientCount()}}
 		.btn.btn-navbar.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
 			span.glyphicon.glyphicon-plane
 			span.badge(ng-cloak)
-				{{plane_count}}
+				{{socket.getPlaneCount()}}
 		.btn.btn-navbar.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
 			span.glyphicon.glyphicon-eye-open
 			span.badge(ng-cloak)
-				{{in_view}}
+				{{socket.getPlaneInView()}}
 	.navbar-collapse.collapse
 		ul.nav.navbar-nav
 			li.btn-group(ng-repeat='itemMenu in menuList',dropdown)
@@ -31,12 +31,12 @@
 		.btn.btn-navbar.pull-right(type="button")
 			span.glyphicon.glyphicon-user
 			span.badge(ng-cloak)
-				{{client_count}}
+				{{socket.getClientCount()}}
 		.btn.btn-navbar.pull-right(type="button")
 			span.glyphicon.glyphicon-plane
 			span.badge(ng-cloak)
-				{{plane_count}}
+				{{socket.getPlaneCount()}}
 		.btn.btn-navbar.pull-right(type="button")
 			span.glyphicon.glyphicon-eye-open
 			span.badge(ng-cloak)
-				{{in_view}}
+				{{socket.getPlaneInView()}}

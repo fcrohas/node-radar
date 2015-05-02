@@ -1,9 +1,8 @@
-var mapControllers = angular.module('mapCtrl', []); 
-
-mapControllers.controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','uiGmapIsReady', '$rootScope','PlaneService', function($scope,$http,GoogleMapApi,IsReady,$rootScope,PlaneService) { 
+angular.module('controllers').controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','uiGmapIsReady', '$rootScope','PlaneService', 'SocketService', function($scope,$http,GoogleMapApi,IsReady,$rootScope,PlaneService, socket) { 
   var googleMaps = {};
   var phaseCount = 0;
-  $rootScope.in_view = 0;
+  //$rootScope.in_view = 0;
+  $scope.socket = socket;
   // clone plane object
   function clone(obj) {
       if (null == obj || "object" != typeof obj) return obj;
@@ -164,7 +163,7 @@ mapControllers.controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','ui
       //$scope.$emit('qualityPlane',plane);
     msg = null;
   });
-
+/*
   $scope.$on('planeSelected' ,function(event,ICAO) {
       $scope.trackhistory.show = true;            
       $scope.trackhistory = [];       
@@ -196,7 +195,7 @@ mapControllers.controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','ui
         }
       }
   });
-
+*/
   $scope.$on('updatePlane', function(event,msg) {
     // update plane position 
     for(var id in $scope.planesMarkers) {
@@ -270,7 +269,7 @@ mapControllers.controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','ui
     }
     msg = null;     
   });
-
+  /*
   $scope.$on('qualityPlane', function(event,msg) {
     // hide plane
     for(var id in $scope.planesMarkers) {
@@ -306,5 +305,5 @@ mapControllers.controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','ui
       }
     }
     msg = null;      
-  });
+  });*/
 }]);

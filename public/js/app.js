@@ -1,6 +1,5 @@
-var radarManager = angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','sidebarCtrl','navbarCtrl','ngRoute','mapCtrl','menuCtrl','mainCtrl','SocketService','PlaneService','ngTouch']); 
-
-radarManager.config(['$routeProvider',
+angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','ngRoute','controllers','services','ngTouch'])
+.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/flight/detail/:callsign', {
@@ -49,3 +48,8 @@ radarManager.config(['$routeProvider',
         }, true);
     }
 });
+
+// declare module
+angular.module('controllers',[]);
+
+angular.module('services',[]);
