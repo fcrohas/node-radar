@@ -4,72 +4,32 @@
 		"selected_items":
 		[
 			[
-				"alert-",
-				"alert-warning"
+				"hidde",
+				"hidden-sm"
 			],
 			[
-				"col-",
-				"col-xs-"
+				"hidden",
+				"hidden-xs"
 			],
 			[
-				"panel-",
-				"panel-title"
+				"na",
+				"navbar-collapse"
 			],
 			[
-				"cont",
-				"container-fluid"
+				"navbar",
+				"navbar-nav"
 			],
 			[
-				"$root",
-				"$rootScope	AngularJS"
-			],
-			[
-				"ng",
-				"ng-view	AngularJS"
-			],
-			[
-				"pull",
-				"pull-right"
-			],
-			[
-				"primary",
-				"panel-primary"
-			],
-			[
-				"nav",
-				"navbar-right"
-			],
-			[
-				"accor",
-				"accordion-group"
-			],
-			[
-				"carou",
-				"carousel-caption"
-			],
-			[
-				"font-",
-				"font-size"
-			],
-			[
-				"btn",
-				"btn-info"
-			],
-			[
-				"ac",
-				"accordion-group"
-			],
-			[
-				"panel",
-				"panel-info"
-			],
-			[
-				"btn-",
-				"btn-default"
+				"back",
+				"background"
 			],
 			[
 				"input-group",
 				"input-group-addon"
+			],
+			[
+				"col-",
+				"col-md-"
 			],
 			[
 				"opa",
@@ -78,6 +38,10 @@
 			[
 				"batch",
 				"batches"
+			],
+			[
+				"panel-",
+				"panel-heading"
 			],
 			[
 				"pro",
@@ -183,123 +147,11 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/D/usr/fcr/IT_Webmon/app.js",
-			"settings":
-			{
-				"buffer_size": 1987,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/modules/processmon.js",
-			"settings":
-			{
-				"buffer_size": 2856,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/modules/kbmemtable.js",
-			"settings":
-			{
-				"buffer_size": 10193,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/node_modules/bmp-js/lib/decoder.js",
-			"settings":
-			{
-				"buffer_size": 5005,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/views/index.jade",
-			"settings":
-			{
-				"buffer_size": 4521,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/modules/socketserver.js",
-			"settings":
-			{
-				"buffer_size": 1476,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/modules/appserver.js",
-			"settings":
-			{
-				"buffer_size": 1148,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/public/js/controllers/MenuCtrl.js",
-			"settings":
-			{
-				"buffer_size": 2823,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/public/js/controllers/ProcessCtrl.js",
-			"settings":
-			{
-				"buffer_size": 2576,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/public/stylesheets/style.css",
-			"settings":
-			{
-				"buffer_size": 1790,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/public/js/services/ProcessService.js",
-			"settings":
-			{
-				"buffer_size": 2890,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/stylesheets/style.css",
-			"settings":
-			{
-				"buffer_size": 3677,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/views/includes/head.jade",
-			"settings":
-			{
-				"buffer_size": 1064,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/usr/fcr/IT_Webmon/config/development.json",
-			"settings":
-			{
-				"buffer_size": 162,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Packages/User/jscript.sublime-build",
 	"command_palette":
 	{
-		"height": 219.0,
+		"height": 276.0,
 		"selected_items":
 		[
 			[
@@ -367,7 +219,7 @@
 				"Set Syntax: R Console"
 			]
 		],
-		"width": 472.0
+		"width": 392.0
 	},
 	"console":
 	{
@@ -387,84 +239,41 @@
 	},
 	"file_history":
 	[
-		"/D/usr/fcr/IT_Webmon/log.txt",
-		"/D/usr/fcr/Node-radar/views/partial/flight.jade",
-		"/D/usr/fcr/IT_Webmon/public/js/app.js",
-		"/D/usr/fcr/Node-radar/public/js/app.js",
-		"/D/usr/fcr/IT_Webmon/logo_1.bmp",
-		"/D/usr/fcr/IT_Webmon/public/js/controllers/MainCtrl.js",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/it_processmon/src/frame.pas",
-		"/D/usr/fcr/Node-radar/public/js/controllers/MenuCtrl.js",
-		"/D/usr/fcr/Node-radar/views/index.jade",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/it_processsrv/src/LaunchMessage.pas",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/it_processmon/src/IT_ProcessMon.dpr",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/it_processmon/src/frmMain.pas",
-		"/D/usr/fcr/Node-radar/public/js/services/SocketService.js",
-		"/D/usr/fcr/Node-radar/app.js",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/.nuget/NuGet.targets",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/.nuget/packages.config",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/.nuget/NuGet.Config",
-		"/D/usr/fcr/IT_Webmon/app.js",
-		"/D/usr/fcr/Node-radar/public/js/services/PlaneService.js",
-		"/D/usr/fcr/Node-radar/public/img/airplane-falcon.svg",
-		"/D/usr/fcr/Node-radar/public/js/controllers/MainCtrl.js",
-		"/D/usr/fcr/Node-radar/models/dump1090.js",
-		"/D/usr/fcr/Node-radar/views/partial/about.jade",
-		"/D/usr/fcr/Node-radar/public/js/controllers/NavBarCtrl.js",
-		"/D/usr/fcr/node-radar/models/datalayer.js",
-		"/D/usr/fcr/Node-radar/package.json",
-		"/D/usr/fcr/Node-radar/views/includes/sidebar.jade",
-		"/D/usr/fcr/Node-radar/views/partial/flightdetail.jade",
-		"/D/usr/fcr/Node-radar/views/partial/history.jade",
-		"/D/usr/fcr/Node-radar/gruntfile.js",
-		"/D/usr/fcr/Node-radar/views/partial/settings.jade",
-		"/D/usr/fcr/Node-radar/models/planefinder.js",
-		"/D/usr/fcr/Node-radar/views/includes/footer.jade",
-		"/D/usr/fcr/Node-radar/views/includes/navbar.jade",
-		"/D/usr/fcr/Node-radar/sass/style.scss",
-		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/Areas/Supervise/Views/Activity/Index.cshtml",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/ProductionManager.sln",
-		"/D/usr/fcr/Node-radar/public/img/airplane-test.svg",
-		"/D/usr/fcr/Node-radar/public/js/controllers/MapCtrl.js",
-		"/D/usr/fcr/Node-radar/views/includes/head.jade",
-		"/D/usr/fcr/Node-radar/public/img/airplane.svg",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/slfi/ITFI_MigrationWizard/src/Storage/xip.cs",
-		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/Areas/Stats/Views/Stats/Index.cshtml",
-		"//tstrdvfmu01/c$/Program Files (x86)/ITESOFT/ProductionManager/WebApp/Areas/Stats/Views/Stats/Index.cshtml",
-		"//tstrdvfmu01/c$/Program Files (x86)/ITESOFT/ProductionManager/WebApp/App_Data/Profiles.xml",
-		"//tstrdvfmu01/c$/Program Files (x86)/ITESOFT/ProductionManager/WebApp/Web.config",
-		"/D/usr/fcr/Node-radar/public/stylesheets/style.css",
-		"/D/usr/fcr/Node-radar/public/js/services/settings.js",
-		"/C/Program Files/Boot2Docker for Windows/start.sh",
-		"/D/usr/fcr/Node-radar/public/img/airplane-test-bis.svg",
-		"/C/oracle/product/11.2.0/client_1/network/admin/tnsnames.ora",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/packages/repositories.config",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/ProductionManager.vssscc",
-		"/D/usr/fcr/Node-radar/node_modules/sbs1/bin/sbs1.js",
-		"/D/usr/fcr/Node-radar/node_modules/sbs1/index.js",
-		"/D/usr/fcr/Node-radar/node_modules/sbs1/msgs.txt",
-		"/D/usr/fcr/Node-radar/config/development.json",
-		"/D/usr/fcr/Node-radar/config/production.json",
-		"/D/usr/fcr/Node-radar/public/js/controllers.js",
-		"/D/usr/fcr/Node-radar/models/DataAccessLayer.js",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/Java/IntegrationService/pom.xml",
-		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
-		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/Talend/UserDatamart/PRODUCTIONMANAGER/metadata/connections/Datamart_0.1.item",
-		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/Talend/UserDatamart/PRODUCTIONMANAGER/metadata/connections/ProductionManager_0.1.item",
-		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/Talend/UserDatamart/PRODUCTIONMANAGER/metadata/connections/Datamart_0.1.properties",
-		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/Talend/UserDatamart/PRODUCTIONMANAGER/metadata/connections/ProductionManager_0.1.properties",
-		"/D/usr/fcr/QIcomPCR/Web/models/socketserver.js",
-		"//itesoft.local/aim/IT_Ref/2.5/2.5.4/ITESOFT.FreeMind/reference/slfi/datas/mod/FI_FULLTEXT.xft",
-		"//itesoft.local/aim/IT_Ref/2.5/2.5.4/ITESOFT.FreeMind/reference/slfi/datas/mod/FI_FTREC.mtx",
-		"//itesoft.local/aim/IT_Ref/2.5/2.5.4/ITESOFT.FreeMind/reference/slfi/datas/database/Structure/MySQL/MYSQL_FMFI_Create.sql",
-		"/D/usr/fcr/productionmanager/public/js/controllers.js",
-		"/D/usr/fcr/Node-radar/node_modules/sbs1/mlat.py~",
-		"/C/Program Files (x86)/VirtualRadar/Web/script/vrs/aircraft.js",
-		"/C/Program Files (x86)/VirtualRadar/Web/script/vrs/aircraftPlotter.js",
-		"/C/Program Files (x86)/VirtualRadar/Web/desktop.html",
-		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
-		"/D/usr/fcr/productionmanager/models/DataAccessLayer.js",
+		"/home/fcr/projects/node-radar/app.js",
+		"/home/fcr/projects/node-radar/public/js/services/SocketService.js",
+		"/home/fcr/projects/node-radar/public/js/services/PlaneService.js",
+		"/home/fcr/projects/node-radar/models/datalayer.js",
+		"/home/fcr/projects/node-radar/models/planefinder.js",
+		"/home/fcr/projects/node-radar/public/js/controllers/MainCtrl.js",
+		"/home/fcr/projects/node-radar/public/js/app.js",
+		"/home/fcr/projects/node-radar/sass/style.scss",
+		"/home/fcr/projects/node-radar/public/stylesheets/style.css",
+		"/home/fcr/projects/node-radar/views/index.jade",
+		"/home/fcr/projects/node-radar/public/js/controllers/MapCtrl.js",
+		"/home/fcr/projects/node-radar/package.json",
+		"/home/fcr/projects/node-radar/gruntfile.js",
+		"/home/fcr/projects/node-radar/.initconfig/watch.js",
+		"/home/fcr/projects/node-radar/views/includes/head.jade",
+		"/home/fcr/projects/node-radar/public/js/controllers/MenuCtrl.js",
+		"/home/fcr/projects/node-radar/views/partial/settings.jade",
+		"/home/fcr/projects/node-radar/config/home.json",
+		"/home/fcr/projects/node-radar/views/partial/history.jade",
+		"/home/fcr/projects/node-radar/config/production.json",
+		"/home/fcr/projects/node-radar/views/partial/flight.jade",
+		"/home/fcr/projects/node-radar/views/includes/navbar.jade",
+		"/home/fcr/projects/node-radar/.initconfig/sass.js",
+		"/home/fcr/projects/node-radar/node_modules/node-config/index.js",
+		"/home/fcr/projects/node-radar/public/js/angular-google-maps.js",
+		"/home/fcr/projects/node-radar/public/img/airplane-center.svg",
+		"/home/fcr/projects/node-radar/views/includes/footer.jade",
+		"/home/fcr/projects/node-radar/views/includes/sidebar.jade",
+		"/home/fcr/projects/node-radar/public/js/controllers/NavBarCtrl.js",
+		"/home/fcr/projects/node-radar/public/js/controllers/SideBarCtrl.js",
+		"/home/fcr/projects/node-radar/node_modules/sbs1/index.js",
+		"/home/fcr/projects/node-radar/public/js/angular-google-maps_dev_mapped.js",
+		"/home/fcr/projects/node-radar/public/img/airplane.svg",
 		"/D/usr/fcr/productionmanager/app.js",
+		"/D/usr/fcr/productionmanager/models/DataAccessLayer.js",
 		"/D/usr/fcr/productionmanager/views/includes/sidebar.jade",
 		"/D/usr/fcr/productionmanager/views/includes/navbar.jade",
 		"/D/usr/fcr/productionmanager/public/js/app.js",
@@ -472,6 +281,7 @@
 		"/D/usr/fcr/productionmanager/sass/style.scss",
 		"/D/usr/fcr/productionmanager/views/index.jade",
 		"/D/usr/fcr/productionmanager/views/partial/users.jade",
+		"/D/usr/fcr/productionmanager/public/js/controllers.js",
 		"/D/usr/fcr/productionmanager/views/includes/footer.jade",
 		"/D/usr/fcr/productionmanager/views/includes/head.jade",
 		"/D/usr/fcr/productionmanager/gruntfile.js",
@@ -505,6 +315,7 @@
 		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/slfi/ITFI_FtHeader/src/Main.pas",
 		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/slfi/ITFI_FtHeader/src/CheckData.pas",
 		"/C/Program Files (x86)/itesoft/ProductionManager/WebApp/App_Data/Profiles.xml",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
 		"/C/Python27/get-pip.py",
 		"/C/qwt-6.1.2/qwtbuild.pri",
 		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/tst/MSTest/DataIngestion.BLL.TestProject/DataIngestion.BLL.TestProject.csproj",
@@ -514,11 +325,52 @@
 		"/D/usr/fcr/QIcomPCR/3rdparty/rtl-sdr/include/rtl-sdr.h",
 		"/K/MyJabberFiles/dsm@itesoft.local/productionManagerNotifier.default.properties",
 		"/D/usr/fcr/rtl-sdr/src/rtl_fm.c",
-		"/D/usr/fcr/FM241/sources/X/v2/sl/slfi/common/MergePro_obj.pas"
+		"/D/usr/fcr/FM241/sources/X/v2/sl/slfi/common/MergePro_obj.pas",
+		"/D/usr/fcr/FM241/sources/X/v2/sl/slfi/common/slfi_obj.pas",
+		"/X/v2/sl/slfi/common/slfi_obj.pas",
+		"/X/v2/sl/slfi/ITFI_Com3Event/src/main.pas",
+		"/D/usr/fcr/wxWidgets-3.0.2/build/msw/build2013.bat",
+		"/X/v2/sl/slfi/ITFI_check/src/FMFI.pas",
+		"/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Example/ProductionManagerJson.js",
+		"/X/v2/sl/sle/Dashboard/Data/UserDataMart/Postgre User Datamart Initialize.sql",
+		"/C/Program Files (x86)/itesoft/ProductionManager/Services/ITDATAMARTINTEGRATION/job/UserDatamart/Default.properties.sample",
+		"/C/Program Files (x86)/itesoft/ProductionManager/Services/ITDATAMARTINTEGRATION/job/UserDatamart/Default.properties.new",
+		"/D/dashboard/elasticsearch-1.4.2/config/elasticsearch.yml",
+		"/C/Program Files (x86)/itesoft/ProductionManager/DataIngestionRest/Web.config",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/DataIngestion/DataIngestion/Web.config",
+		"/C/Program Files/Java/jre7/lib/logging.properties",
+		"/D/dashboard/kibana-3.1.2/config.js",
+		"/D/usr/fcr/QIcomPCR/src/backend/sound/CPortAudio.h",
+		"/D/usr/fcr/rtl-sdr/src/rtl_sdr.c",
+		"/D/usr/fcr/rtl-sdr/src/convenience/convenience.c",
+		"/D/usr/fcr/pthread-win32/pthread.h",
+		"/D/usr/fcr/QIcomPCR/3rdparty/rtl-sdr/include/libusb.h",
+		"/C/qwt-6.1.2/qwtconfig.pri",
+		"/D/usr/fcr/QIcomPCR/cmake/Modules/FindQwt.cmake",
+		"/D/usr/fcr/QIcomPCR/src/CMakeLists.txt",
+		"/C/Users/fcr/Desktop/ParticipationRequete1.sql",
+		"/C/Users/fcr/Desktop/ParticipationRequete2.sql",
+		"/C/Users/fcr/Desktop/ParticipationRequete3.sql",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/Java/IntegrationService/lib/logback.xml",
+		"/C/Users/fcr/Desktop/traces.txt",
+		"/C/Users/fcr/Desktop/deviceinfo.txt",
+		"/X/v2/it_processlevel/src/it_processLevel.cpp",
+		"/D/usr/fcr/QIcomPCR/src/backend/sound/CPortAudio.cpp",
+		"/X/Technos/it_process/src/IT_ProcessC6.bpr",
+		"/D/usr/fcr/portaudio/build/msvc/readme.txt",
+		"/D/usr/fcr/rtl-sdr/src/librtlsdr.c",
+		"/D/usr/fcr/QIcomPCR/3rdparty/rtl-sdr/include/rtl-sdr_export.h",
+		"/D/usr/fcr/rtl-sdr/src/convenience/convenience.h",
+		"/X/v2/xdfcom3/src/com3common.pas",
+		"/X/v2/sl/slfi/ITFI_check/src/Check.pas",
+		"/D/usr/fcr/FM255_Team6/FmSrc/X/v2/sl/sle/Dashboard/Java/IntegrationService/pom.xml",
+		"/X/v2/sl/sle/Dashboard/Java/IntegrationService/pom.xml",
+		"/C/Users/fcr/Desktop/ProductionManager.js",
+		"/X/v2/sl/sle/Dashboard/WebApp/Dashboard.WebApp/Web.dev.Debug.config"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 32.0
 	},
 	"find_in_files":
 	{
@@ -532,76 +384,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"rific",
-			"utf8",
-			"console.log",
-			"dataType",
-			"kbmemtable",
-			"ProcessView",
-			"{\n",
-			"\n						",
-			"54 52 54 44",
-			"43 48 41 52 47 45",
-			"11",
-			"4C 45 56",
-			"4F 43",
-			"52 4F 43",
-			"50 52 4F",
-			"43 61",
-			"kbmAuto",
-			"GETAUTOPRO",
-			"jade",
-			"GetXipStreamFromVersion",
-			"xipFiles",
-			"getBearing",
-			"track",
-			"trackhistory",
-			"console.lo",
-			"consoel",
-			"splice",
-			"PlaneSer",
-			"show",
-			"desc",
-			"desci",
-			"descr",
-			"planeCop",
-			"trackhistory",
-			"emit",
-			"trackhistory",
-			"div",
-			"row",
-			".kend",
-			".kendi",
-			"globalCha",
-			".push",
-			"trackhisto",
-			"trackhistory",
-			"track",
-			"21",
-			"Build",
-			"splice",
-			"type",
-			"PlaneFinder",
-			"apply",
-			"type",
-			"saveAircraft",
-			"ojdbc",
+			"timeout",
+			"auto",
+			"autofo",
+			"planes",
+			"SocketService",
+			"mainCtrl",
 			"$apply",
-			"JSON",
-			"ora",
-			"out_of",
+			"resize",
+			"trackhistory",
+			"client",
 			"out_of_bound",
-			"=\"69\"",
-			"REM",
-			"REMMIT",
-			"=\"61\"",
-			"=\"67\"",
-			"STATUS_CHANGE",
-			"svg",
-			"M ",
-			"triangle",
-			"customSVGmarkerCircle",
-			"svg",
+			"stroke",
+			"polylines",
+			"stroke",
+			"marker",
+			"icon",
 			"ActivityACTIVITYID",
 			"activityActi",
 			"icon",
@@ -659,7 +457,61 @@
 			"mode_demod",
 			"am_demod",
 			"rate",
-			"dongle.rate"
+			"dongle.rate",
+			"MAXIMUM_RATE",
+			"DEFAULT_SAMPLE_RATE",
+			"buffer",
+			"dongle_thread_fn",
+			"playbackCallback",
+			"mark_shared_buffer",
+			"dongle",
+			"dongle_thread_fn",
+			"read_sync",
+			"dongle_thread_fn",
+			"demod_thread_fn",
+			"sync",
+			"_sync_",
+			"read_",
+			"Am",
+			"deviceList",
+			"verbose_device_search",
+			"dongle_state",
+			"proxy",
+			"jtds",
+			"afterclosetask",
+			".afterclosetask",
+			"coinitialize",
+			"LoadCom3Event",
+			"afterclose",
+			"closetask",
+			"getWEBERPCheckResult",
+			"CallERPControlsWEB",
+			"CallErpControls",
+			"CallErpControlW",
+			"clicco254656",
+			"disclaim",
+			"checkdocty",
+			"ManageDocT",
+			"ACTIVEX_BARCODE_READER",
+			"manageDocdate",
+			"CheckDocDa",
+			"EliminateUnvalidDates",
+			"ManageDocDate",
+			"Date",
+			"StandardWebCapture",
+			"capture",
+			"nWindowConfidence",
+			"&",
+			"java",
+			"checkContinentWinner",
+			".win",
+			"Debug",
+			"FCR_PM_255.",
+			"dbo.",
+			"FCR_PM_255.",
+			"dbo.",
+			"TiffRead",
+			"t2p_read_tiff_data"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -667,7 +519,6 @@
 		"regex": false,
 		"replace_history":
 		[
-			"Dump1090",
 			"",
 			"\\\"\"+context.SourceDatabase_Schema+\"\\\".",
 			"",
@@ -684,417 +535,14 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/D/usr/fcr/IT_Webmon/app.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1987,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1635,
-								1635
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 759.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/usr/fcr/IT_Webmon/modules/processmon.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2856,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2747,
-								2747
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1368.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/D/usr/fcr/IT_Webmon/modules/kbmemtable.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10193,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4968,
-								4968
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2052.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/D/usr/fcr/IT_Webmon/node_modules/bmp-js/lib/decoder.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5005,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1356,
-								1356
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 285.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/D/usr/fcr/IT_Webmon/views/index.jade",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4521,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3412,
-								3412
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/D/usr/fcr/IT_Webmon/modules/socketserver.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1476,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								148,
-								148
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/D/usr/fcr/IT_Webmon/modules/appserver.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1148,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								183,
-								151
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/D/usr/fcr/IT_Webmon/public/js/controllers/MenuCtrl.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2823,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2639,
-								2639
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/D/usr/fcr/IT_Webmon/public/js/controllers/ProcessCtrl.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2576,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								977,
-								977
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": -0.0,
-						"translation.y": 342.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "/D/usr/fcr/IT_Webmon/public/stylesheets/style.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1790,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1462,
-								1462
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1367.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "/D/usr/fcr/IT_Webmon/public/js/services/ProcessService.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2890,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2505,
-								2505
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 285.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "public/stylesheets/style.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3677,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3112,
-								3112
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2873.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "/D/usr/fcr/IT_Webmon/views/includes/head.jade",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1064,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1064,
-								1064
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "/D/usr/fcr/IT_Webmon/config/development.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 162,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								162,
-								162
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -1134,7 +582,7 @@
 	"project": "node-radar.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 66.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1143,192 +591,112 @@
 		"selected_items":
 		[
 			[
-				"index",
-				"D:\\usr\\fcr\\IT_Webmon\\views\\index.jade"
-			],
-			[
-				"dev",
-				"D:\\usr\\fcr\\IT_Webmon\\config\\development.json"
-			],
-			[
-				"proce",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\js\\controllers\\ProcessCtrl.js"
-			],
-			[
-				"pro",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\js\\controllers\\ProcessCtrl.js"
-			],
-			[
-				"style",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\stylesheets\\style.css"
-			],
-			[
-				"kbm",
-				"D:\\usr\\fcr\\IT_Webmon\\modules\\kbmemtable.js"
-			],
-			[
-				"kbmeme",
-				"D:\\usr\\fcr\\IT_Webmon\\modules\\kbmemtable.js"
-			],
-			[
-				"st",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\stylesheets\\style.css"
-			],
-			[
-				"inde",
-				"D:\\usr\\fcr\\IT_Webmon\\views\\index.jade"
-			],
-			[
-				"app",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\js\\app.js"
-			],
-			[
-				"fligh",
-				"D:\\usr\\fcr\\Node-radar\\views\\partial\\flight.jade"
-			],
-			[
-				"kbmem",
-				"D:\\usr\\fcr\\IT_Webmon\\modules\\kbmemtable.js"
-			],
-			[
-				"log",
-				"D:\\usr\\fcr\\IT_Webmon\\log.txt"
-			],
-			[
-				"deve",
-				"D:\\usr\\fcr\\IT_Webmon\\config\\development.json"
-			],
-			[
-				"head",
-				"D:\\usr\\fcr\\IT_Webmon\\views\\includes\\head.jade"
-			],
-			[
-				"hea",
-				"D:\\usr\\fcr\\IT_Webmon\\views\\includes\\head.jade"
-			],
-			[
-				"sty",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\stylesheets\\style.css"
-			],
-			[
-				"in",
-				"D:\\usr\\fcr\\IT_Webmon\\views\\index.jade"
-			],
-			[
-				"",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\js\\controllers\\ProcessCtrl.js"
-			],
-			[
-				"de",
-				"D:\\usr\\fcr\\IT_Webmon\\config\\development.json"
-			],
-			[
-				"me",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\js\\controllers\\MenuCtrl.js"
-			],
-			[
-				"rpo",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\js\\services\\ProcessService.js"
-			],
-			[
-				"stle",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\stylesheets\\style.css"
-			],
-			[
-				"ap",
-				"D:\\usr\\fcr\\IT_Webmon\\app.js"
-			],
-			[
-				"flig",
-				"D:\\usr\\fcr\\Node-radar\\views\\partial\\flight.jade"
-			],
-			[
-				"menu",
-				"D:\\usr\\fcr\\IT_Webmon\\public\\js\\controllers\\MenuCtrl.js"
-			],
-			[
-				"men",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\controllers\\MenuCtrl.js"
-			],
-			[
-				"map",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\controllers\\MapCtrl.js"
-			],
-			[
-				"flight",
-				"D:\\usr\\fcr\\Node-radar\\views\\partial\\flight.jade"
-			],
-			[
-				"data",
-				"D:\\usr\\fcr\\node-radar\\models\\datalayer.js"
-			],
-			[
-				"sock",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\services\\SocketService.js"
+				"na",
+				"~/projects/node-radar/views/includes/navbar.jade"
 			],
 			[
 				"m",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\controllers\\MapCtrl.js"
+				"~/projects/node-radar/public/js/controllers/MapCtrl.js"
 			],
 			[
-				"soc",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\services\\SocketService.js"
+				"he",
+				"~/projects/node-radar/views/includes/head.jade"
+			],
+			[
+				"inde",
+				"~/projects/node-radar/views/index.jade"
+			],
+			[
+				"sock",
+				"~/projects/node-radar/public/js/services/SocketService.js"
+			],
+			[
+				"",
+				"~/projects/node-radar/views/index.jade"
+			],
+			[
+				"men",
+				"~/projects/node-radar/public/js/controllers/MenuCtrl.js"
+			],
+			[
+				"me",
+				"~/projects/node-radar/public/js/controllers/MenuCtrl.js"
+			],
+			[
+				"in",
+				"~/projects/node-radar/views/index.jade"
 			],
 			[
 				"fli",
-				"D:\\usr\\fcr\\Node-radar\\views\\partial\\flight.jade"
+				"~/projects/node-radar/views/partial/flight.jade"
 			],
 			[
-				"socket",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\services\\SocketService.js"
+				"flig",
+				"~/projects/node-radar/views/partial/flight.jade"
+			],
+			[
+				"navba",
+				"~/projects/node-radar/views/includes/navbar.jade"
 			],
 			[
 				"ma",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\controllers\\MainCtrl.js"
-			],
-			[
-				"navb",
-				"D:\\usr\\fcr\\Node-radar\\views\\includes\\navbar.jade"
-			],
-			[
-				"na",
-				"D:\\usr\\fcr\\Node-radar\\views\\includes\\navbar.jade"
-			],
-			[
-				"socke",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\services\\SocketService.js"
-			],
-			[
-				"main",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\controllers\\MainCtrl.js"
+				"~/projects/node-radar/public/js/controllers/MapCtrl.js"
 			],
 			[
 				"nav",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\controllers\\NavBarCtrl.js"
+				"~/projects/node-radar/views/includes/navbar.jade"
 			],
 			[
-				"mai",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\controllers\\MainCtrl.js"
+				"hea",
+				"~/projects/node-radar/views/includes/head.jade"
 			],
 			[
-				"pla",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\services\\PlaneService.js"
+				"navb",
+				"~/projects/node-radar/views/includes/navbar.jade"
 			],
 			[
-				"so",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\services\\SocketService.js"
+				"sty",
+				"~/projects/node-radar/public/stylesheets/style.css"
 			],
 			[
-				"pl",
-				"D:\\usr\\fcr\\Node-radar\\public\\js\\services\\PlaneService.js"
+				"style",
+				"~/projects/node-radar/sass/style.scss"
 			],
 			[
-				"sett",
-				"D:\\usr\\fcr\\Node-radar\\views\\partial\\settings.jade"
+				"p",
+				"~/projects/node-radar/package.json"
 			],
 			[
-				"about",
-				"D:\\usr\\fcr\\Node-radar\\views\\partial\\about.jade"
+				"grunt",
+				"~/projects/node-radar/gruntfile.js"
+			],
+			[
+				"app",
+				"~/projects/node-radar/public/js/app.js"
+			],
+			[
+				"flight",
+				"~/projects/node-radar/views/partial/flight.jade"
+			],
+			[
+				"gr",
+				"~/projects/node-radar/gruntfile.js"
+			],
+			[
+				"pack",
+				"~/projects/node-radar/package.json"
+			],
+			[
+				"fligh",
+				"~/projects/node-radar/views/partial/flight.jade"
+			],
+			[
+				"menu",
+				"~/projects/node-radar/public/js/controllers/MenuCtrl.js"
+			],
+			[
+				"maint",
+				"~/projects/node-radar/public/js/controllers/MainCtrl.js"
 			],
 			[
 				"slf",
@@ -1339,12 +707,20 @@
 				"D:\\usr\\fcr\\QIcomPCR\\Web\\public\\js\\models\\remote.js"
 			],
 			[
+				"main",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\public\\js\\main.js"
+			],
+			[
 				"fre",
 				"D:\\usr\\fcr\\QIcomPCR\\Web\\public\\js\\models\\frequencytable.js"
 			],
 			[
 				"__sp",
 				"C:\\octave\\image\\src\\__spatial_filtering__.cc"
+			],
+			[
+				"ap",
+				"D:\\usr\\fcr\\QIcomPCR\\Web\\app.js"
 			],
 			[
 				"s",
@@ -1381,7 +757,6 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
 	"settings":
 	{
 	},
