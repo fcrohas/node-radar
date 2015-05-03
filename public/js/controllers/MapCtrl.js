@@ -1,4 +1,4 @@
-angular.module('controllers').controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','uiGmapIsReady', '$rootScope','PlaneService', 'SocketService', function($scope,$http,GoogleMapApi,IsReady,$rootScope,PlaneService, socket) { 
+angular.module('controllers').controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','uiGmapIsReady', 'SocketService', '$filter', function($scope,$http,GoogleMapApi,IsReady,socket,$filter) { 
   var googleMaps = {};
 
   $scope.socket = socket;
@@ -56,5 +56,4 @@ angular.module('controllers').controller('mapCtrl', ['$scope','$http', 'uiGmapGo
       }
     }  
   });
-
 }]);

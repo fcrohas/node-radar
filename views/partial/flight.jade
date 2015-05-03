@@ -3,7 +3,7 @@
 		.panel-heading.panel-title.hidden-xs.hidden-sm List
 		.input-group
 			span.input-group-addon.glyphicon.glyphicon-search
-			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="searchValue")
+			input.form-control(type='text',placeholder='Flight ID or Aricraft registration',ng-model="search.type")
 		table.table.table-condensed.table-hover.full-height
 			thead
 				th.hidden-md.col-lg-3 Silhouette
@@ -11,7 +11,7 @@
 				th.col-md-3 Speed (km/h)
 				th.col-md-3 Altitude (m)
 			tbody
-				tr.animate-repeat(ng-repeat='plane in socket.Planes | filter:searchValue', ng-click='getPlaneInfo(plane)',ng-class="{'alert-info':plane.show,'':!plane.show}",tooltip="{{plane.description}}")
+				tr.animate-repeat(ng-repeat='plane in socket.Planes | filter:search.type', ng-click='getPlaneInfo(plane)',ng-class="{'alert-info':plane.show,'':!plane.show}",tooltip="{{plane.description}}")
 					td.hidden-md.col-lg-3 
 						img(ng-src="{{plane.silhouette}}")
 					td.col-md-3 {{plane.callsign}}

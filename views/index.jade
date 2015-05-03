@@ -7,9 +7,9 @@ html(ng-app='nodeRadar')
 		.container-fluid(id='mainView',ng-controller='mapCtrl')
 			.row.full-height(ng-if='map.show')
 				ui-gmap-google-map.col-xs-12.col-md-9.full-height(ng-show="!mobileMenu", pan='true',center='map.center',zoom='map.zoom',options='map.options',control='map.control',events='map.events',ng-cloak)
-					ui-gmap-markers(models="socket.Planes",idKey="'ICAO'",coords="'self'", icon="'icon'", click="'onClick'",modelsbyref="false",doCluster="false",events="map.markersEvents",clusterOptions="map.clusterOptions",options="'options'")
+					ui-gmap-markers(models="socket.Planes",idKey="'ICAO'",coords="'self'", icon="'icon'", click="'onClick'",modelsbyref="true",doCluster="false",events="map.markersEvents",clusterOptions="map.clusterOptions",options="'options'")
 					ui-gmap-polyline(ng-repeat="path in socket.getTrackHistory()",path="path.track",stroke="path.color",static="true",visible="track.show",idKey="track.id")
 				div.hidden-xs.hidden-sm.col-md-3.full-height(id='infoView',ng-view)
 				div.col-xs-12.col-sm-12.full-height(id='infoView',ng-show="mobileMenu",ng-view)
-		include ./includes/footer.jade
+		//include ./includes/footer.jade
 	script(src='//localhost:35729/livereload.js')
