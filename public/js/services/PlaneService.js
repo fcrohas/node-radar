@@ -5,7 +5,7 @@ angular.module('services').factory('PlaneService', ['$http', function($http) {
   function degrees(n) {
     return n * (180 / Math.PI);
   }
-  function makeChannel(a, b) {
+  function makeChannel(a, b, percent) {
       return(a + Math.round((b-a)*(percent/100)));
   }
   function makeColorPiece(num) {
@@ -22,9 +22,9 @@ angular.module('services').factory('PlaneService', ['$http', function($http) {
     // Make gradient color between two color
     makeGradientColor : function(color1, color2, percent) {
       var newColor = {};
-      newColor.r = makeChannel(color1.r, color2.r);
-      newColor.g = makeChannel(color1.g, color2.g);
-      newColor.b = makeChannel(color1.b, color2.b);
+      newColor.r = makeChannel(color1.r, color2.r, percent);
+      newColor.g = makeChannel(color1.g, color2.g, percent);
+      newColor.b = makeChannel(color1.b, color2.b, percent);
       newColor.cssColor = "#" + 
                           makeColorPiece(newColor.r) + 
                           makeColorPiece(newColor.g) + 
