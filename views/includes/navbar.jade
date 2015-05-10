@@ -6,15 +6,15 @@
 			span.glyphicon.glyphicon-chevron-right
 		span.glyphicon.glyphicon-chevron-left(ng-show="mobileMenu")
 			h2.label.hidden-md.hidden-lg.hidden-sm(ng-show="mobileMenu") List
-		p.navbar-text.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
+		p.navbar-btn.navbar-right.in.pull-right.hidden-md.hidden-lg.hidden-sm
 			span.glyphicon.glyphicon-user
 			span.badge(ng-cloak)
 				{{socket.getClientCount()}}
-		p.navbar-text.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
+		p.navbar-btn.navbar-right.in.pull-right.hidden-md.hidden-lg.hidden-sm
 			span.glyphicon.glyphicon-plane
 			span.badge(ng-cloak)
 				{{socket.getPlaneCount()}}
-		p.navbar-text.in.pull-right.hidden-md.hidden-lg.hidden-sm(type="button")
+		p.navbar-btn.navbar-right.in.pull-right.hidden-md.hidden-lg.hidden-sm
 			span.glyphicon.glyphicon-eye-open
 			span.badge(ng-cloak)
 				{{socket.getPlaneInView()}}
@@ -28,15 +28,15 @@
 					li(ng-repeat='action in itemMenu.subaction')
 						a(href='{{action.link}}', ng-cloak)
 							{{action.name}}
-		p.navbar-text.pull-right(type="button")
+		p.navbar-btn.navbar-right
 			span.glyphicon.glyphicon-user
 			span.badge(ng-cloak)
 				{{socket.getClientCount()}}
-		p.navbar-text.pull-right(type="button")
+		p.navbar-btn.navbar-right
 			span.glyphicon.glyphicon-plane
 			span.badge(ng-cloak)
 				{{socket.getPlaneCount()}}
-		p.navbar-text.pull-right(type="button")
+		p.navbar-btn.navbar-right
 			span.glyphicon.glyphicon-eye-open
 			span.badge(ng-cloak)
 				{{socket.getPlaneInView()}}
