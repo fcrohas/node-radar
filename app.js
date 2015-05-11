@@ -314,6 +314,10 @@ function makeGradientColor(color1, color2, percent) {
     return (degrees(Math.atan2(dLong, dPhi)) + 360.0) % 360.0;
   }
 
+baseStation.on('error', function(msg) {
+	console.log(msg);
+});
+
 baseStation.on('message', function(msg) {
 	if (msg.message_type === sbs1.MessageType.TRANSMISSION) {
 		var found = false;
