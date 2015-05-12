@@ -74,6 +74,7 @@ PlaneFinder.prototype._handleResponseEnd = function() {
 };
 
 PlaneFinder.prototype._emitError = function(err) {
+	console.log(err);
 	this.emit('data', '');
 	this.emit('error', err);
 };

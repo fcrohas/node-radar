@@ -11,7 +11,7 @@ DataAccessLayer.prototype = {
 			dialect: 'sqlite',
 			storage : 'database/adsb-radar.sqlite',
 			omitNull: true,
-			logging: false //console.log
+			logging: console.log
 		});		
 		this.db.authenticate().complete(function(err) {
 			if (!!err)
