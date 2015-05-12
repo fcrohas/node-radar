@@ -8,6 +8,7 @@ var io = require('socket.io');
 var sbs1 = require('sbs1');
 var datalayer = require('./models/datalayer');
 var Dump1090 = require('./models/dump1090');
+var VirtualRadar = require('./models/virtualradar');
 var planefinder = require('./models/planefinder');
 var extend = require('util')._extend;
 
@@ -26,14 +27,17 @@ var clients = new Array();
 var options = { host: config.SBS.host, port:config.SBS.port};
 var baseStation = {};
 var baseStationPoll = {};
-if (true) {
+if (config.SBS.type == "LIVE") {
 	baseStation = sbs1.createClient(options);
 } else {
-	baseStation = new Dump1090();
+	switch(config.SBS.type) {
+		case 'DUMP1090' : baseStation = new Dump1090(); break;
+		case 'VIRTUALRADAR' : baseStation = new VirtualRadar(); break;
+	}
 	// Flight alert for out of bound
 	var baseStationPoll = setInterval( function() {
 		baseStation.getPlanes();
-	},1000);
+	},5000);
 
 }
 
