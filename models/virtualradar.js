@@ -23,7 +23,7 @@ util.inherits(VirtualRadar, events.EventEmitter);
 VirtualRadar.prototype.getPlanes = function() {
 		var query = (this.url);
 		var options = '';
-		this.body = null;		
+		this.body = null;
 		if (config.Proxy.enable)
 		{
 			options = {
@@ -44,7 +44,7 @@ VirtualRadar.prototype.getPlanes = function() {
 		} else {
 			options = url.parse(query);
 		}
-		var req = http.get(options, this._handleResponse.bind(this));		
+		var req = http.get(options, this._handleResponse.bind(this));
 		req.on('error', this._emitError.bind(this));
 		req.end();
 		return this;
@@ -54,7 +54,7 @@ VirtualRadar.prototype._handleResponse = function(res) {
 	this.chunks = [];
 	this.encoding = res.headers['content-encoding'];
 	if (this.encoding == 'gzip') {
-		var gunzip = zlib.createGunzip();            
+		var gunzip = zlib.createGunzip();
         res.pipe(gunzip);
         gunzip.on('data', this._handleResponseData.bind(this))
         	  .on('end', this._handleResponseEnd.bind(this))
@@ -80,18 +80,18 @@ VirtualRadar.prototype._ProcessBody = function(err,data) {
 	    body = JSON.parse(data);
 	} catch(e) {
 		console.log('Parse error : ' + e.message);
-		body = '';		
+		body = '';
 	}
 	body = body.acList;
 	for (var id in body) {
-		this.emit('message', {message_type : "MSG",hex_ident : body[id].Icao, squawk : body[id].Sqk, 
+		this.emit('message', {message_type : "MSG",hex_ident : body[id].Icao, squawk : body[id].Sqk,
 							callsign: body[id].Call, lat: ((body[id].Lat=="")? null : body[id].Lat), lon: ((body[id].Long=="")?null : body[id].Long),
-							altitude:body[id].Alt,	vertical_rate:body[id].Vsi, 
+							altitude:body[id].Alt,	vertical_rate:body[id].Vsi,
 							track : body[id].Trak,	ground_speed:body[id].Spd, logged_time : Date.now(),
 							logged_timestamp: function() { return Date.now();}
-						});	
-	}	
-	this.body = '';	
+						});
+	}
+	this.body = '';
 };
 
 VirtualRadar.prototype._emitError = function(err) {
@@ -101,4 +101,3 @@ VirtualRadar.prototype._emitError = function(err) {
 };
 
 module.exports = VirtualRadar;
-
