@@ -1,6 +1,33 @@
 angular.module('services').factory('SocketService', ['$http','$location','PlaneService', '$rootScope', function ($http,$location,PlaneService,$rootScope) {
   var client_count = 0;
   var in_view = 0;
+  var plane_count = 0;
+
+  var throttle = function (func, wait) {
+    var context, args, timeout, result;
+    var previous = 0;
+    var later = function() {
+      previous = new Date();
+      timeout = null;
+      result = func.apply(context, args);
+    };
+    return function() {
+      var now = new Date();
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0) {
+        clearTimeout(timeout);
+        timeout = null;
+        previous = now;
+        result = func.apply(context, args);
+      } else if (!timeout) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+  };
+
   function isUndefinedOrNull(value) {
     return ((value == undefined) && (value == null));
   }
@@ -8,7 +35,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
   var socket = io.connect($location.protocol()+'://'+$location.host()+':'+$location.port()+'/socket/flight');
   var planes = [];
   // Manage new plane into the list
-  socket.on('add', function(plane) {
+  socket.on('add', throttle(function(plane) {
     $rootScope.$apply(function() {
         //console.log(msg);
         plane.show = false;
@@ -39,12 +66,14 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
         plane.onClick = function(plane) {
           this.getPlaneInfo(plane)
         };
-        planes.push( plane );  
+        planes.push(plane);
+        plane_count +=1;  
         // new plane added
         //$rootScope.$broadcast('addPlane', plane);
         // Update silhouette and info async
         PlaneService.getInfo(plane.ICAO).then(function(data) {
-            angular.forEach(planes, function(planeInfo) {
+          for (var id in planes) {
+                var planeInfo = planes[id];
                 if (planeInfo.ICAO == data.ModeS) {
                   planeInfo.description = data.Manufacturer+' '+data.ModelType+'('+data.Engines+')';
                   planeInfo.Manufacturer = data.Manufacturer;
@@ -65,18 +94,20 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
                       planeInfo.icon.path = 'm -3.3472928,-8.1193775 c -3.6003136,-6.6048535 -4.4868503,-7.6617015 -6.0982032,-7.2696525 -1.036998,0.252297 -16.2472,3.272086 -33.800451,6.7106258 -17.55325,3.4385399 -32.621129,6.419268 -33.484173,6.6238255 -2.227188,0.5278918 -4.014348,-3.5129551 -3.49104,-7.8933777 0.408149,-3.4164916 1.24871,-4.2266096 22.995964,-22.1631956 12.414776,-10.239396 22.77208,-19.10556 23.016212,-19.702593 0.244141,-0.597032 -0.572502,-3.788532 -1.814766,-7.092222 -3.083096,-8.199239 -6.35832,-38.870619 -4.393668,-41.145163 0.876271,-1.01449 3.507317,-1.6382 8.754241,-2.07527 5.976199,-0.49782 7.679272,-0.95714 8.376039,-2.25906 0.544638,-1.01768 0.874595,-19.99469 0.874595,-50.30171 l 0,-48.6675 -2.062365,-1.10375 c -1.802178,-0.96449 -7.193243,0.30304 -42.730712,10.0467 l -40.66834,11.15042 -54.01808,25.31448 c -29.70995,13.92295 -54.50805,25.12645 -55.1069,24.89665 -0.81077,-0.31112 -0.98384,-3.21032 -0.67775,-11.35308 l 0.41106,-10.93527 3.35245,-3.43093 c 1.84385,-1.88701 45.18712,-33.23939 96.31838,-69.67195 62.864196,-44.79263 93.350025,-67.02472 94.152147,-68.66137 0.868646,-1.77238 1.419154,-11.00726 2.056319,-34.49507 l 0.870109,-32.07471 4.039367,-19.94688 c 4.003249,-19.76852 4.075217,-19.99594 8.0493442,-25.43489 6.9619826,-9.52809 11.9406253,-9.52926 18.7587068,-0.004 3.822415,5.33991 4.037895,6.00932 7.760797,24.1095 l 3.829233,18.61708 0.951652,32.35826 c 0.575109,19.5545 1.362922,33.65697 1.991009,35.6404 0.96089,3.03439 8.098839,8.30928 94.568026,69.88515 51.44077,36.63167 94.6532,67.70323 96.02761,69.04792 3.17205,3.10345 4.10242,7.18667 4.12888,18.12081 0.0209,8.62846 -0.004,8.73323 -1.97354,8.22798 -1.09708,-0.28149 -25.90612,-11.72277 -55.13121,-25.42509 L 109.34712,-183.39 68.68701,-194.48028 c -38.805361,-10.58439 -40.759091,-11.02542 -42.830109,-9.66844 l -2.169998,1.42184 0,47.81035 c 0,33.30712 0.300214,48.46925 0.989666,49.98243 0.905464,1.98728 1.656947,2.2249 8.832699,2.79284 4.891692,0.38716 8.222332,1.07779 8.851022,1.83531 1.709013,2.05923 -1.400882,31.076056 -4.315874,40.269172 -1.314162,4.144518 -2.389388,7.756897 -2.389388,8.02751 0,0.270612 9.773969,8.59197 21.719932,18.491915 11.945962,9.899936 22.418072,18.798547 23.271355,19.774694 2.806658,3.210782 1.253452,12.77013178 -1.921159,11.8239229 C 73.528401,-3.4676597 9.0151956,-15.587523 8.8240691,-15.05081 c -0.131277,0.368618 -1.9756627,3.817876 -4.0986486,7.6650165 l -3.85996864,6.99481079 -4.21274466,-7.72839479 0,0 z';
                     }
                   }
+                  break;
                 }
-            });
+            }
         });
         //console.log(planes);
         //msg = null;
     });    
-  });
+  },500));
   // Manage plane changes
-  socket.on('change', function(msg) {
+  socket.on('change', throttle(function(msg) {
     $rootScope.$apply(function() {
-
-        angular.forEach(planes, function(plane) {
+        var plane = planes[msg.ICAO];
+        for (var id in planes) {
+          var plane = planes[id];
           if (plane.ICAO == msg.ICAO) {
             // not of bound as we receive a signal
             //var update =false;
@@ -156,21 +187,17 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
               plane.callsign = msg.callsign;
               //update = true;
             }
-
-            //if (update)
-            //  $rootScope.$broadcast('updateInfo', plane);
-
-            //break;
+            break;
           }
-        });
+        }
         //msg = null;
     });
-  });
+  },500));
 // Manage quality signal
-  socket.on('quality', function(msg) {
+  socket.on('quality', throttle(function(msg) {
     $rootScope.$apply(function() {
-      angular.forEach(planes, function(plane) {
-        //var plane = planes[id];  
+      for (var id in planes) {
+        var plane = planes[id];
         if (plane.ICAO == msg.ICAO) {
           if (msg.quality != plane.quality) {
             plane.quality = msg.quality;
@@ -181,27 +208,31 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
             else
               plane.icon.fillColor = '#1C1C1C';
           }
-          //break;
+          break;
         }
-      });
+      }
     //msg = null;
     });
-  });
+  },500));
   // Manage remove older plane
-  socket.on('delete', function(msg) {
+  socket.on('delete', throttle(function(msg) {
     $rootScope.$apply( function() {
-      angular.forEach(planes, function(plane,id) {
-        //var plane = planes[id];   
+      
+      for (var id in planes) {
+        var plane = planes[id];  
+      //angular.forEach(planes, function(plane,id) {
         if (plane.ICAO == msg.ICAO) {
             // before delete
             planes.splice(id,1);
             in_view -= 1;
-            //break;    
+            plane_count -=1;
+            break;    
         }
-      });
+      }
+      //});
       //msg = null;
     });
-  });
+  },500));
   // Detect client count
   socket.on('client_count', function(count) {
     client_count = count;
@@ -210,7 +241,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
   return {
     Planes : planes,
     getPlaneCount : function() {
-      return planes.length;
+      return plane_count;
     },
     getPlaneInView : function() {
       return in_view;
