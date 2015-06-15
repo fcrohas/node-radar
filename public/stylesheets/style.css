@@ -40,13 +40,15 @@ img.logo {
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 7; }
 
-#mainView {
+.mainView {
   padding: 0px;
-  height: 100%; }
+  margin: 0px;
+}
 
-#infoView {
+.infoView {
   padding: 0px;
-  height: 100%; }
+  margin: 0px;
+}
 
 .full-height {
   height: 100%; }
@@ -196,3 +198,4 @@ thead {
 tbody td, thead th {
   width: 19.2%;
   float: left; }
+

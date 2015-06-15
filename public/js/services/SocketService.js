@@ -25,6 +25,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
         timeout = setTimeout(later, remaining);
       }
       return result;
+
     };
   };
 
@@ -54,18 +55,16 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
         plane.labelAnchor = '22 0';
         plane.labelClass = 'labels';*/
         plane.options = {
-          /*labelContent : '<p>test</p>',
-          labelAnchor : '22 0',
-          labelInBackground : true,
-          labelClass : 'labels',
-          labelVisible : true*/
-        };    
+          optimized : false,
+          //animation : 1,
+          visible : true
+        };
+        plane.labelContent = "Squawk: " + plane.squawk+"<br>Altitude: "+plane.altitude+" m<br>Speed: "+plane.ground_speed+" km/h";
+        plane.labelAnchor = '22 0';
+        plane.labelClass = 'labels';
         if ((plane.latitude != null) && (plane.longitude != null)) {
           in_view += 1;
         }
-        plane.onClick = function(plane) {
-          this.getPlaneInfo(plane)
-        };
         planes.push(plane);
         plane_count +=1;  
         // new plane added
@@ -113,6 +112,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
             //var update =false;
             if ((!isUndefinedOrNull(msg.latitude)) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {
               if (isUndefinedOrNull(plane.latitude)) {
+                console.log(in_view);
                 in_view += 1;
               }
               //console.log(msg.track);

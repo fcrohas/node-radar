@@ -1,8 +1,15 @@
-angular.module('controllers').controller('mapCtrl', ['$scope','$http', 'uiGmapGoogleMapApi','uiGmapIsReady', 'SocketService', '$filter', function($scope,$http,GoogleMapApi,IsReady,socket,$filter) { 
-  var googleMaps = {};
+angular.module('controllers').controller('mapCtrl', ['$scope','$http','SocketService', '$filter', function($scope,$http,socket,$filter) { 
 
   $scope.socket = socket;
-  
+  $scope.map = {
+    center: {
+      latitude: 43.6139213,
+      longitude: 4.0561698
+    },
+    zoom : 12
+  };
+
+/*  
   // Setup google maps API
   GoogleMapApi.then(function(maps) {
       $scope.googleVersion = maps.version;
@@ -55,5 +62,5 @@ angular.module('controllers').controller('mapCtrl', ['$scope','$http', 'uiGmapGo
         }
       }
     }  
-  });
+  });*/
 }]);

@@ -1,4 +1,4 @@
-angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','ngRoute','controllers','services','ngTouch'])
+angular.module('nodeRadar', ['ui.bootstrap',/*'uiGmapgoogle-maps',*/'ngRoute','controllers','services','directives','ngTouch'])
 .config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
@@ -33,15 +33,15 @@ angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','ngRoute','contr
       otherwise({
         redirectTo: '/flight'
       });
-}]).config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
+}])/*.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
     GoogleMapApi.configure({
       //    key: 'your api key',
       v: '3.17',
       libraries: 'weather,geometry,visualization'
     });
-}]).directive('resize', function ($window) {
+}])*/.directive('resize', function ($window) {
     return function (scope, element) {
-        console.log(element);
+        //console.log(element);
         scope.$watch( element[0].offsetHeight, function () {
           
 
@@ -53,3 +53,5 @@ angular.module('nodeRadar', ['ui.bootstrap','uiGmapgoogle-maps','ngRoute','contr
 angular.module('controllers',[]);
 
 angular.module('services',[]);
+
+angular.module('directives',[]);
