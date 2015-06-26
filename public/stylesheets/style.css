@@ -199,3 +199,14 @@ tbody td, thead th {
   width: 19.2%;
   float: left; }
 
+.labels {
+ color: white;
+ background-color: black;
+ opacity: 0.8;
+ font-family: "Lucida Grande", "Arial", sans-serif;
+ font-size: 10px;
+ text-align: center;
+ width: 150px;
+ height : 80px;     
+ white-space: nowrap;
+}

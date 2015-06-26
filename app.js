@@ -242,27 +242,29 @@ var flightalert = setInterval( function() {
 	// Check time delta for each plane
 	for (var id in planes) {
 		var current = planes[id];
+		// update watchdog since last call
+		current.watchdog += config.Plane.refresh_time/1000;
 		// Empty trackhistory
 		var seenDelta = Math.floor(delta - (current.live_time / 1000) - current.delta_time);
 		//console.log("plane "+current.ICAO+" seen since "+seenDelta);
-		if ((seenDelta < config.Plane.quality.good.seen) && (current.quality != 100)) {
+		if ((current.watchdog < config.Plane.quality.good.seen) && (current.quality != 100)) {
 			current.quality = 100;
 			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
 		}
-		if ((seenDelta > config.Plane.quality.good.seen) && (seenDelta < config.Plane.quality.poor.seen) && (current.quality != 50)) {
+		if ((current.watchdog > config.Plane.quality.good.seen) && (seenDelta < config.Plane.quality.poor.seen) && (current.quality != 50)) {
 			current.quality = 50;
 			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
 		}
-		if ((seenDelta > config.Plane.quality.poor.seen) && (seenDelta < config.Plane.quality.bad.seen) && (current.quality != 20)) {
+		if ((current.watchdog > config.Plane.quality.poor.seen) && (seenDelta < config.Plane.quality.bad.seen) && (current.quality != 20)) {
 			current.quality = 20;
 			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
 		}
-		if ((seenDelta > config.Plane.memory.timeout_client) && (!current.out_of_bound))  { // 1 minutes delta ?
+		if ((current.watchdog > config.Plane.memory.timeout_client) && (!current.out_of_bound))  { // 1 minutes delta ?
 			current.out_of_bound = true;
 			flight.emit('delete', {ICAO:current.ICAO, quality:current.quality });
 		}
 		// After outbound of 3 minutes delte it
-		if (seenDelta > config.Plane.memory.timeout_server) {
+		if (current.watchdog > config.Plane.memory.timeout_server) {
 			planes.splice(id,1);
 		}
 	}
@@ -410,10 +412,14 @@ baseStation.on('message', function(msg) {
 						var planecopy = extend({}, current);
 						planecopy.trackhistory = [];
 			  			flight.emit('add', planecopy);
+			  			//console.log('readd '+ planecopy.ICAO);
 			  		} else {
 			  			flight.emit('change',currentmsg);
+			  			//console.log('change '+ currentmsg.ICAO);
 			  		}
 		  		}
+		  		// reset watchdog
+		  		current.watchdog = 0;
 		  	}
 		}
 		// if not found add it
@@ -426,9 +432,10 @@ baseStation.on('message', function(msg) {
 			var sendmsg = {'ICAO':msg.hex_ident,'latitude' : msg.lat, 'longitude' : msg.lon, 
 											'track': 0, 'callsign' : 'unknown', 'ground_speed':0, 
 											'altitude' : 0, 'vertical_rate':0, 'squawk' : 0, 'out_of_bound' : false, 
-											'live_time': msg.logged_timestamp(), 'delta_time': delta_time,'quality':100, 'trackhistory' : []};
+											'live_time': msg.logged_timestamp(), 'delta_time': delta_time,'quality':100, 'trackhistory' : [], 'watchdog': 0};
 			planes.push(sendmsg);
 			flight.emit('add',sendmsg);			
+  			//console.log('add '+ sendmsg.ICAO);
 		}			
 	}
 });

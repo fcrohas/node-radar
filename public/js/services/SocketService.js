@@ -36,7 +36,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
   var socket = io.connect($location.protocol()+'://'+$location.host()+':'+$location.port()+'/socket/flight');
   var planes = [];
   // Manage new plane into the list
-  socket.on('add', throttle(function(plane) {
+  socket.on('add', /*throttle(*/function(plane) {
     $rootScope.$apply(function() {
         //console.log(msg);
         plane.show = false;
@@ -100,11 +100,11 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
         //console.log(planes);
         //msg = null;
     });    
-  },500));
+  }/*,500)*/);
   // Manage plane changes
-  socket.on('change', throttle(function(msg) {
+  socket.on('change', /*throttle(*/function(msg) {
     $rootScope.$apply(function() {
-        var plane = planes[msg.ICAO];
+        //var plane = planes[msg.ICAO];
         for (var id in planes) {
           var plane = planes[id];
           if (plane.ICAO == msg.ICAO) {
@@ -112,13 +112,13 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
             //var update =false;
             if ((!isUndefinedOrNull(msg.latitude)) && ((msg.latitude != plane.latitude) || (msg.longitude!=plane.longitude)))  {
               if (isUndefinedOrNull(plane.latitude)) {
-                console.log(in_view);
+                //console.log(in_view);
                 in_view += 1;
               }
               //console.log(msg.track);
               if ((isUndefinedOrNull(msg.track)) || (msg.track==0)) {
                 var bearing = PlaneService.getBearing(plane.latitude, plane.longitude, msg.latitude, msg.longitude);            
-                if (Math.abs(plane.track - bearing)>20) {
+                if (Math.abs(plane.track - bearing)>=5) {
                   plane.icon.rotation = Math.round(bearing);
                   plane.track = bearing;
                 }
@@ -160,7 +160,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
             }
             // Update Icon
             if ((!isUndefinedOrNull(msg.track)) && (msg.track != plane.track)) {
-              if (Math.abs(plane.track - msg.track)>20) {
+              if (Math.abs(plane.track - msg.track)>=5) {
                 plane.icon.rotation = plane.track;
                 plane.track = msg.track;
             }
@@ -192,9 +192,9 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
         }
         //msg = null;
     });
-  },500));
+  }/*,500)*/);
 // Manage quality signal
-  socket.on('quality', throttle(function(msg) {
+  socket.on('quality', /*throttle(*/function(msg) {
     $rootScope.$apply(function() {
       for (var id in planes) {
         var plane = planes[id];
@@ -213,9 +213,9 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
       }
     //msg = null;
     });
-  },500));
+  }/*,500)*/);
   // Manage remove older plane
-  socket.on('delete', throttle(function(msg) {
+  socket.on('delete', /*throttle(*/function(msg) {
     $rootScope.$apply( function() {
       
       for (var id in planes) {
@@ -223,8 +223,11 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
       //angular.forEach(planes, function(plane,id) {
         if (plane.ICAO == msg.ICAO) {
             // before delete
+            console.log('event delete '+msg.ICAO);
             planes.splice(id,1);
-            in_view -= 1;
+            if (!isUndefinedOrNull(plane.latitude)) {
+              in_view -= 1;
+            }
             plane_count -=1;
             break;    
         }
@@ -232,7 +235,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
       //});
       //msg = null;
     });
-  },500));
+  }/*,500)*/);
   // Detect client count
   socket.on('client_count', function(count) {
     client_count = count;
@@ -257,6 +260,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
             plane.icon.strokeColor = '#1C1C1C';
             plane.icon.strokeWeight = 1;
             plane.icon.scale = 0.05;
+            plane.trackhistory = [];
           }          
       });
       // update plane structure
