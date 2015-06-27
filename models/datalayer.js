@@ -13,7 +13,7 @@ DataAccessLayer.prototype = {
 			omitNull: true,
 			logging: console.log
 		});		
-		this.db.authenticate().complete(function(err) {
+		this.db.authenticate().then(function(err) {
 			if (!!err)
 				console.log('Unable to connect to the database:', err);
 			else
@@ -73,6 +73,18 @@ DataAccessLayer.prototype = {
 			freezeTableName: false,
 			timestamps : false
 		});
+
+		this.Coverage = this.db.define('Coverage', {
+			DistanceId : { type : Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+			Longitude : { type : Sequelize.FLOAT, allownull : true},
+			Latitude  : { type : Sequelize.FLOAT, allownull : true},			
+			Altitude  : { type : Sequelize.FLOAT, allownull : true}			
+		}, {
+			tableName : 'Coverage',
+			freezeTableName: false,
+			timestamps : false
+
+		});
 		// Relation define Flight and aircraft
 		this.Aircraft.hasMany(this.Flight, {foreignKey : 'AircraftId'});
 		// An aircraft can have many route
@@ -91,54 +103,52 @@ DataAccessLayer.prototype = {
 	},
 	addAircraft : function(data) {
 		var db = this;
-		this.Aircraft.create( data ).complete(function(err, aircraft) {
-			if (err != null) {
-				console.log('Error aircraft:'+err);
-				return;
-			}
+		var flight = {};
+		var departure = {};
+		this.Aircraft.create( data )
+		// register flight
+		.then(function(aircraft) {
 			var options = {};			
 			data.AircraftId = aircraft.AircraftId;
 			options.defaults = data;
 			options.where = {FlightName : data.FlightName};
-			db.Flight.findOrCreate( options ).complete(function(err, flightData) {
-				if (err != null) {
-					console.log('Error flight :'+err);
-					return;
-				}
-				var flight = flightData[0].FlightId;
-				if (data.Airport != undefined) {
-					// Find if exist or create it
-					options.defaults = data.Airport.departure;
-					options.where = { AirportCode : data.Airport.departure.AirportCode};
-					db.Airport.findOrCreate( options).complete(function(err, airport) {
-							if (err != null) {
-								console.log('Error airport :'+err);
-								return;
-							}
-							var departure = airport[0].AirportId;
-							options.defaults = data.Airport.arrival;
-							options.where = { AirportCode : data.Airport.arrival.AirportCode};
-							db.Airport.findOrCreate( options).complete(function(err, airport) {
-								var arrival = airport[0].AirportId;
-								if (err != null) {
-									console.log('Error airport :'+err);
-									return;
-								}
-								options.defaults = {FlightId : flight, DepartureId : departure, ArrivalId : arrival};
-								options.where = {FlightId : flight};
-								db.Route.findOrCreate( options ).complete(function(err, airport) {
-									if (err != null) {
-										console.log('Error route :'+err);
-										return;
-									}
-								});
-						});
-					});
-				}				
-			});
+			return db.Flight.findOrCreate( options );
+		// register departure
+		}).then(function(flightData) {
+			flight = flightData[0].FlightId;
+			if (data.Airport != undefined) {
+				var options = {};
+				// Find if exist or create it
+				options.defaults = data.Airport.departure;
+				options.where = { AirportCode : data.Airport.departure.AirportCode};
+				return db.Airport.findOrCreate( options);
+			}
+		// register arrival airport
+		}).then(function(airport) {
+			if (airport != undefined) {
+				departure = airport[0].AirportId;
+				var options = {};			
+				options.defaults = data.Airport.arrival;
+				options.where = { AirportCode : data.Airport.arrival.AirportCode};
+			return db.Airport.findOrCreate( options);
+			}
+		// register routes
+		}).then(function(airport) {
+			if (airport != undefined) {
+				var arrival = airport[0].AirportId;
+				var options = {};
+				options.defaults = {FlightId : flight, DepartureId : departure, ArrivalId : arrival};
+				options.where = {FlightId : flight};
+				return db.Route.findOrCreate( options );
+			}
+		});
+	},
+	addCoverage : function(data) {
+		this.Coverage.create(data).then(function(result) {
+			console.log('inserted');
 		});
 	}
-}
+};
 
 module.exports = DataAccessLayer;
 

@@ -7,11 +7,13 @@ var path = require('path');
 var io = require('socket.io');
 var sbs1 = require('sbs1');
 var datalayer = require('./models/datalayer');
+var GeoTools = require('./models/geotools');
 var Dump1090 = require('./models/dump1090');
 var VirtualRadar = require('./models/virtualradar');
 var planefinder = require('./models/planefinder');
 var extend = require('util')._extend;
 
+var geotools = new GeoTools();
 // Database 
 var db = new datalayer();
 db.connect();
@@ -53,7 +55,7 @@ console.log('server is running');
 
 //Function tools
 function saveAircraft(adsb,callsign) {
-	db.getAircraft(adsb).complete(function(err,data) { 
+	db.getAircraft(adsb).then(function(data) { 
 		if (data.count == 0) {
 			var plane = new planefinder();		
 			console.log('save aircraft '+adsb+' callsign='+callsign);
@@ -141,7 +143,7 @@ app.get('/rest/aircraft/history/:adsb', function (req, res) {
 });
 
 app.get('/rest/aircraft/info/:adsb', function (req, res) {
-	db.getAircraft(req.params.adsb, res).complete(function(err,data) {
+	db.getAircraft(req.params.adsb, res).then(function(data) {
 		if (data.count > 0) {
 			res.json(data.rows[0]);
 		} else {
@@ -151,7 +153,7 @@ app.get('/rest/aircraft/info/:adsb', function (req, res) {
 });
 
 app.get('/rest/aircraft/search/:search', function (req, res) {
-	db.searchAircraft(req.params.search, res).complete(function(err,data) {
+	db.searchAircraft(req.params.search, res).then(function(data) {
 		res.json(data);
 	});
 });
@@ -261,6 +263,8 @@ var flightalert = setInterval( function() {
 		}
 		if ((current.watchdog > config.Plane.memory.timeout_client) && (!current.out_of_bound))  { // 1 minutes delta ?
 			current.out_of_bound = true;
+			if (current.latitude!=null)
+				db.addCoverage({Altitude : current.altitude, Latitude : current.latitude, Longitude : current.longitude});
 			flight.emit('delete', {ICAO:current.ICAO, quality:current.quality });
 		}
 		// After outbound of 3 minutes delte it
@@ -269,56 +273,6 @@ var flightalert = setInterval( function() {
 		}
 	}
 }, config.Plane.refresh_time);	
-
-// Make gradient color between two color
-function makeGradientColor(color1, color2, percent) {
-	var newColor = {};
-	function makeChannel(a, b) {
-	    return(a + Math.round((b-a)*(percent/100)));
-	}
-	function makeColorPiece(num) {
-	    num = Math.min(num, 255);   // not more than 255
-	    num = Math.max(num, 0);     // not less than 0
-	    var str = num.toString(16);
-	    if (str.length < 2) {
-	        str = "0" + str;
-	    }
-	    return(str);
-	}
-	newColor.r = makeChannel(color1.r, color2.r);
-	newColor.g = makeChannel(color1.g, color2.g);
-	newColor.b = makeChannel(color1.b, color2.b);
-	newColor.cssColor = "#" + 
-	                    makeColorPiece(newColor.r) + 
-	                    makeColorPiece(newColor.g) + 
-	                    makeColorPiece(newColor.b);
-	return(newColor);
-}
-
-  function radians(n) {
-    return n * (Math.PI / 180);
-  }
-  function degrees(n) {
-    return n * (180 / Math.PI);
-  }
-
-  function getBearing(startLat,startLong,endLat,endLong){
-    startLat = radians(startLat);
-    startLong = radians(startLong);
-    endLat = radians(endLat);
-    endLong = radians(endLong);
-
-    var dLong = endLong - startLong;
-    var dPhi = Math.log(Math.tan(endLat/2.0+Math.PI/4.0)/Math.tan(startLat/2.0+Math.PI/4.0));
-    if (Math.abs(dLong) > Math.PI){
-      if (dLong > 0.0)
-         dLong = -(2.0 * Math.PI - dLong);
-      else
-         dLong = (2.0 * Math.PI + dLong);
-    }
-
-    return (degrees(Math.atan2(dLong, dPhi)) + 360.0) % 360.0;
-  }
 
 baseStation.on('error', function(msg) {
 	console.log(msg);
@@ -374,15 +328,15 @@ baseStation.on('message', function(msg) {
 					if (current.latitude!=null) {
 						var color = {};
 						if (current.altitude < 3000) {
-						  color = makeGradientColor({r:0,g:255,b:0}, {r:1,g:169,b:219}, (current.altitude * 100 / 3000));
+						  color = geotools.makeGradientColor({r:0,g:255,b:0}, {r:1,g:169,b:219}, (current.altitude * 100 / 3000));
 						} else if (current.altitude < 6000) {
-						  color = makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((current.altitude-3000) * 100 / 3000));
+						  color = geotools.makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((current.altitude-3000) * 100 / 3000));
 						} else {
-						color = makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((current.altitude-6000) * 100 / 6000));
+						color = geotools.makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((current.altitude-6000) * 100 / 6000));
 						}
           				var lineColor = { 'color':color.cssColor, 'opacity':1.0,'weight':3 };
           				// compute bearing
-          				var bearing = Math.abs(getBearing(current.latitude, current.longitude, msg.lat, msg.lon) - current.track);
+          				var bearing = Math.abs(geotools.getBearing(current.latitude, current.longitude, msg.lat, msg.lon) - current.track);
           				var delta_altitude = Math.abs(current.altitude - Math.floor(msg.altitude * 0.3048));
           				// Reduce point using bearing and altitude
           				if ((bearing > 5) || (delta_altitude > 250) || (current.trackhistory.length == 0)) {

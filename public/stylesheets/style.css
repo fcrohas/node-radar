@@ -173,7 +173,9 @@ img.logo {
     overflow: hidden; } }
 
 table {
-  width: 100%; }
+  width: 100%;
+  font-size: 11px; 
+}
 
 thead, tbody, tr, td, th {
   display: block; }
@@ -189,7 +191,7 @@ thead th {
   /*text-align: left;*/ }
 
 tbody {
-  height: 70%;
+  height: 95%;
   overflow-y: auto; }
 
 thead {

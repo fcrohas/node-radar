@@ -10,9 +10,9 @@ angular.module('directives').directive('gmaps', function factory($window) {
                 title: marker.callsign || marker.ICAO
             });
             _markers[marker.ICAO].info = new google.maps.InfoWindow({
-					content: "<div class='labels'>"
+					content: "<div>"
 							+"<h6>"+marker.callsign+"</h6>"
-							+"<small><br>"+marker.description
+							+"<small>"+marker.description
 							+"<br>Squawk: " + marker.squawk
 							+"<br>Altitude: "+marker.altitude+" m"
 							+"<br>Speed: "+marker.ground_speed+" km/h"
@@ -50,14 +50,16 @@ angular.module('directives').directive('gmaps', function factory($window) {
             scope: {
                 zoom: '=zoom',
                 center: '=center',
-                markers: '=markers'
+                markers: '=markers',
+                options: '=options'
             },
             link: function link(scope, element, attrs) {
             	var map = {};
                 var mapOptions = {
                     center: new google.maps.LatLng(scope.center.latitude, scope.center.longitude),
                     zoom: scope.zoom,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    options : scope.options
                 };
 
                 function initialize() {
@@ -108,12 +110,12 @@ angular.module('directives').directive('gmaps', function factory($window) {
 			                				_markers[markerNew.ICAO].marker.setTitle(markerNew.callsign);
 				                		}
 				                		if ((markerNew.squawk != markerOld.squawk) || (markerNew.altitude != markerOld.altitude) || (markerNew.ground_speed!=markerOld.ground_speed)) {
-			                				_markers[markerNew.ICAO].info.setContent("<div class='labels'>"
-														+"<h6>"+marker.callsign+"</h6>"
-														+"<small><br>"+marker.description
-														+"<br>Squawk: " + marker.squawk
-														+"<br>Altitude: "+marker.altitude+" m"
-														+"<br>Speed: "+marker.ground_speed+" km/h"
+			                				_markers[markerNew.ICAO].info.setContent("<div>"
+														+"<h6>"+markerNew.callsign+"</h6>"
+														+"<small>"+markerNew.description
+														+"<br>Squawk: " + markerNew.squawk
+														+"<br>Altitude: "+markerNew.altitude+" m"
+														+"<br>Speed: "+markerNew.ground_speed+" km/h"
 														+"</small></div>");		
 				                		}
 
@@ -156,14 +158,15 @@ angular.module('directives').directive('gmaps', function factory($window) {
 									// create new marker if it does not exist
 				                    if (markerNew.length == 0) {
 				                    	//console.log('deleted marker');
-				                    	if (_markers[markerOld.ICAO] != undefined)
+				                    	if (_markers[markerOld.ICAO] != undefined) {
 				                    		_markers[markerOld.ICAO].marker.setMap(null);
-				                    	if (_markers[markerOld.ICAO].track != undefined) {
-				                			for (var id in _markers[markerOld.ICAO].track) {
-				                				var track = _markers[markerOld.ICAO].track[id];
-				                				track.setMap(null);
+					                    	if (_markers[markerOld.ICAO].track != undefined) {
+					                			for (var id in _markers[markerOld.ICAO].track) {
+					                				var track = _markers[markerOld.ICAO].track[id];
+					                				track.setMap(null);
+					                			}
 				                			}
-			                			}
+				                		}
 					                    //delete _markers[markerOld.ICAO];
 					                    //console.log(markerOld.ICAO);
 					                    for (var index in _markers) {
