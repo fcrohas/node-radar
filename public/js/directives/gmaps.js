@@ -1,6 +1,6 @@
 angular.module('directives').directive('gmaps', function factory($window) {
 		var _markers = [];
-
+		var coverage = {};
         function addMarker(map, marker) {
         	_markers[marker.ICAO] = {};
             _markers[marker.ICAO].marker = new google.maps.Marker({
@@ -51,7 +51,8 @@ angular.module('directives').directive('gmaps', function factory($window) {
                 zoom: '=zoom',
                 center: '=center',
                 markers: '=markers',
-                options: '=options'
+                options: '=options',
+                coverage: '=coverage'
             },
             link: function link(scope, element, attrs) {
             	var map = {};
@@ -180,6 +181,30 @@ angular.module('directives').directive('gmaps', function factory($window) {
 			                }
 	               	},true);
 
+					scope.$watch('coverage', function(newValues,oldValues,scope) {
+						//if (newValues.length > oldValues.length) {
+							var polygon = [];
+							for (var id in newValues) {
+								var point = newValues[id];
+								//console.log(point);
+								if (point.distance < 50)
+									continue;
+								polygon.push(new google.maps.LatLng(point.Latitude, point.Longitude));
+							}
+							coverage = new google.maps.Polygon({
+								paths: polygon,
+								strokeColor: '#FF0000',
+								strokeOpacity: 0.8,
+								strokeWeight: 2,
+								fillColor: '#FF0000',
+								fillOpacity: 0.35
+							});
+							coverage.setMap(map);
+						/*} else {
+							if (coverage.setMap != undefined)
+								coverage.setMap(null);
+						}*/
+					});
 	                google.maps.event.addListener(map, 'zoom_changed', function () {
 	                    scope.$applyAsync(function () {
 	                        scope.zoom = map.getZoom();

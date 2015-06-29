@@ -1,4 +1,4 @@
-angular.module('controllers').controller('mapCtrl', ['$scope','$http','SocketService', '$filter', function($scope,$http,socket,$filter) { 
+angular.module('controllers').controller('mapCtrl', ['$scope','$http','$location', 'SocketService', '$filter', function($scope,$http,$location,socket,$filter) { 
 
   $scope.socket = socket;
   $scope.map = {
@@ -18,7 +18,23 @@ angular.module('controllers').controller('mapCtrl', ['$scope','$http','SocketSer
         overviewMapControl: false,
         zoomControl: true,
         mapTypeControl: true          
+    },
+    coverage : [],
+    helpClick : function() {
+      $location.path("/partial/settings");
+    },
+    settingsClick : function() {
+      $location.path("/partial/settings");
+    },
+    navClick : function() {
+      $location.path("/partial/flight");
     }
   };
+
+  $scope.sideNavMode = false;
+  $http.get('/rest/coverage').then(function(res) {
+    $scope.map.coverage = res.data;
+  });
+
 
 }]);

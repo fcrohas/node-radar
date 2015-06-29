@@ -147,6 +147,9 @@ DataAccessLayer.prototype = {
 		this.Coverage.create(data).then(function(result) {
 			console.log('inserted');
 		});
+	},
+	getCoverage : function() {
+		return this.Coverage.findAndCountAll();
 	}
 };
 

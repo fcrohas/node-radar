@@ -2,6 +2,10 @@
 	"HttpServer" : {
 		"port" : 3000
 	},
+	"Location" : {
+		"Latitude" : 43.684473,
+		"Longitude" : 4.129813
+	},
 	"SBS" : {
 		"type" : "LIVE",
 		"url"  : "/virtualradar/AircraftList.json?ldv=635670602716196806&lat=51.47&lng=-0.6000000000000227&selAc=4197720&trFmt=f",

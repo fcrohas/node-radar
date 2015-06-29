@@ -127,6 +127,28 @@ app.post('/rest/settings/write/:section', function (req,res) {
 	config = require('config-node')();
 });
 
+app.get('/rest/coverage', function(req,res) {
+	// get coverage points
+	var coverage = [];
+	db.getCoverage().then(function(data) {
+		// loop on points
+		//console.log(data.rows);
+		for (var id in data.rows) {
+			var point = data.rows[id].dataValues;
+			// add points to array and compute bearing
+			point.bearing = geotools.getBearing(config.Location.Latitude, config.Location.Longitude,
+								point.Latitude, point.Longitude);
+			point.distance = geotools.getDistanceFromLatLonInKm(config.Location.Latitude, config.Location.Longitude,
+								point.Latitude, point.Longitude);
+			coverage.push(point);
+		}
+		//sort per bearing value
+		coverage.sort(function(p1,p2) {return p1.bearing-p2.bearing});
+		// return as json
+		res.json(coverage);
+	});
+});
+
 app.get('/rest/aircraft/history/:adsb', function (req, res) {
 	if (req.params.adsb != '') {
 		for (var id in planes) {		
