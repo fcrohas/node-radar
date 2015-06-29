@@ -1,0 +1,20 @@
+.container-fluid.full-height
+	form.form-horizontal
+		.form-group
+			.col-xs-12
+				.checkbox
+					label
+						input(type="checkbox", ng-model="map.settings.coverage")
+						| Display coverage map
+		.form-group
+			.col-xs-12
+				.checkbox
+					label 
+						input(type="checkbox", ng-model="map.settings.trackplane")
+						| Track plane
+		.form-group
+			.col-xs-12
+				.checkbox
+					label 
+						input(type="checkbox", ng-model="map.settings.airports")
+						| Show Airports

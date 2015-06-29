@@ -150,6 +150,9 @@ DataAccessLayer.prototype = {
 	},
 	getCoverage : function() {
 		return this.Coverage.findAndCountAll();
+	},
+	getAirports : function() {
+		return this.Airport.findAndCountAll();
 	}
 };
 

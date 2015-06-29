@@ -2,10 +2,6 @@ angular.module('nodeRadar', ['ui.bootstrap',/*'uiGmapgoogle-maps',*/'ngRoute','c
 .config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/flight/detail/:callsign', {
-        templateUrl: 'partial/flightdetail',
-        controller: 'FlightDetailCtrl'
-      }).
       when('/flight/detail', {
         templateUrl: 'partial/flightdetail',
         controller: 'FlightDetailCtrl'
@@ -21,6 +17,10 @@ angular.module('nodeRadar', ['ui.bootstrap',/*'uiGmapgoogle-maps',*/'ngRoute','c
       when('/settings', {
         templateUrl: 'partial/settings',
         controller: 'SettingsCtrl'
+      }).
+      when('/viewsettings', {
+        templateUrl: 'partial/viewsettings',
+        controller: 'ViewSettingsCtrl'
       }).
       when('/help/:name', {
         templateUrl: 'partial/help',

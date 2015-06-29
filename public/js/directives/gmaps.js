@@ -1,6 +1,7 @@
 angular.module('directives').directive('gmaps', function factory($window) {
 		var _markers = [];
 		var coverage = {};
+		var airports = [];
         function addMarker(map, marker) {
         	_markers[marker.ICAO] = {};
             _markers[marker.ICAO].marker = new google.maps.Marker({
@@ -52,7 +53,9 @@ angular.module('directives').directive('gmaps', function factory($window) {
                 center: '=center',
                 markers: '=markers',
                 options: '=options',
-                coverage: '=coverage'
+                coverage: '=coverage',
+                airports: '=airports',
+                settings: '=settings'
             },
             link: function link(scope, element, attrs) {
             	var map = {};
@@ -92,6 +95,9 @@ angular.module('directives').directive('gmaps', function factory($window) {
 			                			if (_markers[markerNew.ICAO] == undefined) {
 											addMarker(map, markerNew);
 			                			} else {
+			                				if ((markerNew.show) && (scope.settings.trackplane)) {
+			                					map.panTo(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
+			                				}
 			                				_markers[markerNew.ICAO].marker.setPosition(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
 			                				// update track history
 			                				if ((markerNew.show == true) && (_markers[markerNew.ICAO].track != undefined)) {
@@ -125,6 +131,9 @@ angular.module('directives').directive('gmaps', function factory($window) {
 				                			|| (markerNew.icon.path != markerOld.icon.path)
 				                			|| (markerNew.show != markerOld.show)) {
 			                				_markers[markerNew.ICAO].marker.setIcon(markerNew.icon);
+			                				if ((markerNew.show) && (scope.settings.trackplane)) {
+			                					map.panTo(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
+			                				}
 				                		}
 
 				                		if (markerNew.trackhistory.length != markerOld.trackhistory.length) {
@@ -182,7 +191,7 @@ angular.module('directives').directive('gmaps', function factory($window) {
 	               	},true);
 
 					scope.$watch('coverage', function(newValues,oldValues,scope) {
-						//if (newValues.length > oldValues.length) {
+						if (newValues.length > oldValues.length) {
 							var polygon = [];
 							for (var id in newValues) {
 								var point = newValues[id];
@@ -194,17 +203,38 @@ angular.module('directives').directive('gmaps', function factory($window) {
 							coverage = new google.maps.Polygon({
 								paths: polygon,
 								strokeColor: '#FF0000',
-								strokeOpacity: 0.8,
-								strokeWeight: 2,
+								strokeOpacity: 0.5,
+								strokeWeight: 1,
 								fillColor: '#FF0000',
-								fillOpacity: 0.35
+								fillOpacity: 0.15
 							});
 							coverage.setMap(map);
-						/*} else {
+						} else {
 							if (coverage.setMap != undefined)
 								coverage.setMap(null);
-						}*/
+						}
 					});
+
+					scope.$watch('airports', function(newValues,oldValues, scope) {
+						if (newValues.length > oldValues.length) {
+							for (var id in newValues) {
+								var airport = newValues[id];
+					        	airports[airport.Code] = {};
+					            airports[airport.Code].marker = new google.maps.Marker({
+					                position: new google.maps.LatLng(airport.Longitude, airport.Latitude),
+					                map: map,
+					                icon : '/img/airport.png',
+					                title: airport.Town+" - "+airport.AirportName+"("+airport.AirportCode+")"
+					            });
+							}
+						} else {
+							for (var id in oldValues) {
+								var airport = oldValues[id];
+								airports[airport.Code].marker.setMap(null);
+							}
+						}
+					});
+
 	                google.maps.event.addListener(map, 'zoom_changed', function () {
 	                    scope.$applyAsync(function () {
 	                        scope.zoom = map.getZoom();

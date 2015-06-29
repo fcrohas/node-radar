@@ -149,6 +149,17 @@ app.get('/rest/coverage', function(req,res) {
 	});
 });
 
+app.get('/rest/airports', function(req,res) {
+	// get airports coords
+	var airports = [];
+	db.getAirports().then(function(data) {
+		for (var id in data.rows) {
+			airports.push(data.rows[id].dataValues);
+		}
+		res.json(airports);
+	});
+});
+
 app.get('/rest/aircraft/history/:adsb', function (req, res) {
 	if (req.params.adsb != '') {
 		for (var id in planes) {		

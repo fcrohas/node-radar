@@ -19,22 +19,43 @@ angular.module('controllers').controller('mapCtrl', ['$scope','$http','$location
         zoomControl: true,
         mapTypeControl: true          
     },
+    settings: {
+      coverage : false,
+      trackplane : false,
+      airports : false
+    },
     coverage : [],
+    airports : [],
     helpClick : function() {
-      $location.path("/partial/settings");
+      $location.path("/help/howto");
     },
     settingsClick : function() {
-      $location.path("/partial/settings");
+      $location.path("/viewsettings");
     },
     navClick : function() {
-      $location.path("/partial/flight");
+      $location.path("/flight");
     }
   };
 
   $scope.sideNavMode = false;
-  $http.get('/rest/coverage').then(function(res) {
-    $scope.map.coverage = res.data;
+  $scope.$watch('map.settings.coverage', function(newValue, oldValue) {
+    if (newValue) {
+      $http.get('/rest/coverage').then(function(res) {
+        $scope.map.coverage = res.data;
+      });
+    } else {
+      $scope.map.coverage = [];
+    }
   });
 
+  $scope.$watch('map.settings.airports', function(newValue, oldValue) {
+    if (newValue) {
+      $http.get('/rest/airports').then(function(res) {
+        $scope.map.airports = res.data;
+      });
+    } else {
+      $scope.map.airports = [];
+    }
+  });
 
 }]);

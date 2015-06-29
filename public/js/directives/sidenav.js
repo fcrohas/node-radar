@@ -22,17 +22,27 @@ angular.module('directives').directive('sidenav', function factory($window) {
 
             },
             link: function link(scope, element, attrs) {
-            	function toggleNav() {
+            	var state = {
+            		opened : false,
+            		menu : 'nav'
+            	};
+
+            	function toggleNav(menu) {
             		if (!scope.pinned) {
-	            		var nav = angular.element(element[0]);
-	            		if (nav.hasClass('sidenav-show')) {
-	            			nav.removeClass('sidenav-show');
-	            			nav.addClass('sidenav-hide');
-	            		} else {
-	            			nav.removeClass('sidenav-hide');
-	            			nav.addClass('sidenav-show');
+	            		if ((state.menu == menu) || !state.opened) {
+		            		var nav = angular.element(element[0]);
+		            		if (nav.hasClass('sidenav-show')) {
+		            			nav.removeClass('sidenav-show');
+		            			nav.addClass('sidenav-hide');
+		            			state.opened = false;
+		            		} else {
+		            			nav.removeClass('sidenav-hide');
+		            			nav.addClass('sidenav-show');
+		            			state.opened = true;
+		            		}
 	            		}
             		}
+          			state.menu = menu;
             	}
 
             	scope.pinNav = function() {
@@ -40,17 +50,17 @@ angular.module('directives').directive('sidenav', function factory($window) {
             	};
 
             	scope.planeNav = function() {
-            		toggleNav();
+            		toggleNav('nav');
             		scope.navClicked();
             	}
 
             	scope.planeSettings = function() {
-            		toggleNav();
+           			toggleNav('settings');
             		scope.settingsClicked();
             	}
 
             	scope.planeHelp = function() {
-            		toggleNav();
+           			toggleNav('help');
             		scope.helpClicked();
             	}
 
