@@ -1,4 +1,4 @@
-angular.module('nodeRadar', ['ui.bootstrap',/*'uiGmapgoogle-maps',*/'ngRoute','controllers','services','directives','ngTouch'])
+angular.module('nodeRadar', ['ui.bootstrap','ngAnimate','ngRoute','controllers','services','directives','ngTouch'])
 .config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.

@@ -1,28 +1,71 @@
-angular.module('directives').directive('gmaps', function factory($window) {
-		var _markers = [];
-		var coverage = {};
-		var airports = [];
-        function addMarker(map, marker) {
-        	_markers[marker.ICAO] = {};
-            _markers[marker.ICAO].marker = new google.maps.Marker({
-                position: new google.maps.LatLng(marker.latitude, marker.longitude),
-                map: map,
-                icon : marker.icon,
-                title: marker.callsign || marker.ICAO
-            });
-            _markers[marker.ICAO].info = new google.maps.InfoWindow({
-					content: "<div>"
-							+"<h6>"+marker.callsign+"</h6>"
-							+"<small>"+marker.description
-							+"<br>Squawk: " + marker.squawk
-							+"<br>Altitude: "+marker.altitude+" m"
-							+"<br>Speed: "+marker.ground_speed+" km/h"
-							+"</small></div>"
-			});
-			google.maps.event.addListener(_markers[marker.ICAO].marker, 'click', function() {
-				_markers[marker.ICAO].info.open(map,_markers[marker.ICAO].marker);
-			});
-        }
+angular.module('directives').directive('gmaps', ['$http','$window',function factory($http,$window) {
+	var _markers = [];
+	var coverage = {};
+	var airports = [];
+	// google.maps.Marker.prototype.setLabel = function(label){
+	//         this.label = new MarkerLabel({
+	//           map: this.map,
+	//           marker: this,
+	//           text: label
+	//         });
+	//         this.label.bindTo('position', this, 'position');
+	//     };
+
+	//     var MarkerLabel = function(options) {
+	//         this.setValues(options);
+	//         this.span = document.createElement('span');
+	//         this.span.className = 'map-marker-label';
+	//     };
+
+	//     MarkerLabel.prototype = $.extend(new google.maps.OverlayView(), {
+	//         onAdd: function() {
+	//             this.getPanes().overlayImage.appendChild(this.span);
+	//             var self = this;
+	//             this.listeners = [
+	//             google.maps.event.addListener(this, 'position_changed', function() { self.draw();    })];
+	//         },
+	//         draw: function() {
+	//             var text = String(this.get('text'));
+	//             var position = this.getProjection().fromLatLngToDivPixel(this.get('position'));
+	//             this.span.innerHTML = text;
+	//             this.span.style.left = (position.x - (markerSize.x / 2)) - (text.length * 3) + 10 + 'px';
+	//             this.span.style.top = (position.y - markerSize.y + 40) + 'px';
+	//         }
+	//     });
+ //        function addMarker(map, marker) {
+ //        	_markers[marker.ICAO] = {};
+ //            _markers[marker.ICAO].marker = new google.maps.Marker({
+ //                position: new google.maps.LatLng(marker.latitude, marker.longitude),
+ //                map: map,
+ //                icon : marker.icon,
+ //                title: marker.callsign || marker.ICAO
+ //            });
+ //            _markers[marker.ICAO].info = new google.maps.InfoWindow({
+	// 				content: "<div><h6>No information</h6></div>",
+	// 				maxWidth : 200
+	// 		});
+	// 		google.maps.event.addListener(_markers[marker.ICAO].marker, 'click', function() {
+	// 			$http.get('/rest/flight/'+marker.ICAO).then(function(response) {
+	// 				var info = response.data;
+	// 				var content = "<div><h6>"+info.Registration+"</h6>";
+	// 				content += "<small>Type : "+info.Manufacturer+" - "+info.ModelType;
+	// 				content += "<br>Operator : "+info.Operator;
+	// 				if (info.Airport) {
+	// 					content += "<br>Flight : "+info.FlightName;
+	// 					content += "<br>From : "+info.Airport.departure.AirportName;
+	// 					content += "<br>To : "+info.Airport.arrival.AirportName;
+	// 				}
+	// 				if ((info.Photos!= undefined) && (info.Photos.length>0)) {
+	// 					content += "<br><img class='thumb' src='"+info.Photos[0].thumbnailPath+"'></img>";
+	// 					content += "<br>By "+info.Photos[0].author;
+	// 				}
+	// 				content += "</small></div>";
+
+	// 				_markers[marker.ICAO].info.setContent(content);
+	// 			});
+	// 			_markers[marker.ICAO].info.open(map,_markers[marker.ICAO].marker);
+	// 		});
+ //        }
 
         function addPolyline(map, marker, id) {
 			var track = marker.trackhistory[id];
@@ -99,6 +142,7 @@ angular.module('directives').directive('gmaps', function factory($window) {
 			                					map.panTo(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
 			                				}
 			                				_markers[markerNew.ICAO].marker.setPosition(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
+			                				// _markers[markerNew.ICAO].marker.setLabel(markerNew.callsign);
 			                				// update track history
 			                				if ((markerNew.show == true) && (_markers[markerNew.ICAO].track != undefined)) {
 			                					if (markerNew.trackhistory.length != markerOld.trackhistory.length) {
@@ -115,15 +159,6 @@ angular.module('directives').directive('gmaps', function factory($window) {
 		                			if (_markers[markerNew.ICAO] !=  undefined) {
 				                		if (markerNew.callsign != markerOld.callsign) {
 			                				_markers[markerNew.ICAO].marker.setTitle(markerNew.callsign);
-				                		}
-				                		if ((markerNew.squawk != markerOld.squawk) || (markerNew.altitude != markerOld.altitude) || (markerNew.ground_speed!=markerOld.ground_speed)) {
-			                				_markers[markerNew.ICAO].info.setContent("<div>"
-														+"<h6>"+markerNew.callsign+"</h6>"
-														+"<small>"+markerNew.description
-														+"<br>Squawk: " + markerNew.squawk
-														+"<br>Altitude: "+markerNew.altitude+" m"
-														+"<br>Speed: "+markerNew.ground_speed+" km/h"
-														+"</small></div>");		
 				                		}
 
 				                		if ((markerNew.track != markerOld.track) 
@@ -246,4 +281,4 @@ angular.module('directives').directive('gmaps', function factory($window) {
                 google.maps.event.addDomListener($window, 'load', initialize);
             }
         };
-    });
+    }]);

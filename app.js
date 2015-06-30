@@ -216,16 +216,16 @@ app.get('/rest/flight/:adsb', function (req, res) {
 								{Code : data.flight.depapt, Town:data.route[data.flight.depapt][0],
 								Country : data.route[data.flight.depapt][1],
 								AirportName : data.route[data.flight.depapt][2],
-								Longitude : data.route[data.flight.depapt][3],
-								Latitude : data.route[data.flight.depapt][4],
+								Latitude : data.route[data.flight.depapt][3],
+								Longitude : data.route[data.flight.depapt][4],
 								AirportCode : data.route[data.flight.depapt][6],
 								DepartureTime: data.flight.deptim},
 							arrival : 
 								{Code : data.flight.arrapt, Town:data.route[data.flight.arrapt][0],
 								Country : data.route[data.flight.arrapt][1],
 								AirportName : data.route[data.flight.arrapt][2],
-								Longitude : data.route[data.flight.arrapt][3],
-								Latitude : data.route[data.flight.arrapt][4],
+								Latitude : data.route[data.flight.arrapt][3],
+								Longitude : data.route[data.flight.arrapt][4],
 								AirportCode : data.route[data.flight.arrapt][6],
 								ArrivalTime: data.flight.arrtim}
 								};

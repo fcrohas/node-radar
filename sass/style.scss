@@ -1,4 +1,5 @@
 @import "lib/bourbon/bourbon";
+@import "_bootstrap";
 
 body,html {
 	font-family:$helvetica;
@@ -6,6 +7,7 @@ body,html {
   overflow: hidden;  
   height: 100%; 
   max-height: 100%; 
+  padding-top:17px;
 }
 
 img.logo {
@@ -56,12 +58,12 @@ img.logo {
   font-size: 7; 
 }
 
-#mainView  {
+.mainView  {
     padding:0px;
     height: 100%;
 }
 
-#infoView {
+.infoView {
   padding:0px;
     height: 100%;
 }
@@ -89,163 +91,86 @@ img.logo {
     position: absolute;
 }
 
-.navbar {
-  margin: 1px;
-  min-height:35px;
-  height:35px;
-  z-index: 10;
-  color: white;
-}
-
-.navbar-nav > li > a {
-    color:white;
-    line-height: 5px;  
-}
-
-.footer {
-	position:absolute;
-	bottom:0;
-	width:100%;
-	height:25px;
-	background-color: #f5f5f5;
-}
-
-#wrapper {
-    position: fixed;
-    top:70px;
-    left: 232px;
-    z-index: 1000;
-    @include transition(all 0.5s ease);
-}
-
-#wrapper.toggled {
-    position: fixed;
-    left: 0px;
-    z-index: 1000;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-    width: 16px;
-}
-
-#sidebar-wrapper {
-    z-index: 2;
-    position: fixed;
-    left: 0px;
-    height: 85%;
-    overflow-y: auto;
-    background: lightgray;
-    overflow: hidden;
-    opacity: 0.8;
-    box-shadow: 10px 10px 5px #888888;
-    @include transition(all 0.5s ease);
-	@include border-width(2px 1px 2px null);    
-	@include border-color(darkgray darkgray darkgray null);
-	@include border-style(solid solid null);
-}
-
-#wrapper > button {
-    z-index:3;
-    box-shadow: 10px 10px 5px #888888;
-}
-
-/* Sidebar Styles */
-
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 250px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
-}
-
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #999999;
-}
-
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: black;
-    background: rgba(255,255,255,0.2);
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    text-decoration: none;
-}
-
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
-}
-
-.sidebar-nav > .sidebar-item {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
-}
-
-
-@media(min-width:768px) {
-    #sidebar-wrapper {
-        width: 250px;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        overflow: hidden;    	
-    }
-}
 
 table {
-  width: 100%;
+  font-size: 11px; 
 }
 
-thead, tbody, tr, td, th { display: block; }
-
-tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
+.sidenav-pinned {
+  position:absolute;
+  top:35px;
+  right:0px;
+  width:260px;
 }
 
-thead th {
-    height: 5%;
-
-    /*text-align: left;*/
+.sidenav-show {
+  right:0px;
+  -moz-box-shadow: -3px 0px 5px 0px #cfcfcf;
+  -webkit-box-shadow: -3px 0px 5px 0px #cfcfcf;
+  -o-box-shadow: -3px 0px 5px 0px #cfcfcf;
+  box-shadow: -3px 0px 5px 0px #cfcfcf;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=180, Strength=2);
+  @include transition(all 0.5s ease);
 }
 
-tbody {
-    height: 70%;
-    overflow-y: auto;
+.sidenav-hide {
+  right:-260px;
+  @include transition(all 0.5s ease);
 }
 
-thead {
-    /* fallback */
+.sidenav {
+  position:absolute;
+  top:35px;
+  width:260px;
+  z-index: 800;
+  opacity: 0.8;
+  border-left-color: black;
+  border-left-style: solid;
+  border-left-width: 1px;
 }
 
-
-tbody td, thead th {
-    width: 19.2%;
-    float: left;
+.sidenav-content {
+  background: white;
+  overflow: auto;
+  height:100%;
+  margin: 0px;
+  padding: 0px;
 }
 
-.labels {
- color: white;
- background-color: red;
- font-family: "Lucida Grande", "Arial", sans-serif;
- font-size: 10px;
- text-align: center;
- width: 10px;     
- white-space: nowrap;
+.menu-flight {
+  position:absolute;
+  top:30px;
+  left:-30px;
+  width:30px;
+  z-index: 800;
+  background: #00b6ff;
+  border-top-left-radius: 10px 5px;
+  border-bottom-left-radius: 10px 5px;
+}   
+
+.menu-settings {
+  position:absolute;
+  top:55px;
+  left:-30px;
+  width:30px;
+  z-index: 800;
+  background: #ebbb79;
+  border-top-left-radius: 10px 5px;
+  border-bottom-left-radius: 10px 5px;
+}   
+
+.menu-help {
+  position:absolute;
+  top:80px;
+  left:-30px;
+  width:30px;
+  z-index: 800;
+  background: #eb79d9;
+  border-top-left-radius: 10px 5px;
+  border-bottom-left-radius: 10px 5px;
+}   
+
+.thumb {
+  width : 80px;
+  height : 60px;
 }
-   

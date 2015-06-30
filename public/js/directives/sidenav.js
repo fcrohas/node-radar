@@ -3,7 +3,7 @@ angular.module('directives').directive('sidenav', function factory($window) {
             restrict: 'EA',
             template: '<div ng-class="{\'sidenav\':!pinned,\'sidenav-pinned\':pinned}"><div class="sidenav-content">'
             +'<a class="btn pull-right" ng-click="pinNav()">'
-            +'<span class="glyphicon glyphicon-pushpin"></span>'
+            +'<span ng-class="{\'glyphicon glyphicon-pushpin\':!pinned,\'fa fa-thumb-tack\':pinned}"></span>'
             +'</a><ng-transclude></ng-transclude></div>'
             +'<div class="menu-flight"><a class="btn" ng-click="planeNav()">'
             +'<span class="glyphicon glyphicon-plane"></span></div>'
