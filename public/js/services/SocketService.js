@@ -37,7 +37,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
   var planes = [];
   // Manage new plane into the list
   socket.on('add', /*throttle(*/function(plane) {
-    $rootScope.$apply(function() {
+    $rootScope.$applyAsync(function() {
         //console.log(msg);
         plane.show = false;
         plane.description = '';
@@ -103,7 +103,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
   }/*,500)*/);
   // Manage plane changes
   socket.on('change', /*throttle(*/function(msg) {
-    $rootScope.$apply(function() {
+    $rootScope.$applyAsync(function() {
         //var plane = planes[msg.ICAO];
         for (var id in planes) {
           var plane = planes[id];
@@ -195,7 +195,7 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
   }/*,500)*/);
 // Manage quality signal
   socket.on('quality', /*throttle(*/function(msg) {
-    $rootScope.$apply(function() {
+    $rootScope.$applyAsync(function() {
       for (var id in planes) {
         var plane = planes[id];
         if (plane.ICAO == msg.ICAO) {
@@ -216,14 +216,14 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
   }/*,500)*/);
   // Manage remove older plane
   socket.on('delete', /*throttle(*/function(msg) {
-    $rootScope.$apply( function() {
+    $rootScope.$applyAsync( function() {
       
       for (var id in planes) {
         var plane = planes[id];  
       //angular.forEach(planes, function(plane,id) {
         if (plane.ICAO == msg.ICAO) {
             // before delete
-            console.log('event delete '+msg.ICAO);
+            //console.log('event delete '+msg.ICAO);
             planes.splice(id,1);
             if (!isUndefinedOrNull(plane.latitude)) {
               in_view -= 1;
@@ -253,6 +253,9 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
       return client_count;
     },
     getPlaneInfo : function(plane) {
+      if (plane.show) {
+        return;
+      }
       //unselect all other plane
       angular.forEach(planes, function(plane) {
           if (plane.show) {

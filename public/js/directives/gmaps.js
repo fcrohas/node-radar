@@ -1,4 +1,4 @@
-angular.module('directives').directive('gmaps', ['$http','$window',function factory($http,$window) {
+angular.module('directives').directive('gmaps', ['$http','$window','$timeout',function factory($http,$window,$timeout) {
 	var _markers = [];
 	var coverage = {};
 	var airports = [];
@@ -32,40 +32,45 @@ angular.module('directives').directive('gmaps', ['$http','$window',function fact
 	//             this.span.style.top = (position.y - markerSize.y + 40) + 'px';
 	//         }
 	//     });
- //        function addMarker(map, marker) {
- //        	_markers[marker.ICAO] = {};
- //            _markers[marker.ICAO].marker = new google.maps.Marker({
- //                position: new google.maps.LatLng(marker.latitude, marker.longitude),
- //                map: map,
- //                icon : marker.icon,
- //                title: marker.callsign || marker.ICAO
- //            });
- //            _markers[marker.ICAO].info = new google.maps.InfoWindow({
-	// 				content: "<div><h6>No information</h6></div>",
-	// 				maxWidth : 200
-	// 		});
-	// 		google.maps.event.addListener(_markers[marker.ICAO].marker, 'click', function() {
-	// 			$http.get('/rest/flight/'+marker.ICAO).then(function(response) {
-	// 				var info = response.data;
-	// 				var content = "<div><h6>"+info.Registration+"</h6>";
-	// 				content += "<small>Type : "+info.Manufacturer+" - "+info.ModelType;
-	// 				content += "<br>Operator : "+info.Operator;
-	// 				if (info.Airport) {
-	// 					content += "<br>Flight : "+info.FlightName;
-	// 					content += "<br>From : "+info.Airport.departure.AirportName;
-	// 					content += "<br>To : "+info.Airport.arrival.AirportName;
-	// 				}
-	// 				if ((info.Photos!= undefined) && (info.Photos.length>0)) {
-	// 					content += "<br><img class='thumb' src='"+info.Photos[0].thumbnailPath+"'></img>";
-	// 					content += "<br>By "+info.Photos[0].author;
-	// 				}
-	// 				content += "</small></div>";
+        function addMarker(map, marker) {
+        	_markers[marker.ICAO] = {};
+            _markers[marker.ICAO].marker = new google.maps.Marker({
+                position: new google.maps.LatLng(marker.latitude, marker.longitude),
+                map: map,
+                icon : marker.icon,
+                title: marker.callsign || marker.ICAO
+            });
+            _markers[marker.ICAO].info = new google.maps.InfoWindow({
+					content: "<div><h6>No information</h6></div>",
+					maxWidth : 200
+			});
+			google.maps.event.addListener(_markers[marker.ICAO].marker, 'click', function() {
+				$http.get('/rest/flight/'+marker.ICAO).then(function(response) {
+					var info = response.data;
+					var content = "<div><h6>"+info.Registration+"</h6>";
+					content += "<small>Type : "+info.Manufacturer+" - "+info.ModelType;
+					content += "<br>Operator : "+info.Operator;
+					if (info.Airport) {
+						content += "<br>Flight : "+info.FlightName;
+						content += "<br>From : "+info.Airport.departure.AirportName;
+						content += "<br>To : "+info.Airport.arrival.AirportName;
+					}
+					if ((info.Photos!= undefined) && (info.Photos.length>0)) {
+						content += "<br><img class='thumb' src='"+info.Photos[0].thumbnailPath+"'></img>";
+						content += "<br>By "+info.Photos[0].author;
+					}
+					content +="<br><button class='btn btn-sm btn-primary' ng-click='socket.getPlaneInfo(marker)'>Track</button>";
+					content += "</small></div>";
 
-	// 				_markers[marker.ICAO].info.setContent(content);
-	// 			});
-	// 			_markers[marker.ICAO].info.open(map,_markers[marker.ICAO].marker);
-	// 		});
- //        }
+					_markers[marker.ICAO].info.setContent(content);
+				});
+				_markers[marker.ICAO].info.open(map,_markers[marker.ICAO].marker);
+				$timeout(function() {
+					// auto close after 10s
+					_markers[marker.ICAO].info.close();
+				},10000);
+			});
+        }
 
         function addPolyline(map, marker, id) {
 			var track = marker.trackhistory[id];
