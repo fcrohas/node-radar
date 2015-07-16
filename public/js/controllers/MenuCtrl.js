@@ -2,24 +2,16 @@ angular.module('controllers').controller('FlightCtrl', ['$scope', 'SocketService
     function ($scope, socket) {
         $scope.socket = socket;
         $scope.getPlaneInfo = function(plane) {
-          socket.getPlaneInfo(plane).then(function(info) {
-              $scope.planeInfo = info;
-          });
+          // Avoid selection twice
+          if (!plane.show) {
+            socket.getPlaneInfo(plane).then(function(info) {
+                $scope.planeInfo = info;
+            });
+          }
         };
     }
 
-  ]).controller('FlightDetailCtrl', ['$scope', '$http',
-    function ($scope, $http) {
-      $scope.$on('planeSelected', function(event, ICAO) { 
-        $http.get('/rest/flight/'+ICAO).success(function(data) {
-          $scope.planeinfo = data;
-        });
-      });
-      $scope.$on('planeUnSelected', function(event, ICAO) { 
-          $scope.planeinfo = {};
-      });
-    }
-]).controller('HistoryCtrl', ['$scope', '$http', '$window',
+  ]).controller('HistoryCtrl', ['$scope', '$http', '$window',
   function($scope, $http, $window) {
     $scope.results = '';
     $scope.results.count = 0;

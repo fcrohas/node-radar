@@ -2,10 +2,6 @@ angular.module('nodeRadar', ['ui.bootstrap','ngAnimate','ngRoute','controllers',
 .config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/flight/detail', {
-        templateUrl: 'partial/flightdetail',
-        controller: 'FlightDetailCtrl'
-      }).
       when('/flight', {
         templateUrl: 'partial/flight',
         controller: 'FlightCtrl'
@@ -33,13 +29,7 @@ angular.module('nodeRadar', ['ui.bootstrap','ngAnimate','ngRoute','controllers',
       otherwise({
         redirectTo: '/flight'
       });
-}])/*.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
-    GoogleMapApi.configure({
-      //    key: 'your api key',
-      v: '3.17',
-      libraries: 'weather,geometry,visualization'
-    });
-}])*/.directive('resize', function ($window) {
+}]).directive('resize', function ($window) {
     return function (scope, element) {
         //console.log(element);
         scope.$watch( element[0].offsetHeight, function () {
