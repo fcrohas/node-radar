@@ -1,5 +1,5 @@
 var config = require('config-node');
-var http = require('http');
+var http = require('https');
 var url = require('url');
 var events = require('events');
 var util = require('util');
@@ -7,7 +7,7 @@ var StringDecoder = require('string_decoder').StringDecoder;
 
 function PlaneFinder() {
 	events.EventEmitter.call(this);
-	this.url = 'http://planefinder.net/endpoints/planeData.php?';
+	this.url = 'https://planefinder.net/endpoints/planeData.php?';
 	this.faa = 0;
 	this.decoder = new StringDecoder('utf8');
 	this.body = '';
@@ -74,7 +74,6 @@ PlaneFinder.prototype._handleResponseEnd = function() {
 };
 
 PlaneFinder.prototype._emitError = function(err) {
-	console.log(err);
 	this.emit('data', '');
 	this.emit('error', err);
 };
