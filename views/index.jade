@@ -6,7 +6,7 @@ html(ng-app='nodeRadar')
 		.container-fluid.full-height.mainView(ng-controller='mapCtrl')
 			.row.full-height
 				.col-xs-12.full-height(ng-class="{'col-xs-12':!sideNavMode,'col-xs-9 col-lg-10':sideNavMode}")
-					gmaps(center="map.center",zoom="map.zoom",options="map.options",markers="socket.Planes", coverage="map.coverage", airports="map.airports", settings="map.settings")
+					gmaps(center="map.center",zoom="map.zoom",options="map.options",markers="socket.Planes", coverage="map.coverage", airports="map.airports", settings="map.settings", filter="user.search")
 				sidenav.full-height(pinned="sideNavMode",nav-clicked="map.navClick()",help-clicked="map.helpClick()",settings-clicked="map.settingsClick()")
 					ng-view
 				//div.col-xs-12.col-sm-12.full-height.infoView(ng-show="mobileMenu",ng-view)

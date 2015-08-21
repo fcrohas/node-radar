@@ -1,4 +1,4 @@
-angular.module('directives').directive('gmaps', ['$http','$window',function factory($http,$window) {
+angular.module('directives').directive('gmaps', ['$http','$window','$filter',function factory($http,$window,$filter) {
 	var _markers = [];
 	var coverage = {};
 	var airports = [];
@@ -32,13 +32,14 @@ angular.module('directives').directive('gmaps', ['$http','$window',function fact
 	//             this.span.style.top = (position.y - markerSize.y + 40) + 'px';
 	//         }
 	//     });
-        function addMarker(map, marker) {
+        function addMarker(map, marker, isVisible) {
         	_markers[marker.ICAO] = {};
             _markers[marker.ICAO].marker = new google.maps.Marker({
                 position: new google.maps.LatLng(marker.latitude, marker.longitude),
                 map: map,
                 icon : marker.icon,
-                title: marker.callsign || marker.ICAO
+                title: marker.callsign || marker.ICAO,
+                visible: isVisible || false
             });
             _markers[marker.ICAO].info = new google.maps.InfoWindow({
 					content: "<div><h6>No information</h6></div>",
@@ -98,7 +99,8 @@ angular.module('directives').directive('gmaps', ['$http','$window',function fact
                 options: '=options',
                 coverage: '=coverage',
                 airports: '=airports',
-                settings: '=settings'
+                settings: '=settings',
+                filter: '=filter'
             },
             link: function link(scope, element, attrs) {
             	var map = {};
@@ -111,8 +113,32 @@ angular.module('directives').directive('gmaps', ['$http','$window',function fact
 
                 function initialize() {
                 	map = new google.maps.Map(element[0], mapOptions);
+                	scope.$watch('filter', function(newValue,oldValue,scope) {
+                			if (newValue != '') {
+                				//scope.$applyAsync(function () {
+		                			var markersFiltered = $filter('filter')(scope.markers,newValue);
+		                			for(var id in _markers) {
+		                				var marker = _markers[id];
+		                				if (marker.marker!=undefined) {
+		                					marker.marker.setVisible(false);
+		                				}
+		                			};
+		                			angular.forEach(markersFiltered, function(marker) {
+		                				if ((_markers[marker.ICAO]!=undefined) &&  (_markers[marker.ICAO].marker!=undefined))
+		                					_markers[marker.ICAO].marker.setVisible(true);
+		                			});
+	                			//});
+	                		} else {
+	                			for(var id in _markers) {
+	                				var marker = _markers[id];
+	                				if (marker.marker!=undefined) {
+	                					marker.marker.setVisible(true);
+	                				}
+	                			};
+		                	}
+                	});
+
                 	scope.$watch('markers', function(newValues,oldValues,scope) {
-                			//console.log(newValues);
 	                    	for (var index in newValues) {
 	                    		var markerNew = newValues[index];
 	                    		var markerOld = oldValues.filter(function(plane) {
@@ -127,7 +153,8 @@ angular.module('directives').directive('gmaps', ['$http','$window',function fact
 			                    	//console.log('added marker');
 			                    	// add created marker to object if lat / lon are there
 			                    	if ((markerNew.latitude != null) && (markerNew.latitude != undefined)) {
-			                    		addMarker(map, markerNew);
+			                    		var isVisible = $filter('filter')([markerNew],scope.filter);
+			                    		addMarker(map, markerNew, isVisible.length >0);
 				                	}
 			                	} else
 			                	// update marker
@@ -136,57 +163,61 @@ angular.module('directives').directive('gmaps', ['$http','$window',function fact
 			                		// update or create marker if latitude is new 
 			                		if ((markerNew.latitude != markerOld.latitude) || (markerNew.longitude != markerOld.longitude)) {
 			                			if (_markers[markerNew.ICAO] == undefined) {
-											addMarker(map, markerNew);
+			                				var isVisible = $filter('filter')([markerNew],scope.filter);
+											addMarker(map, markerNew, isVisible.length >0);
 			                			} else {
-			                				if ((markerNew.show) && (scope.settings.trackplane)) {
-			                					map.panTo(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
-			                				}
-			                				_markers[markerNew.ICAO].marker.setPosition(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
-			                				// _markers[markerNew.ICAO].marker.setLabel(markerNew.callsign);
-			                				// update track history
-			                				if ((markerNew.show == true) && (_markers[markerNew.ICAO].track != undefined)) {
-			                					if (markerNew.trackhistory.length != markerOld.trackhistory.length) {
-			                						addPolyline(map, markerNew, markerNew.trackhistory.length -1);
-			                					} else {
-			                						updatePolyline(map, markerNew);
-			                					}
-			                					
+			                				if (_markers[markerNew.ICAO].marker.getVisible()) {
+				                				if ((markerNew.show) && (scope.settings.trackplane)) {
+				                					map.panTo(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
+				                				}
+				                				_markers[markerNew.ICAO].marker.setPosition(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
+				                				// _markers[markerNew.ICAO].marker.setLabel(markerNew.callsign);
+				                				// update track history
+				                				if ((markerNew.show == true) && (_markers[markerNew.ICAO].track != undefined)) {
+				                					if (markerNew.trackhistory.length != markerOld.trackhistory.length) {
+				                						addPolyline(map, markerNew, markerNew.trackhistory.length -1);
+				                					} else {
+				                						updatePolyline(map, markerNew);
+				                					}
+				                					
+				                				}
 			                				}
 			                			}
 				                		//console.log('updated marker');
 
 			                		}
 		                			if (_markers[markerNew.ICAO] !=  undefined) {
-				                		if (markerNew.callsign != markerOld.callsign) {
-			                				_markers[markerNew.ICAO].marker.setTitle(markerNew.callsign);
-				                		}
+		                				if (_markers[markerNew.ICAO].marker.getVisible()) {
+					                		if (markerNew.callsign != markerOld.callsign) {
+				                				_markers[markerNew.ICAO].marker.setTitle(markerNew.callsign);
+					                		}
 
-				                		if ((markerNew.track != markerOld.track) 
-				                			|| (markerNew.quality!=markerOld.quality)
-				                			|| (markerNew.icon.path != markerOld.icon.path)
-				                			|| (markerNew.show != markerOld.show)) {
-			                				_markers[markerNew.ICAO].marker.setIcon(markerNew.icon);
-			                				if ((markerNew.show) && (scope.settings.trackplane)) {
-			                					map.panTo(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
-			                				}
-				                		}
-
-				                		if (markerNew.trackhistory.length != markerOld.trackhistory.length) {
-				                			if (markerOld.trackhistory.length == 0) {
-				                				_markers[markerNew.ICAO].track = [];
-				                				for (var trackid in markerNew.trackhistory) {
-				                					addPolyline(map, markerNew, trackid);
+					                		if ((markerNew.track != markerOld.track) 
+					                			|| (markerNew.quality!=markerOld.quality)
+					                			|| (markerNew.icon.path != markerOld.icon.path)
+					                			|| (markerNew.show != markerOld.show)) {
+				                				_markers[markerNew.ICAO].marker.setIcon(markerNew.icon);
+				                				if ((markerNew.show) && (scope.settings.trackplane)) {
+				                					map.panTo(new google.maps.LatLng(markerNew.latitude, markerNew.longitude));
 				                				}
-				                			}
-				                		}
+					                		}
 
-				                		if ((markerNew.show != markerOld.show) && (markerNew.show == false)) {
-				                			for (var id in _markers[markerNew.ICAO].track) {
-				                				var track = _markers[markerNew.ICAO].track[id];
-				                				track.setMap(null);
-				                			}
-				                		}
+					                		if (markerNew.trackhistory.length != markerOld.trackhistory.length) {
+					                			if (markerOld.trackhistory.length == 0) {
+					                				_markers[markerNew.ICAO].track = [];
+					                				for (var trackid in markerNew.trackhistory) {
+					                					addPolyline(map, markerNew, trackid);
+					                				}
+					                			}
+					                		}
 
+					                		if ((markerNew.show != markerOld.show) && (markerNew.show == false)) {
+					                			for (var id in _markers[markerNew.ICAO].track) {
+					                				var track = _markers[markerNew.ICAO].track[id];
+					                				track.setMap(null);
+					                			}
+					                		}
+					                	}
 				                	}	
 		                		}
 			                }

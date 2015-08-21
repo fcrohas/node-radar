@@ -11,7 +11,7 @@
 			th.col-md-3 Speed (km/h)
 			th.col-md-3 Altitude (m)
 		tbody
-			tr.plane-repeat(ng-repeat='plane in socket.Planes | filter:search.type', ng-click='getPlaneInfo(plane)',ng-class="{'alert-info':plane.show,'':!plane.show}",tooltip="{{plane.description}}")
+			tr.plane-repeat(ng-repeat='plane in socket.Planes | filter:user.search', ng-click='getPlaneInfo(plane)',ng-class="{'alert-info':plane.show,'':!plane.show}",tooltip="{{plane.description}}")
 				td.hidden-md.col-lg-3 
 					img(ng-src="{{plane.silhouette}}")
 				td.col-md-3 {{plane.callsign}}

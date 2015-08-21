@@ -4,6 +4,7 @@ var url = require('url');
 var events = require('events');
 var util = require('util');
 var StringDecoder = require('string_decoder').StringDecoder;
+var HttpsProxyAgent = require('./httpsproxyagent');
 
 function PlaneFinder() {
 	events.EventEmitter.call(this);
@@ -27,14 +28,21 @@ PlaneFinder.prototype.getPlaneInfo = function(ICAO, flightno, timestamp) {
 		var options = '';
 		if (config.Proxy.enable)
 		{
+			var agent = new HttpsProxyAgent({
+			    proxyHost: config.Proxy.host,
+			    proxyPort: config.Proxy.port
+			});			
 			options = {
-				host: config.Proxy.host,
-				port: config.Proxy.port,
+				// host: config.Proxy.host,
+				// port: config.Proxy.port,
+				host : "planefinder.net",
+				port : 443,
 				path: query,
 				headers: {
 					Host: "planefinder.net",
 					'X-Requested-With': 'XMLHttpRequest'
-				}
+				},
+				agent : agent
 			};
 			if (config.Proxy.BasicAuth.enable) {
 				var auth = 'Basic ' + new Buffer(config.Proxy.BasicAuth.login + ':' + config.Proxy.BasicAuth.password).toString('base64');
@@ -74,6 +82,7 @@ PlaneFinder.prototype._handleResponseEnd = function() {
 };
 
 PlaneFinder.prototype._emitError = function(err) {
+	console.log(err);
 	this.emit('data', '');
 	this.emit('error', err);
 };

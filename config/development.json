@@ -3,24 +3,24 @@
 		"port" : 3000
 	},
 	"Location" : {
-		"Latitude" : 43.684473,
-		"Longitude" : 4.129813
+		"Latitude" : 52.26270,  
+		"Longitude" : 13.61979
 	},
 	"SBS" : {
 		"type" : "VIRTUALRADAR",
 		"url"  : "/virtualradar/AircraftList.json?ldv=635670602716196806&lat=51.47&lng=-0.6000000000000227&selAc=4197720&trFmt=f",
-		"baseUrl" : "2e0scr.co.uk:8080",
+		"baseUrl" : "eddb8.mine.nu", 
 		"host" : "127.0.0.1",
 		"port" : 30003
 	},
 	"Proxy" : {
-		"enable" : true,
+		"enable" : false,
 		"host" : "10.1.100.150",
 		"port" : 3128,
 		"BasicAuth" : {
-			"enable" : true,
-			"login" : "fcr",
-			"password" : "souris2lola*"
+			"enable" : false,
+			"login" : "test",
+			"password" : "test"
 		}
 	},
 	"Plane" : {
