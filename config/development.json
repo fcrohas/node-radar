@@ -6,11 +6,31 @@
 		"Latitude" : 52.26270,  
 		"Longitude" : 13.61979
 	},
+	"Receivers" : [ 
+		{ 
+			"Enable" : false,
+			"Name" : "Berlin",
+			"Type" : "VIRTUALRADAR",
+			"Url"  : "/VirtualRadar/AircraftList.json?ldv=635670602716196806&lat=51.47&lng=-0.6000000000000227&selAc=4197720&trFmt=f",
+			"Host" : "eddb8.mine.nu",
+			"Port" : 80,
+			"Latitude" : 52.26270,  
+			"Longitude" : 13.61979,
+			"Refresh" : 5000
+		},
+		{ 
+			"Enable" : true,
+			"Name" : "Montpellier",
+			"Type" : "LIVE",
+			"Host" : "192.168.1.22",
+			"Port" : 30003,
+			"Latitude" : 43.684383,   
+			"Longitude" : 4.129947
+		}
+	],
 	"SBS" : {
-		"type" : "VIRTUALRADAR",
-		"url"  : "/virtualradar/AircraftList.json?ldv=635670602716196806&lat=51.47&lng=-0.6000000000000227&selAc=4197720&trFmt=f",
-		"baseUrl" : "eddb8.mine.nu", 
-		"host" : "127.0.0.1",
+		"type" : "LIVE",
+		"host" : "192.168.1.22",
 		"port" : 30003
 	},
 	"Proxy" : {

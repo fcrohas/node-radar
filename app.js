@@ -25,24 +25,6 @@ var planes = new Array();
 // Client list
 var clients = new Array();
 
-// Connect to ads-b server
-var options = { host: config.SBS.host, port:config.SBS.port};
-var baseStation = {};
-var baseStationPoll = {};
-if (config.SBS.type == "LIVE") {
-	baseStation = sbs1.createClient(options);
-} else {
-	switch(config.SBS.type) {
-		case 'DUMP1090' : baseStation = new Dump1090(); break;
-		case 'VIRTUALRADAR' : baseStation = new VirtualRadar(); break;
-	}
-	// Flight alert for out of bound
-	var baseStationPoll = setInterval( function() {
-		baseStation.getPlanes();
-	},5000);
-
-}
-
 // Set server port
 var server = app.listen(config.HttpServer.port);
 
@@ -307,11 +289,11 @@ var flightalert = setInterval( function() {
 	}
 }, config.Plane.refresh_time);	
 
-baseStation.on('error', function(msg) {
+function stationError(msg) {
 	console.log(msg);
-});
+}
 
-baseStation.on('message', function(msg) {
+function stationMessage(msg) {
 	if (msg.message_type === sbs1.MessageType.TRANSMISSION) {
 		var found = false;
 	  	for (var id in planes) {
@@ -425,7 +407,32 @@ baseStation.on('message', function(msg) {
   			//console.log('add '+ sendmsg.ICAO);
 		}			
 	}
-});
+}
 
+// Loop over Receiver
+var stations = [];
+var receivers = config.Receivers;
+for (var id in receivers) {
+	var receiver = receivers[id];
+	if (!receiver.Enable)
+		continue;
+	var options = { host: receiver.Host, port:receiver.Port, url:receiver.Url};
+	var station = {};
+	switch(receiver.Type) {
+		case 'DUMP1090' : station = new Dump1090(options); break;
+		case 'VIRTUALRADAR' : station = new VirtualRadar(options); break;
+		case 'LIVE' : station = sbs1.createClient(options); break;
+	}
+	// Set station listener
+	station.on('error', stationError);
+	station.on('message', stationMessage);
+	// push station to list
+	stations.push({
+		station : station,
+		type : receiver.Type,
+		name : receiver.Name,
+		timer : (receiver.Type != 'LIVE') ? setInterval( function() { for (var id in stations) if (stations[id].type!='LIVE') stations[id].station.getPlanes(); },receiver.Refresh) : null
+	});
+}
 
 

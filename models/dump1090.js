@@ -5,9 +5,9 @@ var events = require('events');
 var util = require('util');
 var StringDecoder = require('string_decoder').StringDecoder;
 
-function Dump1090() {
+function Dump1090(options) {
 	events.EventEmitter.call(this);
-	this.url = 'http://88.173.195.21:8080/dump1090/data.json';
+	this.url = 'http://'+options.host+':'+options.port+options.url; //'http://88.173.195.21:8080/dump1090/data.json';
 	this.faa = 0;
 	this.decoder = new StringDecoder('utf8');
 	this.body = '';
@@ -64,7 +64,7 @@ Dump1090.prototype._handleResponseEnd = function() {
 		body = '';		
 	}
 	for (var id in body) {
-		this.emit('message', {message_type : "MSG",hex_ident : body[id].hex, squawk : body[id].squawk, 
+		this.emit('message', {receiver : "DUMP1090", message_type : "MSG",hex_ident : body[id].hex, squawk : body[id].squawk, 
 							callsign: body[id].flight, lat: ((body[id].lat=="")? null : body[id].lat), lon: ((body[id].lon=="")?null : body[id].lon),
 							altitude:body[id].altitude,	vertical_rate:body[id].vert_rate, 
 							track : body[id].track,	ground_speed:body[id].speed, logged_time : Date.now(),

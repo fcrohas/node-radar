@@ -6,9 +6,10 @@ var events = require('events');
 var util = require('util');
 var StringDecoder = require('string_decoder').StringDecoder;
 
-function VirtualRadar() {
+function VirtualRadar(options) {
 	events.EventEmitter.call(this);
-	this.url = 'http://'+config.SBS.baseUrl+config.SBS.url;
+	this.url = 'http://'+options.host+':'+options.port+options.url;
+	this.options = options;
 	this.faa = 0;
 	this.decoder = new StringDecoder('utf8');
 	this.body = null;
@@ -30,9 +31,9 @@ VirtualRadar.prototype.getPlanes = function() {
 				host: config.Proxy.host,
 				port: config.Proxy.port,
 				// hostname : config.SBS.baseUrl,
-				path: config.SBS.url,
+				path: options.url,
 				headers: {
-					Host: config.SBS.baseUrl,
+					Host: options.host,
 					'Accept-Encoding' : 'gzip',
 					'X-Requested-With': 'XMLHttpRequest'
 				}
@@ -84,7 +85,7 @@ VirtualRadar.prototype._ProcessBody = function(err,data) {
 	}
 	body = body.acList;
 	for (var id in body) {
-		this.emit('message', {message_type : "MSG",hex_ident : body[id].Icao, squawk : body[id].Sqk,
+		this.emit('message', {receiver : "VIRTUALRADAR", message_type : "MSG",hex_ident : body[id].Icao, squawk : body[id].Sqk,
 							callsign: body[id].Call, lat: ((body[id].Lat=="")? null : body[id].Lat), lon: ((body[id].Long=="")?null : body[id].Long),
 							altitude:body[id].Alt,	vertical_rate:body[id].Vsi,
 							track : body[id].Trak,	ground_speed:body[id].Spd, logged_time : Date.now(),
