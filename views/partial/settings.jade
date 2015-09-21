@@ -1,33 +1,82 @@
-.container-fluid.full-height.infoView
-	div(ng-style="style(140)",resize)
-		div.well
-			.row
-				label Base Station
-			.row
-				label.col-md-2 Host
-				input.col-md-8.text(type="text",ng-model="settings.SBS.host")
-			.row
-				label.col-md-2 Port
-				input.col-md-8.text(type="text",ng-model="settings.SBS.port")
-		div.well
-			.row
-				label Proxy
-			.row
-				input.checkbox(type="checkbox",ng-model="settings.Proxy.enable")
-			.row(ng-if="settings.Proxy.enable")
-				label.col-md-4 Host
-				input.col-md-8.text(type="text",ng-model="settings.Proxy.host")
-			.row(ng-if="settings.Proxy.enable")
-				label.col-md-4 Port
-				input.col-md-8.text(type="text",ng-model="settings.Proxy.port")
-		div.well(ng-repeat="(key,value) in settings.Plane.quality")
-			.row
-				label{{key}}
-			.row
-				label.col-md-4 Timeout
-				input.col-md-8.text(type="text",ng-model="value.seen")
-			.row
-				label.col-md-4 Color
-				input.col-md-8.text(type="text",ng-model="value.color")
-			.row
-				p {{value.comment}}
+.modal-header
+	h5.modal-title Settings
+.modal-body
+	tabset
+		tab(heading="Base Station")
+			.container-fluid
+				.row
+					form.form-horizontal
+						.form-group
+							label.col-sm-2.control-label Host
+							.col-sm-8
+								input.form-control(type="text",ng-model="settings.SBS.host")
+						.form-group
+							label.col-sm-2.control-label Port
+							.col-sm-8
+								input.form-control(type="text",ng-model="settings.SBS.port")
+		tab(heading="Receivers")
+			.container-fluid
+				.row
+					table.table-condensed
+						thead
+							th.col-md-1 #
+							th.col-md-2 Name
+							th.col-md-2 Type
+							th.col-md-2 Host
+							th.col-md-3 Url
+							th.col-md-1 Port
+							th.col-md-1 Refresh
+						tbody
+							tr(ng-repeat="receiver in settings.Receivers")
+								td.col-md-1
+									.checkbox
+										label
+											input(type="checkbox",ng-model="receiver.Enable")
+								td.col-md-2
+									input.form-control(type="text",ng-model="receiver.Name")
+								td.col-md-2
+									input.form-control(type="text",ng-model="receiver.Type")
+								td.col-md-2
+									input.form-control(type="text",ng-model="receiver.Host")
+								td.col-md-3
+									input.form-control(type="text",ng-model="receiver.Url")
+								td.col-md-1
+									input.form-control(type="number",ng-model="receiver.Port")
+								td.col-md-1
+									input.form-control(type="number",ng-model="receiver.Refresh")
+		tab(heading="Network")
+			.container-fluid
+				.row
+					form.form-horizontal
+						.form-group
+							.col-sm-offset-2.col-sm-8
+								.checkbox
+									label
+										input(type="checkbox",ng-model="settings.Proxy.enable")
+						.form-group
+							label.col-sm-2.control-label Host
+							.col-sm-8
+								input.form-control(type="text",ng-model="settings.Proxy.host")
+						.form-group
+							label.col-sm-2.control-label Port
+							.col-sm-8
+								input.form-control(type="text",ng-model="settings.Proxy.port")
+		tab(heading="Planes")
+			.container-fluid
+				tabset
+					tab(ng-repeat="(key,value) in settings.Plane.quality", heading="{{key}}")
+						.container-fluid
+								.row
+									form.form-horizontal
+										p {{value.comment}}
+										.form-group
+											label.col-sm-2.control-label Timeout
+											.col-sm-8
+												input.form-control(type="text",ng-model="value.seen")
+										.form-group
+											label.col-sm-2.control-label Color
+											.col-sm-8
+												input.form-control(type="text",ng-model="value.color")
+.modal-footer
+	button.btn.btn-primary(type="button",ng-click="ok()") OK
+	button.btn.btn-danger(type="button",ng-click="cancel()") Cancel	

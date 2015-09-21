@@ -1,10 +1,7 @@
-angular.module('controllers').controller('navbarCtrl', function ($scope) {
+angular.module('controllers').controller('navbarCtrl', ['$scope','$modal', function ($scope,$modal) {
   $scope.menuList = [
     {'dropmenu': 'Radar',
-     'subaction': [{'name' : 'Flight list','link' : '#/flight'},
-                   {'name' : 'Flight detail','link' : '#/flight/detail'},
-                   {'name':'Flight history','link':'#/flight/history'}, 
-                   {'name':'Settings','link':'#/settings'}
+     'subaction': [{'name':'Settings','click':'openSettings()'}
                   ]},
     {'dropmenu': 'Help',
      'subaction': [{'name':'How to use it','link':'#/help/howto'},
@@ -15,4 +12,13 @@ angular.module('controllers').controller('navbarCtrl', function ($scope) {
                    {'name':'ADS-B','link':'#/about/adsb'}
                   ]}
   ];
-});
+
+  $scope.openSettings = function() {
+    $modal.open({
+      animation: true,
+      templateUrl: '/partial/settings',
+      controller: 'SettingsCtrl',
+      size: 'lg'
+    });
+  };
+}]);
