@@ -21,20 +21,7 @@ angular.module('controllers').controller('FlightCtrl', ['$scope', 'SocketService
         $scope.results = data;
       });
     };
-  }]).controller('SettingsCtrl', ['$scope', '$http',
-  function($scope, $http) {
-      $scope.settings = {};
-      $http.get('/rest/settings/read/SBS').success(function(data) {
-          $scope.settings.SBS = data;
-      });
-      $http.get('/rest/settings/read/Proxy').success(function(data) {
-          $scope.settings.Proxy = data;
-      });
-      $http.get('/rest/settings/read/Plane').success(function(data) {
-          $scope.settings.Plane = data;
-      });
-    }
-  ]).controller('HelpCtrl', ['$scope', '$routeParams', '$http',
+  }]).controller('HelpCtrl', ['$scope', '$routeParams', '$http',
   function($scope, $routeParams, $http) {
     }
   ]).controller('AboutCtrl', ['$scope', '$routeParams', '$http', 

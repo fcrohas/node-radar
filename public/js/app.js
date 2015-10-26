@@ -10,10 +10,6 @@ angular.module('nodeRadar', ['ui.bootstrap','ngAnimate','ngRoute','controllers',
         templateUrl: 'partial/history',
         controller: 'HistoryCtrl'
       }).
-      when('/settings', {
-        templateUrl: 'partial/settings',
-        controller: 'SettingsCtrl'
-      }).
       when('/viewsettings', {
         templateUrl: 'partial/viewsettings',
         controller: 'ViewSettingsCtrl'

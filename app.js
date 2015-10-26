@@ -3,6 +3,7 @@ var fs = require('fs');
 var config = require('config-node')();
 var express = require('express');
 var events = require('events');
+var bodyParser = require('body-parser');
 var path = require('path');
 var io = require('socket.io');
 var sbs1 = require('sbs1');
@@ -12,7 +13,7 @@ var Dump1090 = require('./models/dump1090');
 var VirtualRadar = require('./models/virtualradar');
 var planefinder = require('./models/planefinder');
 var extend = require('util')._extend;
-
+var node_config = process.env.NODE_ENV || 'development';
 var geotools = new GeoTools();
 // Database 
 var db = new datalayer();
@@ -85,6 +86,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade'); // use either jade or ejs       
 // instruct express to server up static assets
 app.use(express.static('public'));
+app.use(bodyParser.json());
 
 // set routes
 app.get('/', function(req, res) {
@@ -95,16 +97,16 @@ app.get('/partial/:name', function(req, res) {
   res.render('partial/'+req.params.name);
 });
 
-app.get('/rest/settings/read/:section', function (req, res) {
-	res.json(eval('config.'+req.params.section));
+app.get('/rest/settings/read', function (req, res) {
+	res.json(JSON.parse(fs.readFileSync('config/'+node_config+'.json', 'utf8')));
+	//res.json(eval('config.'+req.params.section));
 });
 
 app.post('/rest/settings/write/:section', function (req,res) {
-	console.log(req.params);
-	/*fs.writeFile('config/current.json', config, function (err) {
+	fs.writeFile('config/'+node_config+'.json', JSON.stringify(req.body), function (err) {
 	  if (err) return console.log(err);
-	  console.log('Hello World > helloworld.txt');
-	});*/
+	  console.log('Write file');
+	});
 	// reload config
 	config = require('config-node')();
 });

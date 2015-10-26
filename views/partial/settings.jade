@@ -2,18 +2,6 @@
 	h5.modal-title Settings
 .modal-body
 	tabset
-		tab(heading="Base Station")
-			.container-fluid
-				.row
-					form.form-horizontal
-						.form-group
-							label.col-sm-2.control-label Host
-							.col-sm-8
-								input.form-control(type="text",ng-model="settings.SBS.host")
-						.form-group
-							label.col-sm-2.control-label Port
-							.col-sm-8
-								input.form-control(type="text",ng-model="settings.SBS.port")
 		tab(heading="Receivers")
 			.container-fluid
 				.row
@@ -78,5 +66,5 @@
 											.col-sm-8
 												input.form-control(type="text",ng-model="value.color")
 .modal-footer
-	button.btn.btn-primary(type="button",ng-click="ok()") OK
+	button.btn.btn-primary(type="button",ng-click="save()") OK
 	button.btn.btn-danger(type="button",ng-click="cancel()") Cancel	

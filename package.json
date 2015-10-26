@@ -4,6 +4,7 @@
   "description": "This is a NodeJs / AngularJS website to grab in realtime ADSB frame from Base Station compatible device like RTL-SDR with DUMP1090",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "config-node": "^1.2.2",
     "express": "^4.12.2",
     "jade": "^1.9.2",
