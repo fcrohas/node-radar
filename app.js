@@ -105,7 +105,9 @@ app.get('/rest/settings/read', function (req, res) {
 app.post('/rest/settings/write/:section', function (req,res) {
 	fs.writeFile('config/'+node_config+'.json', JSON.stringify(req.body), function (err) {
 	  if (err) return console.log(err);
-	  console.log('Write file');
+	  console.log('Write file success !');
+	  // reinit station
+	  initializeStation();
 	});
 	// reload config
 	config = require('config-node')();
@@ -254,35 +256,35 @@ flight.on('connection', function(socket) {
 
 // Flight alert for out of bound
 var flightalert = setInterval( function() {
-	// compute delta time
-	var timeOffset = new Date().getTimezoneOffset() * 60; // get it in seconds
-	var delta = (Date.now() / 1000) + timeOffset;
-	//console.log("Delta time is "+delta+" with time zone "+timeOffset);
 	// Check time delta for each plane
 	for (var id in planes) {
 		var current = planes[id];
 		// update watchdog since last call
 		current.watchdog += config.Plane.refresh_time/1000;
 		// Empty trackhistory
-		var seenDelta = Math.floor(delta - (current.live_time / 1000) - current.delta_time);
+		var seenDelta = (Date.now() - new Date(current.live_time)) / 1000;
 		//console.log("plane "+current.ICAO+" seen since "+seenDelta);
-		if ((current.watchdog < config.Plane.quality.good.seen) && (current.quality != 100)) {
+		if ((seenDelta < config.Plane.quality.good.seen) && (current.quality != 100)) {
 			current.quality = 100;
 			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
+			//console.log('Change quality to '+ current.quality +' for '+current.ICAO);
 		}
-		if ((current.watchdog > config.Plane.quality.good.seen) && (seenDelta < config.Plane.quality.poor.seen) && (current.quality != 50)) {
+		if ((seenDelta > config.Plane.quality.good.seen) && (seenDelta < config.Plane.quality.poor.seen) && (current.quality != 50)) {
 			current.quality = 50;
 			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
+			//console.log('Change quality to '+ current.quality +' for '+current.ICAO);
 		}
-		if ((current.watchdog > config.Plane.quality.poor.seen) && (seenDelta < config.Plane.quality.bad.seen) && (current.quality != 20)) {
+		if ((seenDelta > config.Plane.quality.poor.seen) && (seenDelta < config.Plane.quality.bad.seen) && (current.quality != 20)) {
 			current.quality = 20;
 			flight.emit('quality', {ICAO:current.ICAO, quality:current.quality });
+			//console.log('Change quality to '+ current.quality +' for '+current.ICAO);
 		}
-		if ((current.watchdog > config.Plane.memory.timeout_client) && (!current.out_of_bound))  { // 1 minutes delta ?
+		if ((seenDelta > config.Plane.memory.timeout_client) && (!current.out_of_bound))  { // 1 minutes delta ?
 			current.out_of_bound = true;
 			if (current.latitude!=null)
 				db.addCoverage({Altitude : current.altitude, Latitude : current.latitude, Longitude : current.longitude});
 			flight.emit('delete', {ICAO:current.ICAO, quality:current.quality });
+			//console.log('Change quality to '+ current.quality +' for '+current.ICAO);
 		}
 		// After outbound of 3 minutes delte it
 		if (current.watchdog > config.Plane.memory.timeout_server) {
@@ -318,13 +320,13 @@ function stationMessage(msg) {
 		  			changed = true;
 
 		  		}
-		  		if ((msg.ground_speed != null) && (current.ground_speed != Math.floor(msg.ground_speed * 1.8520))) {
-		  			current.ground_speed = Math.floor(msg.ground_speed * 1.8520); // km/h from knots
+		  		if ((msg.ground_speed != null) && (current.ground_speed != Math.floor(msg.ground_speed))) {
+		  			current.ground_speed = Math.floor(msg.ground_speed); // km/h from knots  * 1.8520
 		  			currentmsg.ground_speed = current.ground_speed;
 		  			changed = true;
 		  		}
-		  		if ((msg.vertical_rate != null) && (current.vertical_rate != Math.floor(msg.vertical_rate * 1.8520))) {
-		  			current.vertical_rate = Math.floor(msg.vertical_rate * 1.8520); // m/s from knots
+		  		if ((msg.vertical_rate != null) && (current.vertical_rate != Math.floor(msg.vertical_rate))) {
+		  			current.vertical_rate = Math.floor(msg.vertical_rate); // m/s from knots  * 1.8520
 		  			currentmsg.vertical_rate = current.vertical_rate;
 		  			changed = true;
 		  		}
@@ -333,8 +335,8 @@ function stationMessage(msg) {
 		  			currentmsg.squawk =current.squawk;
 		  			changed = true;
 		  		}
-		  		if ((msg.altitude != null) && (current.altitude != Math.floor(msg.altitude * 0.3048))) {
-		  			current.altitude = Math.floor(msg.altitude * 0.3048); // feet en m
+		  		if ((msg.altitude != null) && (current.altitude != Math.floor(msg.altitude))) {
+		  			current.altitude = Math.floor(msg.altitude); // feet en m  * 0.3048
 		  			currentmsg.altitude = current.altitude;
 		  			changed = true;
 		  		}
@@ -344,37 +346,35 @@ function stationMessage(msg) {
 					}
 					if (current.latitude!=null) {
 						var color = {};
-						if (current.altitude < 3000) {
-						  color = geotools.makeGradientColor({r:0,g:255,b:0}, {r:1,g:169,b:219}, (current.altitude * 100 / 3000));
-						} else if (current.altitude < 6000) {
-						  color = geotools.makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((current.altitude-3000) * 100 / 3000));
+						if (current.altitude < 7000) {
+						  color = geotools.makeGradientColor({r:0,g:255,b:0}, {r:1,g:169,b:219}, (current.altitude * 100 / 7000));
+						} else if (current.altitude < 15000) {
+						  color = geotools.makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((current.altitude-7000) * 100 / 7000));
 						} else {
-						color = geotools.makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((current.altitude-6000) * 100 / 6000));
+						color = geotools.makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((current.altitude-15000) * 100 / 15000));
 						}
           				var lineColor = { 'color':color.cssColor, 'opacity':1.0,'weight':3 };
           				// compute bearing
           				var bearing = Math.abs(geotools.getBearing(current.latitude, current.longitude, msg.lat, msg.lon) - current.track);
-          				var delta_altitude = Math.abs(current.altitude - Math.floor(msg.altitude * 0.3048));
+          				var delta_altitude = Math.abs(current.altitude - Math.floor(msg.altitude)); //  * 0.3048
           				// Reduce point using bearing and altitude
-          				if ((bearing > 5) || (delta_altitude > 250) || (current.trackhistory.length == 0)) {
+          				if ((bearing > 5) || (current.trackhistory.length == 0)) {
 							current.trackhistory.push( { id : current.trackhistory.length, track : [{ 'latitude':current.latitude,'longitude':current.longitude},{'latitude':msg.lat,'longitude':msg.lon}], color : lineColor } );
           				} else {
           					// Modify last coord point with current
           					current.trackhistory[current.trackhistory.length -1].track[1].longitude = msg.lon;
           					current.trackhistory[current.trackhistory.length -1].track[1].latitude = msg.lat;
           				}
-
+					} else {
+						// new plane localisation, add it to db
+						db.addCoverage({Altitude : msg.altitude, Latitude : msg.lat, Longitude : msg.lon});						
 					}
 					current.latitude = msg.lat;
 					current.longitude = msg.lon;
 					currentmsg.latitude = current.latitude;
 					currentmsg.longitude = current.longitude;
 					changed = true;
-		  		}		  		
-		  		if ((msg.logged_time != null) && (current.logged_time != msg.logged_time)) {
-		  			current.live_time = msg.logged_timestamp();
-		  			currentmsg.live_time = current.live_time;
-		  		}
+		  		}	
 		  		if (changed) {
 			  		// Plane is back ?
 			  		if (current.out_of_bound) {
@@ -391,19 +391,16 @@ function stationMessage(msg) {
 		  		}
 		  		// reset watchdog
 		  		current.watchdog = 0;
+		  		// update live time
+		  		current.live_time = new Date().toJSON();
 		  	}
 		}
 		// if not found add it
 		if (!found) {
-			// compute server time
-			var timeOffset = new Date().getTimezoneOffset() * 60; // get it in seconds
-			var delta = (Date.now() / 1000) + timeOffset;
-			// compute delta with logged_time
-			var delta_time = Math.floor(delta - (msg.logged_timestamp() / 1000));
 			var sendmsg = {'ICAO':msg.hex_ident,'latitude' : msg.lat, 'longitude' : msg.lon, 
 											'track': 0, 'callsign' : 'unknown', 'ground_speed':0, 
 											'altitude' : 0, 'vertical_rate':0, 'squawk' : 0, 'out_of_bound' : false, 
-											'live_time': msg.logged_timestamp(), 'delta_time': delta_time,'quality':100, 'trackhistory' : [], 'watchdog': 0};
+											'live_time': new Date().toJSON(), 'quality':100, 'trackhistory' : [], 'watchdog': 0};
 			planes.push(sendmsg);
 			flight.emit('add',sendmsg);			
   			//console.log('add '+ sendmsg.ICAO);
@@ -412,29 +409,32 @@ function stationMessage(msg) {
 }
 
 // Loop over Receiver
-var stations = [];
-var receivers = config.Receivers;
-for (var id in receivers) {
-	var receiver = receivers[id];
-	if (!receiver.Enable)
-		continue;
-	var options = { host: receiver.Host, port:receiver.Port, url:receiver.Url};
-	var station = {};
-	switch(receiver.Type) {
-		case 'DUMP1090' : station = new Dump1090(options); break;
-		case 'VIRTUALRADAR' : station = new VirtualRadar(options); break;
-		case 'LIVE' : station = sbs1.createClient(options); break;
+function initializeStation() {
+	var stations = [];
+	var receivers = config.Receivers;
+	for (var id in receivers) {
+		var receiver = receivers[id];
+		if (!receiver.Enable)
+			continue;
+		var options = { host: receiver.Host, port:receiver.Port, url:receiver.Url};
+		var station = {};
+		switch(receiver.Type) {
+			case 'DUMP1090' : station = new Dump1090(options); break;
+			case 'VIRTUALRADAR' : station = new VirtualRadar(options); break;
+			case 'LIVE' : station = sbs1.createClient(options); break;
+		}
+		// Set station listener
+		station.on('error', stationError);
+		station.on('message', stationMessage);
+		// push station to list
+		stations.push({
+			station : station,
+			type : receiver.Type,
+			name : receiver.Name,
+			timer : (receiver.Type != 'LIVE') ? setInterval( function() { for (var id in stations) if (stations[id].type!='LIVE') stations[id].station.getPlanes(); },receiver.Refresh) : null
+		});
 	}
-	// Set station listener
-	station.on('error', stationError);
-	station.on('message', stationMessage);
-	// push station to list
-	stations.push({
-		station : station,
-		type : receiver.Type,
-		name : receiver.Name,
-		timer : (receiver.Type != 'LIVE') ? setInterval( function() { for (var id in stations) if (stations[id].type!='LIVE') stations[id].station.getPlanes(); },receiver.Refresh) : null
-	});
 }
 
-
+// Start listener
+initializeStation();

@@ -126,12 +126,12 @@ angular.module('services').factory('SocketService', ['$http','$location','PlaneS
               //update = true;
               if (plane.show) {
                 var color = {};
-                if (msg.altitude < 3000) {
-                    color = PlaneService.makeGradientColor({r:0,g:255,b:0}, {r:1,g:169,b:219}, (msg.altitude * 100 / 3000));
-                } else if (msg.altitude < 6000) {
-                    color = PlaneService.makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((msg.altitude-3000) * 100 / 3000));
+                if (msg.altitude < 7000) {
+                    color = PlaneService.makeGradientColor({r:0,g:255,b:0}, {r:1,g:169,b:219}, (msg.altitude * 100 / 7000));
+                } else if (msg.altitude < 15000) {
+                    color = PlaneService.makeGradientColor({r:1,g:169,b:219}, {r:169,g:1,b:219}, ((msg.altitude-7000) * 100 / 7000));
                 } else {
-                  color = PlaneService.makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((msg.altitude-6000) * 100 / 6000));
+                  color = PlaneService.makeGradientColor({r:169,g:1,b:219}, {r:223,g:1,b:86}, ((msg.altitude-15000) * 100 / 15000));
                 }
                 var lineColor = { 'color':color.cssColor, 'opacity':1.0,'weight':3 };
                 // Get previous value
