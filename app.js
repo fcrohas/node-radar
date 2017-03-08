@@ -11,7 +11,7 @@ var datalayer = require('./models/datalayer');
 var GeoTools = require('./models/geotools');
 var Dump1090 = require('./models/dump1090');
 var VirtualRadar = require('./models/virtualradar');
-var planefinder = require('./models/planefinder');
+//var planefinder = require('./models/planefinder');
 var extend = require('util')._extend;
 var node_config = process.env.NODE_ENV || 'development';
 var geotools = new GeoTools();
@@ -40,7 +40,7 @@ console.log('server is running');
 function saveAircraft(adsb,callsign) {
 	db.getAircraft(adsb).then(function(data) { 
 		if (data.count == 0) {
-			var plane = new planefinder();		
+/*			var plane = new planefinder();		
 			console.log('save aircraft '+adsb+' callsign='+callsign);
 			plane.getPlaneInfo(adsb, callsign,Date.now()).once('data', function(data) {
 				if (data != '') {
@@ -75,7 +75,7 @@ function saveAircraft(adsb,callsign) {
 					console.log('save aircraft '+adsb+' saved !!');
 					db.addAircraft( item);
 				}	
-			});
+			});*/
 		}
 	});	
 }
@@ -188,7 +188,7 @@ app.get('/rest/flight/:adsb', function (req, res) {
 		}
 	}
 	if ((planeId != -1 ) && (planes[planeId].callsign!= undefined)) {
-		var plane = new planefinder();		
+		/*var plane = new planefinder();		
 		plane.getPlaneInfo(adsb, planes[planeId].callsign,Date.now()).once('data', function(data) {
 			if (data != '') {
 				var item = { ModeS : adsb, Registration : data.aircraft.Registration, 
@@ -222,7 +222,7 @@ app.get('/rest/flight/:adsb', function (req, res) {
 			}
 			res.json(item);
 			res.end();
-		});
+		});*/
 	}
 });
 
